@@ -81,6 +81,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IWeblogRepository.cs" />
+    <Compile Include="Repositories\WeblogRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
