@@ -1,0 +1,35 @@
+﻿@model Weblog.Web.Models.Account.RegisterModel
+
+@{
+    ViewBag.Title = "Registrieren";
+}
+
+@using (Html.BeginForm())
+{
+
+    <div class="center-box">
+        <div class="header">
+            Registrierung
+        </div>
+
+        @Html.ValidationSummary()
+
+        <div class="row">
+            <div class="labels">@Html.LabelFor(m => m.UserName):</div>
+            <div class="controls">@Html.TextBoxFor(m => m.UserName)</div>
+        </div>
+        <div class="row">
+            <div class="labels">@Html.LabelFor(m => m.Email):</div>
+            <div class="controls">@Html.TextBoxFor(m => m.Email)</div>
+        </div>
+        <div class="row">
+            <div class="labels">@Html.LabelFor(m => m.Password):</div>
+            <div class="controls">@Html.PasswordFor(m => m.Password)</div>
+        </div>
+        <div class="row">
+            <div class="buttons">
+                <button>Registrieren</button>
+            </div>
+        </div>
+    </div>
+}

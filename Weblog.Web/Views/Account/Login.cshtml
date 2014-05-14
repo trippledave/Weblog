@@ -1,0 +1,36 @@
+﻿@model Weblog.Web.Models.Account.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@using (Html.BeginForm())
+{
+
+    <div class="center-box">
+        <div class="header">
+            Login
+        </div>
+
+        @Html.ValidationSummary()
+
+        <div class="row">
+            <div class="labels">@Html.LabelFor(m => m.UserName):</div>
+            <div class="controls">@Html.TextBoxFor(m => m.UserName)</div>
+        </div>
+        <div class="row">
+            <div class="labels">@Html.LabelFor(m => m.Password):</div>
+            <div class="controls">@Html.PasswordFor(m => m.Password)</div>
+        </div>
+        <div class="row">
+            <div class="labels">&nbsp;</div>
+            <div class="controls">@Html.CheckBoxFor(m => m.RememberMe)&nbsp;@Html.LabelFor(m => m.RememberMe)</div>
+        </div>
+        <div class="row">
+            <div class="buttons">
+                <button>Anmelden</button>
+            </div>
+        </div>
+    </div>
+}
+

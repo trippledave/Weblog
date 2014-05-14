@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WeblogDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategoriesToEntries">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="EntryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="EntryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="AuthorID" Type="int" Nullable="false" />
+          <Property Name="EntryID" Type="int" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Entries">
+          <Key>
+            <PropertyRef Name="EntryID" />
+          </Key>
+          <Property Name="EntryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="AuthorID" Type="int" Nullable="false" />
+          <Property Name="Header" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="EntriesToComments">
+          <Key>
+            <PropertyRef Name="EntryID" />
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="EntryID" Type="int" Nullable="false" />
+          <Property Name="CommentID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="56" Nullable="false" />
+          <Property Name="UserNameLowercase" Type="nvarchar" MaxLength="56" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="56" Nullable="false" />
+          <Property Name="EmailLowercase" Type="nvarchar" MaxLength="56" Nullable="false" />
+          <Property Name="EntrysPerSite" Type="int" />
+        </EntityType>
+        <Association Name="EntriesToComments_CommentID">
+          <End Role="Comments" Type="Self.Comments" Multiplicity="1" />
+          <End Role="EntriesToComments" Type="Self.EntriesToComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comments">
+              <PropertyRef Name="CommentID" />
+            </Principal>
+            <Dependent Role="EntriesToComments">
+              <PropertyRef Name="CommentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EntriesToComments_EntryID">
+          <End Role="Entries" Type="Self.Entries" Multiplicity="1" />
+          <End Role="EntriesToComments" Type="Self.EntriesToComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entries">
+              <PropertyRef Name="EntryID" />
+            </Principal>
+            <Dependent Role="EntriesToComments">
+              <PropertyRef Name="EntryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoriesToEntries_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="CategoriesToEntries" Type="Self.CategoriesToEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="CategoriesToEntries">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CategoriesToEntries_Entries">
+          <End Role="Entries" Type="Self.Entries" Multiplicity="1" />
+          <End Role="CategoriesToEntries" Type="Self.CategoriesToEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entries">
+              <PropertyRef Name="EntryID" />
+            </Principal>
+            <Dependent Role="CategoriesToEntries">
+              <PropertyRef Name="EntryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Entries_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Entries" Type="Self.Entries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Entries">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WeblogDataModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoriesToEntries" EntityType="Self.CategoriesToEntries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entries" EntityType="Self.Entries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntriesToComments" EntityType="Self.EntriesToComments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="EntriesToComments_CommentID" Association="Self.EntriesToComments_CommentID">
+            <End Role="Comments" EntitySet="Comments" />
+            <End Role="EntriesToComments" EntitySet="EntriesToComments" />
+          </AssociationSet>
+          <AssociationSet Name="EntriesToComments_EntryID" Association="Self.EntriesToComments_EntryID">
+            <End Role="Entries" EntitySet="Entries" />
+            <End Role="EntriesToComments" EntitySet="EntriesToComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoriesToEntries_Categories" Association="Self.FK_CategoriesToEntries_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="CategoriesToEntries" EntitySet="CategoriesToEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CategoriesToEntries_Entries" Association="Self.FK_CategoriesToEntries_Entries">
+            <End Role="Entries" EntitySet="Entries" />
+            <End Role="CategoriesToEntries" EntitySet="CategoriesToEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Entries_Users" Association="Self.FK_Entries_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Entries" EntitySet="Entries" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WeblogDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Entries" Relationship="Self.CategoriesToEntries" FromRole="Categories" ToRole="Entries" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="AuthorID" Type="Int32" Nullable="false" />
+          <Property Name="EntryID" Type="Int32" Nullable="false" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Entries" Relationship="Self.EntriesToComments" FromRole="Comments" ToRole="Entries" />
+        </EntityType>
+        <EntityType Name="Entry">
+          <Key>
+            <PropertyRef Name="EntryID" />
+          </Key>
+          <Property Name="EntryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="AuthorID" Type="Int32" Nullable="false" />
+          <Property Name="Header" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Entries_Users" FromRole="Entries" ToRole="Users" />
+          <NavigationProperty Name="Categories" Relationship="Self.CategoriesToEntries" FromRole="Entries" ToRole="Categories" />
+          <NavigationProperty Name="Comments" Relationship="Self.EntriesToComments" FromRole="Entries" ToRole="Comments" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="56" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserNameLowercase" Type="String" MaxLength="56" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="56" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailLowercase" Type="String" MaxLength="56" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EntrysPerSite" Type="Int32" />
+          <NavigationProperty Name="Entries" Relationship="Self.FK_Entries_Users" FromRole="Users" ToRole="Entries" />
+        </EntityType>
+        <Association Name="FK_Entries_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Entries" Type="WeblogDataModel.Entry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Entries">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CategoriesToEntries">
+          <End Role="Categories" Type="WeblogDataModel.Category" Multiplicity="*" />
+          <End Role="Entries" Type="WeblogDataModel.Entry" Multiplicity="*" />
+        </Association>
+        <Association Name="EntriesToComments">
+          <End Role="Comments" Type="WeblogDataModel.Comment" Multiplicity="*" />
+          <End Role="Entries" Type="WeblogDataModel.Entry" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="WeblogDataContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="WeblogDataModel.Category" />
+          <EntitySet Name="Comments" EntityType="WeblogDataModel.Comment" />
+          <EntitySet Name="Entries" EntityType="WeblogDataModel.Entry" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Entries_Users" Association="Self.FK_Entries_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Entries" EntitySet="Entries" />
+          </AssociationSet>
+          <AssociationSet Name="CategoriesToEntries" Association="Self.CategoriesToEntries">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Entries" EntitySet="Entries" />
+          </AssociationSet>
+          <AssociationSet Name="EntriesToComments" Association="Self.EntriesToComments">
+            <End Role="Comments" EntitySet="Comments" />
+            <End Role="Entries" EntitySet="Entries" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WeblogDataModelStoreContainer" CdmEntityContainer="WeblogDataContext">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="WeblogDataModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="WeblogDataModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="EntryID" ColumnName="EntryID" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entries">
+            <EntityTypeMapping TypeName="WeblogDataModel.Entry">
+              <MappingFragment StoreEntitySet="Entries">
+                <ScalarProperty Name="EntryID" ColumnName="EntryID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="Header" ColumnName="Header" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="WeblogDataModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserNameLowercase" ColumnName="UserNameLowercase" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailLowercase" ColumnName="EmailLowercase" />
+                <ScalarProperty Name="EntrysPerSite" ColumnName="EntrysPerSite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CategoriesToEntries" TypeName="WeblogDataModel.CategoriesToEntries" StoreEntitySet="CategoriesToEntries">
+            <EndProperty Name="Categories">
+              <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+            </EndProperty>
+            <EndProperty Name="Entries">
+              <ScalarProperty Name="EntryID" ColumnName="EntryID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="EntriesToComments" TypeName="WeblogDataModel.EntriesToComments" StoreEntitySet="EntriesToComments">
+            <EndProperty Name="Comments">
+              <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+            </EndProperty>
+            <EndProperty Name="Entries">
+              <ScalarProperty Name="EntryID" ColumnName="EntryID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
