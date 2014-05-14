@@ -11,9 +11,14 @@ namespace Weblog.Web.Controllers.Site
         //
         // GET: /Home/
 
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        public String Index()
         {
-            return View();
+            return "D()";
         }
 
     }
