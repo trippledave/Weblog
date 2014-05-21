@@ -8,7 +8,7 @@ using Weblog.Core.DataAccess.Weblog;
 
 namespace Weblog.Web.Models.Weblog
 {
-    public class AddEntryModel
+    public class AddCommentModel
     {
         public int ID { get; set; }
         [DisplayName("Titel")]
@@ -31,10 +31,10 @@ namespace Weblog.Web.Models.Weblog
             source.Body = this.Body;
         }
 
-        public AddEntryModel() {
+        public AddCommentModel() {
         }
 
-        public AddEntryModel( Entry source )
+        public AddCommentModel(Entry source)
         {
             UpdateModel( source );
         }

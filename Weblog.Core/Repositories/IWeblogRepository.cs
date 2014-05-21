@@ -12,14 +12,14 @@ namespace Weblog.Core.Repositories
         /// Liefert alle Einträge aus der Datenbank, absteigend nach Erstellungsdatum sortiert
         /// </summary>
         /// <returns>Eine Liste aller Einträge aus der Datenbank, sortiert nach Datum absteigend</returns>
-        List<Entry> GetAllEntry();
+        List<Entry> GetAllEntries();
 
         /// <summary>
         /// Liefert alle Einträge aus der Datenbank, die die gegebne Kategorie haben. Absteigend nach Erstellungsdatum sortiert
         /// </summary>
-        /// <param name="id">Die ID der Kategorie die deren Einträge geliefert werden sollen</param>
-        /// <returns>Eine Liste aller Einträge aus der Datenbank, sortiert nach Datum absteigend</returns>
-        List<Entry> GetEntryForCategory(int id);
+        /// <param name="category">Die Kategorie deren Einträge geliefert werden sollen</param>
+        /// <returns>Eine Liste aller Einträge aus der Datenbank zu der Kategorie, sortiert nach Datum absteigend</returns>
+        List<Entry> GetEntriesForCategory(Category category);
 
         /// <summary>
         /// Liefert den Eintrag mit der angegebenen ID oder null, wenn kein solcher Eintrag existiert

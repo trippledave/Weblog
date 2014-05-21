@@ -27,7 +27,7 @@ namespace Weblog.Core.Repositories
 
         public Entry GetEntry( int id )
         {
-            return WeblogDataContext.Current.Entries.FirstOrDefault( e => e.ID == id );
+            return WeblogDataContext.Current.Entries.FirstOrDefault( e => e.EntryID == id );
         }
 
         #endregion
@@ -53,7 +53,7 @@ namespace Weblog.Core.Repositories
 
         public Category GetCategory(int id)
         {
-            return WeblogDataContext.Current.Categories.FirstOrDefault( c => c.ID == id );
+            return WeblogDataContext.Current.Categories.FirstOrDefault( c => c.CategoryID == id );
         }
 
         public bool CategoryExists( string name )
@@ -65,16 +65,14 @@ namespace Weblog.Core.Repositories
         #endregion
 
         #region Kommentare
+        #endregion
 
 
-        public List<Entry> GetAllEntry()
+        public List<Entry> GetEntriesForCategory(Category category)
         {
-            throw new NotImplementedException();
-        }
+            return WeblogDataContext.Current.Entries.Where(e => e.Categories == category).OrderByDescending(e => e.DateCreated).ToList();
 
-        public List<Entry> GetEntryForCategory(int id)
-        {
-            throw new NotImplementedException();
+                //OrderByDescending(e => e.DateCreated).ToList();
         }
 
         public void RemoveEntry(Entry entry)

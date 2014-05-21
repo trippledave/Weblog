@@ -25,7 +25,6 @@ namespace Weblog.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-
             try
             {
                 WebSecurity.InitializeDatabaseConnection("SimpleMembershipConnection", "Users", "UserID", "UserName", true);
