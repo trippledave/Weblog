@@ -1,0 +1,24 @@
+﻿@model Weblog.Web.Models.Weblog.AddCategoryModel
+
+@{
+    ViewBag.Title = "Kategorie hinzufügen";
+}
+
+<h2>Kategorie hinzufügen</h2>
+
+@using (Html.BeginForm())
+{
+     @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ID)
+
+    <div class="row">
+        <div class="labels">@Html.LabelFor(m => m.Name)</div>
+        <div class="controls">@Html.TextBoxFor(m => m.Name)</div>
+    </div>
+    <div class="row">
+        <div class="labels">&nbsp;</div>
+        <div class="controls"><button>Speichern</button></div>
+    </div>
+}
+
+@Html.Action("DisplayCategories")

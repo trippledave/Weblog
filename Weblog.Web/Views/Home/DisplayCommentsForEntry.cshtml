@@ -1,0 +1,20 @@
+﻿@model List<Weblog.Web.Models.Weblog.CommentListItemModel>
+@if (Model.Count > 0)
+{
+    <table>
+        <tr>
+            <th class="first">ID</th>
+            <th>Titel / Header</th>
+            <th class="last">Datum</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.Title</td>
+                <td>@item.DateString</td>
+            </tr>
+        }
+    </table>
+}

@@ -11,24 +11,16 @@ namespace Weblog.Web.Models.Weblog
     public class AddCommentModel
     {
         public int ID { get; set; }
-        [DisplayName("Titel")]
-        [Required]
-        public string Header { get; set; }
         [DisplayName("Text")]
         [Required]
         public string Body { get; set; }
+        public int Author { get; set; }
 
         private void UpdateModel( Entry source )
         {
             this.ID = source.EntryID;
-            this.Header = source.Header;
             this.Body = source.Body;
-        }
-
-        public void UpdateSource( Entry source )
-        {
-            source.Header = this.Header;
-            source.Body = this.Body;
+            this.Author = source.AuthorID;
         }
 
         public AddCommentModel() {

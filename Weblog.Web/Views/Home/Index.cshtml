@@ -15,3 +15,9 @@
             <button type="button" class="btn btn-default">Right</button>
         </div>
     </div>
+
+
+    <p>Die folgenden Links führen auf andere Seiten, auf denen dann die jeweiligen Vorgehensweisen sichtbar sind.</p>
+    @Html.ActionLink("Neue Kategorie hinzufügen", "AddCategory", "Home") - fügt eine neue Kategorie in der Datenbank hinzu<br />
+    @Html.ActionLink("Neuen Eintrag hinzufügen", "AddEntry", "Home") - fügt einen neuen Eintrag in der Datenbank hinzu<br /><br />
+    @Html.ActionLink("Zur Administration", "Index", "Dashboard", new { Area = "Management" }, null) - Zum Administrationsbereich<br />

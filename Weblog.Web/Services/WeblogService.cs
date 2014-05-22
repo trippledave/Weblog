@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using Weblog.Core.DataAccess.Weblog;
 using Weblog.Core.Repositories;
 using Weblog.Web.Models.Weblog;
+using WebMatrix.WebData;
 
 namespace Weblog.Web.Services
 {
@@ -24,8 +26,21 @@ namespace Weblog.Web.Services
         public void StoreEntry(AddEntryModel model)
         {
             bool isNewEntry = model.ID == 0;
-            Entry newEntry = isNewEntry ? new Entry() : this._repository.GetEntry(model.ID);
-            model.UpdateSource(newEntry);
+            Entry newEntry;
+            if (isNewEntry)
+            {
+                newEntry = new Entry();
+               // newEntry.AuthorID = WebSecurity.CurrentUserId;
+                //TODO uncomment next line
+                newEntry.AuthorID = 1;
+                Debug.WriteLine(" Userid: " + WebSecurity.CurrentUserId);
+                model.UpdateSource(newEntry);
+            }
+            else
+            {
+                newEntry = this._repository.GetEntry(model.ID);
+                model.UpdateSource(newEntry);
+            }
             this._repository.SaveEntry(newEntry, isNewEntry);
         }
 

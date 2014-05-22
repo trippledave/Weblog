@@ -1,0 +1,47 @@
+﻿@model Weblog.Web.Models.Weblog.AddEntryModel
+@{
+    ViewBag.Title = "Eintrag hinzufügen";
+}
+
+<h2>Eintrag hinzufügen</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ID)
+
+    <div class="row">
+        <div class="labels">@Html.LabelFor(m => m.Header)</div>
+        <div class="controls">@Html.TextBoxFor(m => m.Header)</div>
+    </div>
+    <div class="row">
+        <div class="labels">@Html.LabelFor(m => m.Body)</div>
+        <div class="controls">@Html.TextAreaFor(m => m.Body)</div>
+    </div>
+    <div class="row">
+        @if (Model.AllCategories.Count > 0)
+        {
+
+            @Html.DropDownListFor(m => m.SavedCategories, new MultiSelectList(Model.AllCategories, "ID", "Name"), new { multiple = "multiple" })
+
+            
+            
+            @Html.DropDownList("de",
+           new MultiSelectList(
+                new List<Object> { new { value = 0, text = "Red" }, new { value = 1, text = "Blue" }, new { value = 2, text = "Green" } },
+           "value", "text", new List<Object> {1, 2 }
+           )
+           , new { multiple = "multiple" })
+
+
+        }
+    </div>
+    <div class="row">
+        <div class="labels">&nbsp;</div>
+        <div class="controls"><button>Speichern</button></div>
+    </div>
+
+}
+
+@Html.Action("DisplayEntries")
+

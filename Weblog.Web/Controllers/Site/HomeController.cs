@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,15 +23,23 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult AddEntry()
         {
-            return View();
+            AddEntryModel model = new AddEntryModel();
+            model.AllCategories = _weblogService.GetCategories();
+
+            return View(model);
         }
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
         public ActionResult AddEntry(AddEntryModel model)
         {
-            this._weblogService.StoreEntry(model);
-            return View();
+            if (ModelState.IsValid)
+            {
+                this._weblogService.StoreEntry(model);
+                return RedirectToAction("AddEntry");
+            }
+            model.AllCategories = _weblogService.GetCategories();
+            return View(model);
         }
 
         public ActionResult AddCategory()
@@ -52,7 +61,6 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult DisplayEntries()
         {
-            // Liefert eine Partial-View mit den bereits existierenden Einträgen
             List<EntryListItemModel> viewModel = this._weblogService.GetEntries();
             return PartialView(viewModel);
         }
@@ -63,6 +71,24 @@ namespace Weblog.Web.Controllers.Site
             return PartialView(viewModel);
         }
 
+        public ActionResult DisplayCommentsForEntry(EntryListItemModel entry)
+        {
+            List<CommentListItemModel> viewModel = this._weblogService.GetCommentsForEntry(entry.ID);
+            return PartialView(viewModel);
+        }
+
+        public ActionResult AddComment()
+        {
+            return PartialView();
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        public ActionResult AddComment(AddCommentModel model)
+        {
+            this._weblogService.StoreComment(model);
+            return PartialView();
+        }
         #endregion
 
     }

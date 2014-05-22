@@ -142,6 +142,7 @@
     </Compile>
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
+    <Compile Include="Models\Account\UserModel.cs" />
     <Compile Include="Models\Weblog\AddCategoryModel.cs" />
     <Compile Include="Models\Weblog\AddCommentModel.cs" />
     <Compile Include="Models\Weblog\AddEntryModel.cs" />
@@ -258,6 +259,12 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\Navigation.cshtml" />
+    <Content Include="Views\Home\DisplayEntries.cshtml" />
+    <Content Include="Views\Home\DisplayCategories.cshtml" />
+    <Content Include="Views\Home\DisplayCommentsForEntry.cshtml" />
+    <Content Include="Views\Home\AddEntry.cshtml" />
+    <Content Include="Views\Home\AddComment.cshtml" />
+    <Content Include="Views\Home\AddCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
