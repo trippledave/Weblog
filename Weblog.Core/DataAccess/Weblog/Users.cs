@@ -24,7 +24,7 @@ namespace Weblog.Core.DataAccess.Weblog
         public string UserNameLowercase { get; set; }
         public string Email { get; set; }
         public string EmailLowercase { get; set; }
-        public Nullable<int> EntrysPerSite { get; set; }
+        public Nullable<bool> IsUserLocked { get; set; }
     
         public virtual ICollection<Entry> Entries { get; set; }
     }

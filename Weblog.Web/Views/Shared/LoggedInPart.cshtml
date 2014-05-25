@@ -1,10 +1,10 @@
 ﻿<div class="nav-login">
     @if (WebSecurity.IsAuthenticated)
     {
-        <div class="blog-nav-item">Willkommen @WebSecurity.CurrentUserName |</div> @Html.ActionLink("Logout", "Logout", "Account", new { }, new { @class = "blog-nav-item" })
+        <div class="blog-nav-item">Willkommen @WebSecurity.CurrentUserName</div> @:| @Html.ActionLink("Logout", "Logout", "Account", new { }, new { @class = "blog-nav-item" })
     }
     else
     {
-        @Html.ActionLink("Login", "Login", "Account", new { }, new { @class = "blog-nav-item" }) @:| @Html.ActionLink("Registrierung", "Register", "Account", new { }, new { @class = "blog-nav-item" })
+        @Html.ActionLink("Login", "Login", "Account", new { }, new { @class = "blog-nav-item" })@:| @Html.ActionLink("Registrierung", "Register", "Account", new { }, new { @class = "blog-nav-item" })
 }
 </div>

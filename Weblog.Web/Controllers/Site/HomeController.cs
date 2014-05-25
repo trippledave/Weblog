@@ -38,7 +38,7 @@ namespace Weblog.Web.Controllers.Site
                 this._weblogService.StoreEntry(model);
                 return RedirectToAction("AddEntry");
             }
-            model.AllCategories = _weblogService.GetCategories();
+           model.AllCategories = _weblogService.GetCategories();
             return View(model);
         }
 

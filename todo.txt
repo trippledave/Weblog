@@ -4,6 +4,6 @@ Autor adden
 
 projekt nach TODO durchsuchen
 
-
+HttpContext.Current.Reques.Url   für email
 
 todo löschen-

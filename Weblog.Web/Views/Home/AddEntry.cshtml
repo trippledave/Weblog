@@ -21,15 +21,20 @@
     <div class="row">
         @if (Model.AllCategories.Count > 0)
         {
+            @foreach (var item in Model.AllCategories)
+            {
+                @Html.CheckBoxFor(item)
+            }
 
-            @Html.DropDownListFor(m => m.SavedCategories, new MultiSelectList(Model.AllCategories, "ID", "Name"), new { multiple = "multiple" })
 
-            
-            
-            @Html.DropDownList("de",
+            @Html.DropDownListFor(m => m.SavedCategories, new MultiSelectList(Model.AllCategories, "ID", "Name", new List<Object> { 1, 2 }), new { multiple = "multiple" })
+
+
+
+            @Html.ListBox("de",
            new MultiSelectList(
                 new List<Object> { new { value = 0, text = "Red" }, new { value = 1, text = "Blue" }, new { value = 2, text = "Green" } },
-           "value", "text", new List<Object> {1, 2 }
+           "value", "text", new List<Object> { 1, 2 }
            )
            , new { multiple = "multiple" })
 
