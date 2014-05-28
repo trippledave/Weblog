@@ -26,28 +26,43 @@ namespace Weblog.Web.Services
         public void StoreEntry(AddEntryModel model)
         {
             bool isNewEntry = model.ID == 0;
-            Entry newEntry;
+            Entry entry;
             if (isNewEntry)
             {
-                newEntry = new Entry();
-               // newEntry.AuthorID = WebSecurity.CurrentUserId;
-                //TODO uncomment next line
-                newEntry.AuthorID = 1;
-                Debug.WriteLine(" Userid: " + WebSecurity.CurrentUserId);
-                model.UpdateSource(newEntry);
+                entry = new Entry();
+                //Author wird nur einmal gesetzt, änderungen vom admin ändern autor nicht.
+                // newEntry.AuthorID = WebSecurity.CurrentUserId;
+                //TODO comment next line
+                entry.AuthorID = 1;
+                model.UpdateSource(entry);
             }
             else
             {
-                newEntry = this._repository.GetEntry(model.ID);
-                model.UpdateSource(newEntry);
+                entry = this._repository.GetEntry(model.ID);
+                model.UpdateSource(entry);
             }
-            this._repository.SaveEntry(newEntry, isNewEntry);
+
+            foreach (var item in model.CategoriesList)
+            {
+                if (item.isElementsCategory)
+                {
+                    entry.Categories.Add(this._repository.GetCategory(item.ID));
+                }
+            }
+            this._repository.SaveEntry(entry, isNewEntry);
         }
 
         public void DeleteEntry(int id)
         {
-            Entry deletedEntry = this._repository.GetEntry(id); ;
-            this._repository.RemoveEntry(deletedEntry);
+            Entry entryToDelete = this._repository.GetEntry(id);
+            if (entryToDelete != null)
+            {
+                if (entryToDelete.Categories.Count > 0)
+                {
+                    entryToDelete.Categories.Clear();
+                }
+                this._repository.RemoveEntry(entryToDelete);
+            }
         }
 
         public List<EntryListItemModel> GetEntries()

@@ -24,7 +24,7 @@ namespace Weblog.Web.Controllers.Site
         public ActionResult AddEntry()
         {
             AddEntryModel model = new AddEntryModel();
-            model.AllCategories = _weblogService.GetCategories();
+            model.CategoriesList = _weblogService.GetCategories();
 
             return View(model);
         }
@@ -38,8 +38,16 @@ namespace Weblog.Web.Controllers.Site
                 this._weblogService.StoreEntry(model);
                 return RedirectToAction("AddEntry");
             }
-           model.AllCategories = _weblogService.GetCategories();
+           model.CategoriesList = _weblogService.GetCategories();
             return View(model);
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        public JsonResult DeleteEntry(int id)
+        {
+            this._weblogService.DeleteEntry(id);
+            return Json( new { success = true });
         }
 
         public ActionResult AddCategory()

@@ -1,4 +1,9 @@
 ﻿@model List<Weblog.Web.Models.Weblog.EntryListItemModel>
+@section scripts{
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+}
+
+
 @if (Model.Count > 0)
 {
     <table>
@@ -8,20 +13,34 @@
             <th>Text</th>
             <th>Autor</th>
             <th class="last">Datum</th>
+            <th>Delete</th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
+            String idString = "entryRow" + item.ID;
+                        
+            <tr id=@idString>
                 <td>@item.ID</td>
                 <td>@item.Title</td>
                 <td>@item.Text</td>
                 <td>@item.Author</td>
                 <td>@item.DateString</td>
+                <td>
+                    @using (Ajax.BeginForm(new AjaxOptions() { Url="/Home/DeleteEntry/"+@item.ID, OnSuccess = "SiteHelpers.test("+@item.ID+")" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button>Submit</button>
+                    }
+
+
+                </td>
             </tr>
         }
+
+
     </table>
-    
+
 }
 
 

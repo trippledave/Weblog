@@ -18,27 +18,19 @@
         <div class="labels">@Html.LabelFor(m => m.Body)</div>
         <div class="controls">@Html.TextAreaFor(m => m.Body)</div>
     </div>
-    <div class="row">
-        @if (Model.AllCategories.Count > 0)
+    <div class="row categoryRow">
+
+        @if (Model.CategoriesList.Count > 0)
         {
-            @foreach (var item in Model.AllCategories)
+            for (int i = 0; i < Model.CategoriesList.Count; i++)
             {
-                @Html.CheckBoxFor(item)
+                <span>
+                    @Html.CheckBoxFor(model => model.CategoriesList[i].isElementsCategory)
+                    @Html.LabelFor(model => model.CategoriesList[i].isElementsCategory, Model.CategoriesList[i].Name)
+                    @Html.HiddenFor(m => m.CategoriesList[i].Name)
+                    @Html.HiddenFor(m => m.CategoriesList[i].ID)
+                </span>
             }
-
-
-            @Html.DropDownListFor(m => m.SavedCategories, new MultiSelectList(Model.AllCategories, "ID", "Name", new List<Object> { 1, 2 }), new { multiple = "multiple" })
-
-
-
-            @Html.ListBox("de",
-           new MultiSelectList(
-                new List<Object> { new { value = 0, text = "Red" }, new { value = 1, text = "Blue" }, new { value = 2, text = "Green" } },
-           "value", "text", new List<Object> { 1, 2 }
-           )
-           , new { multiple = "multiple" })
-
-
         }
     </div>
     <div class="row">

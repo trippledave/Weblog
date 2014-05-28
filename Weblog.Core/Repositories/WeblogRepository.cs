@@ -30,6 +30,16 @@ namespace Weblog.Core.Repositories
             return WeblogDataContext.Current.Entries.FirstOrDefault( e => e.EntryID == id );
         }
 
+        public List<Entry> GetEntriesForCategory(Category category)
+        {
+            return WeblogDataContext.Current.Entries.Where(e => e.Categories == category).OrderByDescending(e => e.DateCreated).ToList();
+        }
+
+        public void RemoveEntry(Entry entry)
+        {
+            WeblogDataContext.Current.Entries.Remove(entry);
+            WeblogDataContext.Current.SaveChanges();
+        }
         #endregion
 
         #region Kategorien
@@ -68,17 +78,6 @@ namespace Weblog.Core.Repositories
         #endregion
 
 
-        public List<Entry> GetEntriesForCategory(Category category)
-        {
-            return WeblogDataContext.Current.Entries.Where(e => e.Categories == category).OrderByDescending(e => e.DateCreated).ToList();
-
-                //OrderByDescending(e => e.DateCreated).ToList();
-        }
-
-        public void RemoveEntry(Entry entry)
-        {
-            throw new NotImplementedException();
-        }
 
         public void RemoveCategory(Category entry)
         {

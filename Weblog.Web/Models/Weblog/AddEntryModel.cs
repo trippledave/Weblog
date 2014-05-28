@@ -8,6 +8,7 @@ using Weblog.Core.DataAccess.Weblog;
 using System.Diagnostics;
 using Weblog.Web.Models.Account;
 using WebMatrix.WebData;
+using Weblog.Web.Services;
 
 namespace Weblog.Web.Models.Weblog
 {
@@ -20,8 +21,8 @@ namespace Weblog.Web.Models.Weblog
         [DisplayName("Text")]
         [Required]
         public string Body { get; set; }
-        public List<CategoryListItemModel> AllCategories { get; set; }
-        public List<int> SavedCategories { get; set; }
+        public List<CategoryListItemModel> CategoriesList { get; set; }
+
 
         private void UpdateModel( Entry source )
         {
@@ -33,13 +34,10 @@ namespace Weblog.Web.Models.Weblog
         public void UpdateSource( Entry source )
         {
             source.Header = this.Header;
-            source.Body = this.Body;
-
-
+            source.Body = this.Body;    
         }
 
         public AddEntryModel() {
-
         }
 
         public AddEntryModel( Entry source )

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using Weblog.Core.DataAccess.Weblog;
+using Weblog.Web.Models.Account;
 
 namespace Weblog.Web.Models.Weblog
 {
