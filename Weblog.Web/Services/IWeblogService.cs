@@ -82,6 +82,12 @@ namespace Weblog.Web.Services
         /// <returns>true wenn die Kategorie mit dem angegebenen Namen bereits in der Datenbank existiert, false wenn nicht</returns>
         bool CategoryExists(string name);
 
+        /// <summary>
+        /// Löscht eine Kategorie aus der Datenbank 
+        /// </summary>
+        /// <param name="id">The entry´s id.</param>
+        void DeleteCategory(int id);
+
         #endregion
         #region Kommentare
 

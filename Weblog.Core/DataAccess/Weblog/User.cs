@@ -12,9 +12,9 @@ namespace Weblog.Core.DataAccess.Weblog
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class User
     {
-        public Users()
+        public User()
         {
             this.Entries = new HashSet<Entry>();
         }
@@ -25,6 +25,8 @@ namespace Weblog.Core.DataAccess.Weblog
         public string Email { get; set; }
         public string EmailLowercase { get; set; }
         public Nullable<bool> IsUserLocked { get; set; }
+        public Nullable<bool> IsUserLockedByAdmin { get; set; }
+        public string DisplayName { get; set; }
     
         public virtual ICollection<Entry> Entries { get; set; }
     }

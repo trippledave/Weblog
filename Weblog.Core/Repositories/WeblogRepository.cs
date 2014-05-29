@@ -72,18 +72,14 @@ namespace Weblog.Core.Repositories
             return WeblogDataContext.Current.Categories.Any( c => c.Name.ToLower() == lowercaseName );
         }
 
+        public void RemoveCategory(Category category)
+        {
+            WeblogDataContext.Current.Categories.Remove(category);
+            WeblogDataContext.Current.SaveChanges();
+        }
         #endregion
 
         #region Kommentare
-        #endregion
-
-
-
-        public void RemoveCategory(Category entry)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Comment> GetCommentsForEntry(int id)
         {
             throw new NotImplementedException();
@@ -103,5 +99,28 @@ namespace Weblog.Core.Repositories
         {
             throw new NotImplementedException();
         }
+        #endregion
+
+        #region User
+
+        public User GetUser(string userName)
+        {
+            return WeblogDataContext.Current.Users.FirstOrDefault(u => u.UserNameLowercase.Equals(userName.ToLower()));
+        }
+
+        public void UpdateEmail(string oldEmail, string newEmail)
+        {
+            throw new NotImplementedException();
+            //User user = GetUserByEmail(oldEmail);
+            //if (user != null)
+            //{
+            //    user.Email = newEmail;
+            //    user.EmailLowercase = newEmail.ToLower();
+            //}
+            //WeblogDataContext.Current.SaveChanges();
+        }
+
+        #endregion
+
     }
 }

@@ -63,6 +63,14 @@ namespace Weblog.Web.Controllers.Site
             return View();
         }
 
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        public JsonResult DeleteCategory(int id)
+        {
+            this._weblogService.DeleteCategory(id);
+            return Json(new { success = true });
+        }
+
         #endregion
 
         #region Partial Views

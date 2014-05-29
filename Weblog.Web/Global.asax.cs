@@ -34,11 +34,14 @@ namespace Weblog.Web
                 throw new InvalidOperationException("Es konnte keine Verbindung zur Datenbank hergestellt werden.", ex);
             }
 
-            //WebSecurity.CreateUserAndAccount("Admin", "Admin");
-            //Roles.CreateRole("Administrator");
-            //Roles.CreateRole("Autor");
-            //Roles.CreateRole("Benutzer");
-            //Roles.AddUserToRole("Admin", "Administrator");
+            if (!WebSecurity.UserExists("Admin"))
+            {
+                WebSecurity.CreateUserAndAccount("Admin", "Admin", new { UserNameLowercase = "admin", Email = "de@epp.de", EmailLowercase = "de@epp.de", IsUserLocked = 0 });
+                Roles.CreateRole("Administrator");
+                Roles.CreateRole("Autor");
+                Roles.CreateRole("Benutzer");
+                Roles.AddUserToRole("Admin", "Administrator");
+            }
 
         }
     }

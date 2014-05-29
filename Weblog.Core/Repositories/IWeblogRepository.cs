@@ -79,7 +79,7 @@ namespace Weblog.Core.Repositories
         /// Löscht die übergebenen Kategorie aus der Datenbank
         /// </summary>
         /// <param name="entry">Die Kategorie die gelöscht werden soll</param>
-        void RemoveCategory(Category entry);
+        void RemoveCategory(Category category);
 
         #endregion
 
@@ -112,6 +112,13 @@ namespace Weblog.Core.Repositories
         /// </summary>
         /// <param name="entry">Die Kategorie die gelöscht werden soll</param>
         void RemoveComment(Comment comment);
+
+        #endregion
+        #region User
+
+        User GetUser(string userName);
+
+        void UpdateEmail(string oldEmail, string newEmail);
 
         #endregion
     }

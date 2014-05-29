@@ -60,7 +60,7 @@
     <Compile Include="DataAccess\Weblog\Entry.cs">
       <DependentUpon>WeblogDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccess\Weblog\Users.cs">
+    <Compile Include="DataAccess\Weblog\User.cs">
       <DependentUpon>WeblogDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccess\Weblog\WeblogDataModel.Context.cs">

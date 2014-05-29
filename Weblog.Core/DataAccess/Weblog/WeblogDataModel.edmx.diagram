@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="WeblogDataModel.Category" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="WeblogDataModel.Comment" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="WeblogDataModel.Entry" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeblogDataModel.Users" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeblogDataModel.User" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
         <AssociationConnector Association="WeblogDataModel.FK_Entries_Users" ManuallyRouted="false" />
         <AssociationConnector Association="WeblogDataModel.CategoriesToEntries" ManuallyRouted="false" />
         <AssociationConnector Association="WeblogDataModel.EntriesToComments" ManuallyRouted="false" />

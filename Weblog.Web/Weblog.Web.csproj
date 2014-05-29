@@ -152,7 +152,9 @@
     <Compile Include="Models\Weblog\EntryListItemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IWeblogService.cs" />
+    <Compile Include="Services\MailService.cs" />
     <Compile Include="Services\SettingsRepository.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\WeblogService.cs" />
   </ItemGroup>
   <ItemGroup>

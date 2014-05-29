@@ -8,17 +8,15 @@ namespace Weblog.Web.Models.Account
 {
     public class UserModel
     {
-        public int Id { get; set; }
-        public String Name { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
 
-        public void UpdateSource(Users source)
+        public UserModel() { }
+
+        public UserModel(User user)
         {
-
-        }
-
-        private void UpdateModel(Users source)
-        {
-
+            this.Email = user.EmailLowercase;
+            this.UserName = user.UserName;
         }
     }
 }

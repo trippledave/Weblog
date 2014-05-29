@@ -36,6 +36,10 @@ SiteHelpers.displayJsonResult = function ( data ) {
 }
 
 SiteHelpers.test = function (data) {
-    var rowToRemove = "#entryRow" + data;
+    var rowToRemove = "#row" + data;
     $(rowToRemove).remove();
+    if ($(".table tr").length == 1) {
+        $(".table").remove();
+    }
+   
 }

@@ -20,7 +20,7 @@ namespace Weblog.Web.Models.Weblog
         {
             get
             {
-               return String.Format("{0:D}, um "+Date.Hour+":"+Date.Minute+" Uhr", Date.Date);
+                return Date.ToShortDateString() + ", um " + Date.ToShortTimeString();
             }
         }
 

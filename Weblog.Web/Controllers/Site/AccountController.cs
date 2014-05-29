@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Weblog.Web.Models.Account;
+using Weblog.Web.Services;
 using WebMatrix.WebData;
 
 namespace Weblog.Web.Controllers.Site
@@ -12,6 +13,7 @@ namespace Weblog.Web.Controllers.Site
     [Authorize]
     public class AccountController : Controller
     {
+        private UserService _userService = new UserService();
         #region Helper Methods
 
         private static string GetErrorString(MembershipCreateStatus createStatus)
@@ -78,9 +80,12 @@ namespace Weblog.Web.Controllers.Site
             return View(model);
         }
 
-        public ActionResult Logout()
+        public ActionResult LogOut()
         {
-            WebSecurity.Logout();
+            if (WebSecurity.IsAuthenticated)
+            {
+                WebSecurity.Logout();
+            }
             return RedirectToAction("Index", "Home");
         }
 
@@ -102,8 +107,7 @@ namespace Weblog.Web.Controllers.Site
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { Email = model.Email, EmailLowercase = model.Email.ToLower(), UserNameLowercase = model.UserName.ToLower() });
-                    WebSecurity.Login(model.UserName, model.Password);
+                    _userService.CreateUser(model);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -114,6 +118,63 @@ namespace Weblog.Web.Controllers.Site
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public ActionResult ConfirmUser(string id)
+        {
+            if (WebSecurity.ConfirmAccount(id))
+            {
+                return RedirectToAction("ConfirmationSuccess");
+            }
+            return RedirectToAction("ConfirmationFailure");
+        }
+
+        public ActionResult ConfirmationSuccess()
+        {
+            return View();
+        }
+
+        public ActionResult ConfirmationFailure()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(UserModel model)
+        {
+            return View();
+
+            //if (ModelState.IsValid && _userService.EmailExists(model.Email))
+            //{
+            //    _userService.ResetPassword(model.Email);
+            //    return View("NewPassword", new NewPasswordModel());
+            //}
+            //else
+            //{
+            //    return View(model);
+            //}
+        }
+
+        [HttpPost]
+        public ActionResult NewPassword(UserModel model)
+        {
+            return View();
+
+
+            //if (ModelState.IsValid && userService.SetNewPassword(model.Token, model.Password))
+            //{
+            //    return View("ResetPasswordSuccess");
+            //}
+            //else
+            //{
+            //    return View(model);
+            //}
         }
 
     }

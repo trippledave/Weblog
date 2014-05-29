@@ -23,6 +23,8 @@ namespace Weblog.Web.Services
         /// </summary>
         private IWeblogRepository _repository = new WeblogRepository();
 
+        #region Einträge
+
         public void StoreEntry(AddEntryModel model)
         {
             bool isNewEntry = model.ID == 0;
@@ -42,28 +44,19 @@ namespace Weblog.Web.Services
                 model.UpdateSource(entry);
             }
 
-            foreach (var item in model.CategoriesList)
+            if (model.CategoriesList != null)
             {
-                if (item.isElementsCategory)
+                foreach (var item in model.CategoriesList)
                 {
-                    entry.Categories.Add(this._repository.GetCategory(item.ID));
+                    if (item.isElementsCategory)
+                    {
+                        entry.Categories.Add(this._repository.GetCategory(item.ID));
+                    }
                 }
             }
             this._repository.SaveEntry(entry, isNewEntry);
         }
 
-        public void DeleteEntry(int id)
-        {
-            Entry entryToDelete = this._repository.GetEntry(id);
-            if (entryToDelete != null)
-            {
-                if (entryToDelete.Categories.Count > 0)
-                {
-                    entryToDelete.Categories.Clear();
-                }
-                this._repository.RemoveEntry(entryToDelete);
-            }
-        }
 
         public List<EntryListItemModel> GetEntries()
         {
@@ -84,6 +77,24 @@ namespace Weblog.Web.Services
             Entry entry = this._repository.GetEntry(id);
             return entry == null ? null : new AddEntryModel(entry);
         }
+
+        public void DeleteEntry(int id)
+        {
+            Entry entryToDelete = this._repository.GetEntry(id);
+            if (entryToDelete != null)
+            {
+                if (entryToDelete.Categories.Count > 0)
+                {
+                    entryToDelete.Categories.Clear();
+                }
+                this._repository.RemoveEntry(entryToDelete);
+            }
+        }
+
+
+        #endregion
+
+        #region Kategorien
 
         public AddCategoryModel GetCategory(int id)
         {
@@ -116,6 +127,24 @@ namespace Weblog.Web.Services
             return this._repository.CategoryExists(name);
         }
 
+        public void DeleteCategory(int id)
+        {
+            Category categoryToDelete = this._repository.GetCategory(id);
+            if (categoryToDelete != null)
+            {
+                if (categoryToDelete.Entries.Count > 0)
+                {
+                    categoryToDelete.Entries.Clear();
+                }
+                this._repository.RemoveCategory(categoryToDelete);
+            }
+        }
+
+        #endregion
+        #region Kommentare
+
+        #endregion
+
 
 
         public List<EntryListItemModel> GetEntriesForCategory(int id)
@@ -142,5 +171,6 @@ namespace Weblog.Web.Services
         {
             throw new NotImplementedException();
         }
+
     }
 }

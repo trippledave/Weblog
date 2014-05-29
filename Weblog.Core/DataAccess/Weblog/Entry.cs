@@ -26,7 +26,7 @@ namespace Weblog.Core.DataAccess.Weblog
         public string Header { get; set; }
         public string Body { get; set; }
     
-        public virtual Users Users { get; set; }
+        public virtual User Users { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }

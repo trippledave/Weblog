@@ -9,15 +9,12 @@
 
 <div class="row">
     <div class="col-sm-8 blog-main">
-        <div class="btn-group">
-            <button type="button" class="btn btn-default">Left</button>
-            <button type="button" class="btn btn-default">Middle</button>
-            <button type="button" class="btn btn-default">Right</button>
-        </div>
+
+
+
+        <p>Die folgenden Links führen auf andere Seiten, auf denen dann die jeweiligen Vorgehensweisen sichtbar sind.</p>
+        @Html.ActionLink("Neue Kategorie hinzufügen", "AddCategory", "Home") - fügt eine neue Kategorie in der Datenbank hinzu<br />
+        @Html.ActionLink("Neuen Eintrag hinzufügen", "AddEntry", "Home") - fügt einen neuen Eintrag in der Datenbank hinzu<br /><br />
+        @Html.ActionLink("Zur Administration", "Index", "Dashboard", new { Area = "Management" }, null) - Zum Administrationsbereich<br />
     </div>
-
-
-    <p>Die folgenden Links führen auf andere Seiten, auf denen dann die jeweiligen Vorgehensweisen sichtbar sind.</p>
-    @Html.ActionLink("Neue Kategorie hinzufügen", "AddCategory", "Home") - fügt eine neue Kategorie in der Datenbank hinzu<br />
-    @Html.ActionLink("Neuen Eintrag hinzufügen", "AddEntry", "Home") - fügt einen neuen Eintrag in der Datenbank hinzu<br /><br />
-    @Html.ActionLink("Zur Administration", "Index", "Dashboard", new { Area = "Management" }, null) - Zum Administrationsbereich<br />
+</div>
