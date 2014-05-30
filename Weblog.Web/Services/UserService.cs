@@ -14,7 +14,7 @@ namespace Weblog.Web.Services
     public class UserService
     {
         private IWeblogRepository _repository = new WeblogRepository();
-        private string _defaultRole = "User";
+        private string _defaultRole = "Autor";
 
         public UserModel GetUser(string userName)
         {
@@ -60,14 +60,21 @@ namespace Weblog.Web.Services
             return WebSecurity.ResetPassword(token, password);
         }
 
-        internal bool UpdatePassword(string currentPassword, string newPassword)
+        internal bool UpdatePassword(User user,string currentPassword, string newPassword)
         {
-            return WebSecurity.ChangePassword(WebSecurity.CurrentUserName, currentPassword, newPassword);
+            return WebSecurity.ChangePassword(user.UserName, currentPassword, newPassword);
         }
 
         public void UpdateEmail(string oldEmail, string newEmail)
         {
             _repository.UpdateEmail(oldEmail, newEmail);
+        }
+
+        public void ConfirmUser(string userName)
+        {
+            User thisUser= _repository.GetUser(userName);
+            thisUser.IsUserLocked = false;
+         
         }
     }
 }

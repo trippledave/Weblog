@@ -124,6 +124,8 @@ namespace Weblog.Web.Controllers.Site
         {
             if (WebSecurity.ConfirmAccount(id))
             {
+                _userService.ConfirmUser(WebSecurity.CurrentUserName);
+                
                 return RedirectToAction("ConfirmationSuccess");
             }
             return RedirectToAction("ConfirmationFailure");

@@ -272,6 +272,8 @@
     <Content Include="Views\Errors\Error404.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Errors\Error.cshtml" />
+    <Content Include="Views\Account\ConfirmationSuccess.cshtml" />
+    <Content Include="Views\Account\ConfirmationFailure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

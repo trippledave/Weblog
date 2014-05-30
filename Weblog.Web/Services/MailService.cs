@@ -28,7 +28,7 @@ namespace Weblog.Web.Services
 
         public void SendConfirmationMail(string emailAdress, string userName, string token)
         {
-            string subject = "Zinnet - Activate Account";
+            string subject = "Weblog - Activate Account";
             string body = String.Format("Hello {0},<br /> activate your account with the following link.<br /> <a href=\"{1}{2}\">{1}{2}</a>", userName, activationAction, token);
             SendMail(emailAdress, subject, body);
         }
