@@ -114,7 +114,11 @@ namespace Weblog.Web.Services
             bool isNewCategory = model.ID == 0;
             Category newCategory = isNewCategory ? new Category() : this._repository.GetCategory(model.ID);
             model.UpdateSource(newCategory);
-            this._repository.SaveCategory(newCategory, isNewCategory);
+            if (!_repository.CategoryExists(newCategory.Name))
+            {
+                _repository.SaveCategory(newCategory, isNewCategory);
+            }
+
         }
 
         public bool CategoryExists(AddCategoryModel category)

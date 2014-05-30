@@ -36,7 +36,7 @@ namespace Weblog.Web
 
             if (!WebSecurity.UserExists("Admin"))
             {
-                WebSecurity.CreateUserAndAccount("Admin", "Admin", new { UserNameLowercase = "admin", Email = "de@epp.de", EmailLowercase = "de@epp.de", IsUserLocked = 0 });
+                WebSecurity.CreateUserAndAccount("Admin", "Admin", new { UserNameLowercase = "admin", Email = "de@epp.de", EmailLowercase = "de@epp.de", IsLockedByAdmin = 0 });
                 Roles.CreateRole("Administrator");
                 Roles.CreateRole("Autor");
                 Roles.CreateRole("Benutzer");

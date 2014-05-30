@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using Weblog.Web.Controllers.Site;
 
 namespace Weblog.Web.Services
 {
@@ -16,26 +17,28 @@ namespace Weblog.Web.Services
 
         public MailService()
         {
-            this.mailClient = new SmtpClient();
-            this.mailClient.Port = 587;
-            this.mailClient.Host = "smtp.gmail.com";
-            this.mailClient.EnableSsl = true;
-            this.mailClient.Timeout = 10000;
-            this.mailClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            this.mailClient.UseDefaultCredentials = false;
-            this.mailClient.Credentials = new System.Net.NetworkCredential(defaultMail, defaultPassword);
+            mailClient = new SmtpClient();
+            mailClient.Port = 587;
+            mailClient.Host = "smtp.gmail.com";
+            mailClient.EnableSsl = true;
+            mailClient.Timeout = 10000;
+            mailClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            mailClient.UseDefaultCredentials = false;
+            //mailClient.Credentials = new System.Net.NetworkCredential(defaultMail, defaultPassword);
+            
         }
 
         public void SendConfirmationMail(string emailAdress, string userName, string token)
         {
-            string subject = "Weblog - Activate Account";
-            string body = String.Format("Hello {0},<br /> activate your account with the following link.<br /> <a href=\"{1}{2}\">{1}{2}</a>", userName, activationAction, token);
+            string subject = "Weblog - Account aktivieren";
+            string link = "http://" + activationAction + token;
+            string body = "Hello "+userName+",<br /> aktivieren Sie ihren Account mit dem folgenden Link:<br /> <a href=\""+link+"\">"+link+"</a>";
             SendMail(emailAdress, subject, body);
         }
 
         public void SendPasswordResetToken(string emailAdress, string userName, string token)
         {
-            string subject = "Zinnet - Reset Password";
+            string subject = "Weblog - Passwortreset";
             string body = String.Format("Hello {0},<br /> Token to rest you password: {1}", userName, token);
             SendMail(emailAdress, subject, body);
         }
@@ -46,7 +49,9 @@ namespace Weblog.Web.Services
             mail.Subject = subject;
             mail.Body = body;
             mail.IsBodyHtml = true;
-            mailClient.Send(mail);
+                mailClient.Send(mail);
+
+
         }
     }
 }

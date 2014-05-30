@@ -4,8 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Weblog.Web.Models.Weblog;
 using Weblog.Web.Services;
+using WebMatrix.WebData;
 
 
 namespace Weblog.Web.Controllers.Site

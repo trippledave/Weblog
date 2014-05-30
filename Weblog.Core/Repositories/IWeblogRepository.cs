@@ -118,6 +118,8 @@ namespace Weblog.Core.Repositories
 
         User GetUser(string userName);
 
+        User GetUserByEmail(string email);
+
         void UpdateEmail(string oldEmail, string newEmail);
 
         #endregion

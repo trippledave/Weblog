@@ -25,19 +25,26 @@ namespace Weblog.Web.Services
 
         public void CreateUser(RegisterModel model)
         {
-            MailService mailService = new MailService();
-            string confirmationToken = WebSecurity.CreateUserAndAccount(model.UserName, model.Password,
-                new
-                {
-                    UserNameLowerCase = model.UserName.ToLower(),
-                    Email = model.Email,
-                    EmailLowerCase = model.Email.ToLower(),
-                    IsUserLocked = 1,
-                    IsUserLockedByAdmin = 0
-                }, true);
-            mailService.SendConfirmationMail(model.Email, model.UserName, confirmationToken);
-            Roles.AddUserToRole(model.UserName, _defaultRole);
-            WebSecurity.Login(model.UserName, model.Password, false);
+            if (_repository.GetUserByEmail(model.Email) == null)
+            {
+                string confirmationToken = WebSecurity.CreateUserAndAccount(model.UserName, model.Password,
+                    new
+                    {
+                        UserNameLowerCase = model.UserName.ToLower(),
+                        Email = model.Email,
+                        EmailLowerCase = model.Email.ToLower(),
+                        IsLockedByAdmin = 0
+                    }, true);
+                Roles.AddUserToRole(model.UserName, _defaultRole);
+
+                MailService mailService = new MailService();
+                mailService.SendConfirmationMail(model.Email, model.UserName, confirmationToken);
+            }
+            else
+            {
+                throw new MembershipCreateUserException(MembershipCreateStatus.DuplicateEmail);
+
+            }
         }
 
         public bool UserNameExists(string userName)
@@ -60,7 +67,7 @@ namespace Weblog.Web.Services
             return WebSecurity.ResetPassword(token, password);
         }
 
-        internal bool UpdatePassword(User user,string currentPassword, string newPassword)
+        internal bool UpdatePassword(User user, string currentPassword, string newPassword)
         {
             return WebSecurity.ChangePassword(user.UserName, currentPassword, newPassword);
         }
@@ -70,11 +77,5 @@ namespace Weblog.Web.Services
             _repository.UpdateEmail(oldEmail, newEmail);
         }
 
-        public void ConfirmUser(string userName)
-        {
-            User thisUser= _repository.GetUser(userName);
-            thisUser.IsUserLocked = false;
-         
-        }
     }
 }

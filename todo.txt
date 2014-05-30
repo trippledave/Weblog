@@ -1,16 +1,23 @@
 HttpRequestValidationException  bei eingabe von <a>
 
-Autor adden
 
 projekt nach TODO durchsuchen
 
-HttpContext.Current.Reques.Url   für email
 
 todo löschen-
 
 
-category unique in db
+
+html filter
 
 INTERFACES REPO  COMMENTEN
 
 user services bearbetn
+
+mailservuce deutsch
+
+MAIL AN SETTINGSOBJECT  SETTINGS
+
+
+fragen:
+willkommensmail?

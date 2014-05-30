@@ -69,7 +69,9 @@ namespace Weblog.Web.Controllers.Site
         [AllowAnonymous]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (ModelState.IsValid &&
+                _userService.GetUser(model.UserName) != null && (!_userService.GetUser(model.UserName).IsLockedByAdmin) &&
+                WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);
             }
@@ -114,18 +116,21 @@ namespace Weblog.Web.Controllers.Site
                 {
                     ModelState.AddModelError("", GetErrorString(e.StatusCode));
                 }
+                catch (System.Net.Mail.SmtpException e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                }
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
 
+        [AllowAnonymous]
         public ActionResult ConfirmUser(string id)
         {
             if (WebSecurity.ConfirmAccount(id))
             {
-                _userService.ConfirmUser(WebSecurity.CurrentUserName);
-                
                 return RedirectToAction("ConfirmationSuccess");
             }
             return RedirectToAction("ConfirmationFailure");

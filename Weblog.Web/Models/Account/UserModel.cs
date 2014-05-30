@@ -10,6 +10,8 @@ namespace Weblog.Web.Models.Account
     {
         public string UserName { get; set; }
         public string Email { get; set; }
+        public bool IsLockedByAdmin { get; set; }
+        public string DisplayName { get; set; }
 
         public UserModel() { }
 
@@ -17,6 +19,7 @@ namespace Weblog.Web.Models.Account
         {
             this.Email = user.EmailLowercase;
             this.UserName = user.UserName;
+            this.IsLockedByAdmin = user.IsLockedByAdmin;
         }
     }
 }

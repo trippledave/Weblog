@@ -11,23 +11,23 @@ namespace Weblog.Core.Repositories
 
         #region Einträge
 
-        public void SaveEntry( Entry entry, bool isNewEntry=false )
+        public void SaveEntry(Entry entry, bool isNewEntry = false)
         {
-            if ( isNewEntry )
+            if (isNewEntry)
             {
                 entry.DateCreated = DateTime.Now;
-                WeblogDataContext.Current.Entries.Add( entry );
+                WeblogDataContext.Current.Entries.Add(entry);
             }
             WeblogDataContext.Current.SaveChanges();
         }
         public List<Entry> GetAllEntries()
         {
-            return WeblogDataContext.Current.Entries.OrderByDescending(e=>e.DateCreated).ToList();
+            return WeblogDataContext.Current.Entries.OrderByDescending(e => e.DateCreated).ToList();
         }
 
-        public Entry GetEntry( int id )
+        public Entry GetEntry(int id)
         {
-            return WeblogDataContext.Current.Entries.FirstOrDefault( e => e.EntryID == id );
+            return WeblogDataContext.Current.Entries.FirstOrDefault(e => e.EntryID == id);
         }
 
         public List<Entry> GetEntriesForCategory(Category category)
@@ -44,32 +44,30 @@ namespace Weblog.Core.Repositories
 
         #region Kategorien
 
-        public void SaveCategory( Category category, bool isNewCategory )
+        public void SaveCategory(Category category, bool isNewCategory)
         {
-            if ( isNewCategory )
+            if (isNewCategory)
             {
-                if ( !CategoryExists( category.Name ) )
-                {
-                    WeblogDataContext.Current.Categories.Add( category );
-                }
+                WeblogDataContext.Current.Categories.Add(category);
+
             }
             WeblogDataContext.Current.SaveChanges();
         }
 
         public List<Category> GetAllCategories()
         {
-            return WeblogDataContext.Current.Categories.OrderBy( c => c.Name ).ToList();
+            return WeblogDataContext.Current.Categories.OrderBy(c => c.Name).ToList();
         }
 
         public Category GetCategory(int id)
         {
-            return WeblogDataContext.Current.Categories.FirstOrDefault( c => c.CategoryID == id );
+            return WeblogDataContext.Current.Categories.FirstOrDefault(c => c.CategoryID == id);
         }
 
-        public bool CategoryExists( string name )
+        public bool CategoryExists(string name)
         {
             string lowercaseName = name.ToLower();
-            return WeblogDataContext.Current.Categories.Any( c => c.Name.ToLower() == lowercaseName );
+            return WeblogDataContext.Current.Categories.Any(c => c.Name.ToLower() == lowercaseName);
         }
 
         public void RemoveCategory(Category category)
@@ -108,6 +106,11 @@ namespace Weblog.Core.Repositories
             return WeblogDataContext.Current.Users.FirstOrDefault(u => u.UserNameLowercase.Equals(userName.ToLower()));
         }
 
+        public User GetUserByEmail(string email)
+        {
+            return WeblogDataContext.Current.Users.FirstOrDefault(u => u.EmailLowercase.Equals(email.ToLower()));
+        }
+
         public void UpdateEmail(string oldEmail, string newEmail)
         {
             throw new NotImplementedException();
@@ -121,6 +124,7 @@ namespace Weblog.Core.Repositories
         }
 
         #endregion
+
 
     }
 }
