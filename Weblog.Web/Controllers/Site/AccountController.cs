@@ -13,7 +13,7 @@ namespace Weblog.Web.Controllers.Site
     [Authorize]
     public class AccountController : Controller
     {
-        private UserService _userService = new UserService();
+        private IUserService _userService = new UserService();
         #region Helper Methods
 
         private static string GetErrorString(MembershipCreateStatus createStatus)
@@ -97,9 +97,6 @@ namespace Weblog.Web.Controllers.Site
             return View();
         }
 
-        //
-        // POST: /Account/Register
-
         [HttpPost]
         [AllowAnonymous]
         public ActionResult Register(RegisterModel model)
@@ -131,6 +128,9 @@ namespace Weblog.Web.Controllers.Site
         {
             if (WebSecurity.ConfirmAccount(id))
             {
+                UserModel currentUser=_userService.GetUser(WebSecurity.CurrentUserName);
+                IMailService mailService = new MailService();
+                mailService.SendWelcomeMail(currentUser.Email,currentUser.UserName);
                 return RedirectToAction("ConfirmationSuccess");
             }
             return RedirectToAction("ConfirmationFailure");

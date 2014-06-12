@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
+using Weblog.Core.DataAccess.Weblog;
+using Weblog.Core.Repositories;
 using WebMatrix.WebData;
 
 namespace Weblog.Web
@@ -25,6 +27,7 @@ namespace Weblog.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            //Initialize Database
             try
             {
                 WebSecurity.InitializeDatabaseConnection("SimpleMembershipConnection", "Users", "UserID", "UserName", true);
@@ -34,15 +37,42 @@ namespace Weblog.Web
                 throw new InvalidOperationException("Es konnte keine Verbindung zur Datenbank hergestellt werden.", ex);
             }
 
-            if (!WebSecurity.UserExists("Admin"))
+            if (!WebSecurity.UserExists("admin"))
             {
-                WebSecurity.CreateUserAndAccount("Admin", "Admin", new { UserNameLowercase = "admin", Email = "de@epp.de", EmailLowercase = "de@epp.de", IsLockedByAdmin = 0 });
-                Roles.CreateRole("Administrator");
-                Roles.CreateRole("Autor");
-                Roles.CreateRole("Benutzer");
-                Roles.AddUserToRole("Admin", "Administrator");
+                WebSecurity.CreateUserAndAccount("admin", "admin", new { UserNameLowercase = "admin", Email = "de@epp.de", EmailLowercase = "de@epp.de", IsLockedByAdmin = 0 });
+                Roles.CreateRole("Administrator"); //allowed to do anything
+                Roles.CreateRole("Autor");// can create categories,entries comments without captcha
+                Roles.CreateRole("Benutzer");//can create comments without captcha,  you become this after registration
+                Roles.AddUserToRole("admin", "Administrator");
             }
 
+            initAdminSettings();
+
+        }
+
+        private void initAdminSettings()
+        {
+            IWeblogRepository _repository = new WeblogRepository();
+
+            AdministratorSettings adminSettings = new AdministratorSettings();
+            adminSettings.SiteName = "Weblog";
+            adminSettings.AllowComments = true;
+            adminSettings.WelcomeMailSubject = "Willkommensmail";
+            adminSettings.WelcomeMailText = "viel Spass mit unserem Blog.";
+            adminSettings.PasswordChangeMailSubject = "Weblog - Passwort ändern";
+            adminSettings.PasswordChangeMailText = "Der Token um ihr Passwort zu ändern:";
+            adminSettings.OptInMailSubject = "Weblog - Account aktivieren";
+            adminSettings.OptInMailText = "Aktivieren Sie ihren Account mit dem folgenden Link:";
+            adminSettings.SiteFooterText = "Weblog Copyright ©2525</br>Powered by vBulletin® Version 4.1.12 (Deutsch)";
+            adminSettings.SiteKeywords = "blog, schule, mannheim";
+            adminSettings.SmtpServer = "smtp.gmail.com";
+            adminSettings.SmtpUser = "asp.ss2014@gmail.com";
+            adminSettings.SmtpPassword = "ss2014.asp.blog";
+            adminSettings.SmtpRegisterAtServerNeeded = true;
+            adminSettings.EntrysPerSite = 2;
+
+            _repository.SetAdministratorSettings(adminSettings);
+             
         }
     }
 }

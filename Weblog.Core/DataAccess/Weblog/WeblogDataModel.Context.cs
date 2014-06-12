@@ -29,5 +29,6 @@ namespace Weblog.Core.DataAccess.Weblog
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Entry> Entries { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<AdministratorSettings> AdministratorSettings { get; set; }
     }
 }

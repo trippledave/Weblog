@@ -1,0 +1,30 @@
+﻿@model Weblog.Web.Areas.Management.Models.UserSettingsModel
+
+@{
+    ViewBag.Title = "Benutzereinstellungen bearbeiten";
+}
+
+<h2>Benutzereinstellungen bearbeiten</h2>
+<p>Die Felder die Sie nicht bearbeiten wollen leer lassen.</p>
+</br>
+
+
+@using (Html.BeginForm("ChangeUserSettings", "Management", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.ValidationSummary()
+    @Html.AntiForgeryToken()
+    <div class="form">
+        <div class="row form-group">
+            @Html.LabelFor(m => m.DisplayName, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "control-label col-sm-3" })
+            @Html.TextAreaFor(m => m.Email, new { @class = "form-control" })
+        </div>
+        <div class="row">
+            <button class="btn btn-primary">Speichern</button>
+        </div>
+    </div>
+}
+<br>

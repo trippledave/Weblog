@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Weblog.Core.DataAccess.Weblog;
 
 namespace Weblog.Core.Repositories
@@ -109,19 +108,50 @@ namespace Weblog.Core.Repositories
 
         /// <summary>
         /// Löscht die übergebenen Kategorie aus der Datenbank
-        /// </summary>
+        /// </summary> 
         /// <param name="entry">Die Kategorie die gelöscht werden soll</param>
         void RemoveComment(Comment comment);
 
         #endregion
         #region User
 
+        /// <summary>
+        /// Gets the user.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns></returns>
         User GetUser(string userName);
 
-        User GetUserByEmail(string email);
-
-        void UpdateEmail(string oldEmail, string newEmail);
+        /// <summary>
+        /// Updates the email.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="newEmail">The new email.</param>
+        void UpdateEmail(string userName, string newEmail);
 
         #endregion
+
+        #region Settings
+
+        /// <summary>
+        /// Gets the administrator settings.
+        /// </summary>
+        /// <returns></returns>
+        AdministratorSettings GetAdministratorSettings();
+
+        /// <summary>
+        /// Updates the administrator settings.
+        /// </summary>
+        void UpdateAdministratorSettings();
+
+        /// <summary>
+        /// Sets the administrator settings.
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        void SetAdministratorSettings(AdministratorSettings settings);
+
+        #endregion
+
+
     }
 }

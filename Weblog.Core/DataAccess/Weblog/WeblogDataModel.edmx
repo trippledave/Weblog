@@ -4,40 +4,61 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="WeblogDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
+    <Schema Namespace="WeblogDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdministratorSettings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="SiteName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AllowComments" Type="bit" Nullable="false" />
+          <Property Name="WelcomeMailSubject" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WelcomeMailText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PasswordChangeMailSubject" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordChangeMailText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OptInMailSubject" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OptInMailText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SiteFooterText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SiteKeywords" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SmtpServer" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SmtpUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SmtpPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SmtpRegisterAtServerNeeded" Type="bit" Nullable="false" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EntrysPerSite" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="CategoryID" />
           </Key>
-          <Property Name="CategoryID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="Name" Nullable="false" MaxLength="50" Type="nvarchar" />
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="CategoriesToEntries">
           <Key>
             <PropertyRef Name="CategoryID" />
             <PropertyRef Name="EntryID" />
           </Key>
-          <Property Name="CategoryID" Nullable="false" Type="int" />
-          <Property Name="EntryID" Nullable="false" Type="int" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="EntryID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
             <PropertyRef Name="CommentID" />
           </Key>
-          <Property Name="CommentID" Nullable="false" Type="int" />
-          <Property Name="DateCreated" Nullable="false" Precision="7" Type="datetime2" />
-          <Property Name="AuthorID" Nullable="false" Type="int" />
-          <Property Name="EntryID" Nullable="false" Type="int" />
-          <Property Name="Body" Nullable="false" Type="nvarchar(max)" />
+          <Property Name="CommentID" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="AuthorID" Type="int" Nullable="false" />
+          <Property Name="EntryID" Type="int" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Entries">
           <Key>
             <PropertyRef Name="EntryID" />
           </Key>
-          <Property Name="EntryID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="DateCreated" Nullable="false" Precision="7" Type="datetime2" />
-          <Property Name="AuthorID" Nullable="false" Type="int" />
-          <Property Name="Header" Nullable="false" MaxLength="50" Type="nvarchar" />
+          <Property Name="EntryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="AuthorID" Type="int" Nullable="false" />
+          <Property Name="Header" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Body" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="EntriesToComments">
@@ -45,24 +66,24 @@
             <PropertyRef Name="EntryID" />
             <PropertyRef Name="CommentID" />
           </Key>
-          <Property Name="EntryID" Nullable="false" Type="int" />
-          <Property Name="CommentID" Nullable="false" Type="int" />
+          <Property Name="EntryID" Type="int" Nullable="false" />
+          <Property Name="CommentID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="UserName" Nullable="false" MaxLength="56" Type="nvarchar" />
-          <Property Name="UserNameLowercase" Nullable="false" MaxLength="56" Type="nvarchar" />
-          <Property Name="Email" Nullable="false" MaxLength="56" Type="nvarchar" />
-          <Property Name="EmailLowercase" Nullable="false" MaxLength="56" Type="nvarchar" />
-          <Property Name="IsLockedByAdmin" Nullable="false" Type="bit" />
-          <Property Name="DisplayName" MaxLength="56" Type="nvarchar" />
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="56" Nullable="false" />
+          <Property Name="UserNameLowercase" Type="nvarchar" MaxLength="56" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="56" Nullable="false" />
+          <Property Name="EmailLowercase" Type="nvarchar" MaxLength="56" Nullable="false" />
+          <Property Name="IsLockedByAdmin" Type="bit" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="56" />
         </EntityType>
         <Association Name="EntriesToComments_CommentID">
-          <End Type="Self.Comments" Multiplicity="1" Role="Comments" />
-          <End Type="Self.EntriesToComments" Multiplicity="*" Role="EntriesToComments" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="1" />
+          <End Role="EntriesToComments" Type="Self.EntriesToComments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comments">
               <PropertyRef Name="CommentID" />
@@ -73,8 +94,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="EntriesToComments_EntryID">
-          <End Type="Self.Entries" Multiplicity="1" Role="Entries" />
-          <End Type="Self.EntriesToComments" Multiplicity="*" Role="EntriesToComments" />
+          <End Role="Entries" Type="Self.Entries" Multiplicity="1" />
+          <End Role="EntriesToComments" Type="Self.EntriesToComments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Entries">
               <PropertyRef Name="EntryID" />
@@ -85,8 +106,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CategoriesToEntries_Categories">
-          <End Type="Self.Categories" Multiplicity="1" Role="Categories" />
-          <End Type="Self.CategoriesToEntries" Multiplicity="*" Role="CategoriesToEntries" />
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="CategoriesToEntries" Type="Self.CategoriesToEntries" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="CategoryID" />
@@ -97,8 +118,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CategoriesToEntries_Entries">
-          <End Type="Self.Entries" Multiplicity="1" Role="Entries" />
-          <End Type="Self.CategoriesToEntries" Multiplicity="*" Role="CategoriesToEntries" />
+          <End Role="Entries" Type="Self.Entries" Multiplicity="1" />
+          <End Role="CategoriesToEntries" Type="Self.CategoriesToEntries" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Entries">
               <PropertyRef Name="EntryID" />
@@ -109,8 +130,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Entries_Users">
-          <End Type="Self.Users" Multiplicity="1" Role="Users" />
-          <End Type="Self.Entries" Multiplicity="*" Role="Entries" />
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Entries" Type="Self.Entries" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserID" />
@@ -121,6 +142,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="WeblogDataModelStoreContainer">
+          <EntitySet Name="AdministratorSettings" EntityType="Self.AdministratorSettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoriesToEntries" EntityType="Self.CategoriesToEntries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
@@ -128,24 +150,24 @@
           <EntitySet Name="EntriesToComments" EntityType="Self.EntriesToComments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="EntriesToComments_CommentID" Association="Self.EntriesToComments_CommentID">
-            <End EntitySet="Comments" Role="Comments" />
-            <End EntitySet="EntriesToComments" Role="EntriesToComments" />
+            <End Role="Comments" EntitySet="Comments" />
+            <End Role="EntriesToComments" EntitySet="EntriesToComments" />
           </AssociationSet>
           <AssociationSet Name="EntriesToComments_EntryID" Association="Self.EntriesToComments_EntryID">
-            <End EntitySet="Entries" Role="Entries" />
-            <End EntitySet="EntriesToComments" Role="EntriesToComments" />
+            <End Role="Entries" EntitySet="Entries" />
+            <End Role="EntriesToComments" EntitySet="EntriesToComments" />
           </AssociationSet>
           <AssociationSet Name="FK_CategoriesToEntries_Categories" Association="Self.FK_CategoriesToEntries_Categories">
-            <End EntitySet="Categories" Role="Categories" />
-            <End EntitySet="CategoriesToEntries" Role="CategoriesToEntries" />
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="CategoriesToEntries" EntitySet="CategoriesToEntries" />
           </AssociationSet>
           <AssociationSet Name="FK_CategoriesToEntries_Entries" Association="Self.FK_CategoriesToEntries_Entries">
-            <End EntitySet="Entries" Role="Entries" />
-            <End EntitySet="CategoriesToEntries" Role="CategoriesToEntries" />
+            <End Role="Entries" EntitySet="Entries" />
+            <End Role="CategoriesToEntries" EntitySet="CategoriesToEntries" />
           </AssociationSet>
           <AssociationSet Name="FK_Entries_Users" Association="Self.FK_Entries_Users">
-            <End EntitySet="Users" Role="Users" />
-            <End EntitySet="Entries" Role="Entries" />
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Entries" EntitySet="Entries" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -234,7 +256,29 @@
             <End Role="Comments" EntitySet="Comments" />
             <End Role="Entries" EntitySet="Entries" />
           </AssociationSet>
+          <EntitySet Name="AdministratorSettings" EntityType="WeblogDataModel.AdministratorSettings" />
         </EntityContainer>
+        <EntityType Name="AdministratorSettings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="SiteName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AllowComments" Type="Boolean" Nullable="false" />
+          <Property Name="WelcomeMailSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WelcomeMailText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordChangeMailSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordChangeMailText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OptInMailSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OptInMailText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SiteFooterText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SiteKeywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SmtpServer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SmtpUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SmtpPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SmtpRegisterAtServerNeeded" Type="Boolean" Nullable="false" />
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="EntrysPerSite" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -300,6 +344,28 @@
               <ScalarProperty Name="EntryID" ColumnName="EntryID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="AdministratorSettings">
+            <EntityTypeMapping TypeName="WeblogDataModel.AdministratorSettings">
+              <MappingFragment StoreEntitySet="AdministratorSettings">
+                <ScalarProperty Name="EntrysPerSite" ColumnName="EntrysPerSite" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SmtpRegisterAtServerNeeded" ColumnName="SmtpRegisterAtServerNeeded" />
+                <ScalarProperty Name="SmtpPassword" ColumnName="SmtpPassword" />
+                <ScalarProperty Name="SmtpUser" ColumnName="SmtpUser" />
+                <ScalarProperty Name="SmtpServer" ColumnName="SmtpServer" />
+                <ScalarProperty Name="SiteKeywords" ColumnName="SiteKeywords" />
+                <ScalarProperty Name="SiteFooterText" ColumnName="SiteFooterText" />
+                <ScalarProperty Name="OptInMailText" ColumnName="OptInMailText" />
+                <ScalarProperty Name="OptInMailSubject" ColumnName="OptInMailSubject" />
+                <ScalarProperty Name="PasswordChangeMailText" ColumnName="PasswordChangeMailText" />
+                <ScalarProperty Name="PasswordChangeMailSubject" ColumnName="PasswordChangeMailSubject" />
+                <ScalarProperty Name="WelcomeMailText" ColumnName="WelcomeMailText" />
+                <ScalarProperty Name="WelcomeMailSubject" ColumnName="WelcomeMailSubject" />
+                <ScalarProperty Name="AllowComments" ColumnName="AllowComments" />
+                <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

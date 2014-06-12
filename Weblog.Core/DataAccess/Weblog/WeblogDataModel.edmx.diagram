@@ -12,6 +12,7 @@
         <AssociationConnector Association="WeblogDataModel.FK_Entries_Users" ManuallyRouted="false" />
         <AssociationConnector Association="WeblogDataModel.CategoriesToEntries" ManuallyRouted="false" />
         <AssociationConnector Association="WeblogDataModel.EntriesToComments" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="WeblogDataModel.AdministratorSettings" Width="2.75" PointX="9.5" PointY="2.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

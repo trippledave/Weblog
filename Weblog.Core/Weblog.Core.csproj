@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\Weblog\AdministratorSettings.cs">
+      <DependentUpon>WeblogDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataAccess\Weblog\Category.cs">
       <DependentUpon>WeblogDataModel.tt</DependentUpon>
     </Compile>

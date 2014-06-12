@@ -15,7 +15,7 @@ namespace Weblog.Web.Services
     /// <summary>
     /// Der Service. In diesem wird die Business-Logik abgebildet.
     /// </summary>
-    public class WeblogService : Weblog.Web.Services.IWeblogService
+    public class WeblogService : IWeblogService
     {
         /// <summary>
         /// Das Weblog-Repository, das für den Datenbankzugriff zuständig ist. Sämtliche Datenbankzugriffe laufen

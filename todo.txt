@@ -20,4 +20,6 @@ MAIL AN SETTINGSOBJECT  SETTINGS
 
 
 fragen:
-willkommensmail?
+ohne JS bedienbar, oder message
+
+30er abgabe sonnenuntergang

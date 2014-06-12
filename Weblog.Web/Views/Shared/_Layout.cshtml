@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-
+    <meta name="keywords" content="@Html.Action("Keywords", "View")" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -24,7 +24,11 @@
     <div class="container">
         @RenderBody()
     </div>
-
-
-
+    <div class="blog-footer">
+        <p>@Html.Action("Footer", "View")</p>
+        <p>
+            <a href="#">Back to top</a>
+        </p>
+    </div>
 </body>
+</html>

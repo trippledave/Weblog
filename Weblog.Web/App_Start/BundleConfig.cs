@@ -41,14 +41,15 @@ namespace Weblog.Web
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap*"));
 
-            bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap*"));
+            bundles.Add(new StyleBundle("~/Content/bootstrap")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/bootstrap.min.css")
+                .Include("~/Content/bootstrap-theme.css")
+                .Include("~/Content/bootstrap-theme.min.css")
+                .Include("~/Content/bootstrap-blog.css"));
 
 
-            bundles.Add(new ScriptBundle("~/Scripts/Home").Include(
-        "~/Scripts/jquery-{version}.js",
-        "~/Scripts/jquery.unobtrusive*",
-        "~/Scripts/jquery.validate*",
-        "~/Scripts/site.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/Home").Include("~/Scripts/site.js"));
 
             //TODO UNCOMMENT
             //BundleTable.EnableOptimizations = true;

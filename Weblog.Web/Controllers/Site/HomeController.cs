@@ -20,6 +20,7 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult Index()
         {
+
             return View();
         }
 

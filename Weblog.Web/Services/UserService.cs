@@ -11,10 +11,10 @@ using WebMatrix.WebData;
 
 namespace Weblog.Web.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private IWeblogRepository _repository = new WeblogRepository();
-        private string _defaultRole = "Autor";
+        private string _defaultRole = "Benutzer";
 
         public UserModel GetUser(string userName)
         {
@@ -25,7 +25,7 @@ namespace Weblog.Web.Services
 
         public void CreateUser(RegisterModel model)
         {
-            if (_repository.GetUserByEmail(model.Email) == null)
+            if (_repository.GetUser(model.UserName) == null)
             {
                 string confirmationToken = WebSecurity.CreateUserAndAccount(model.UserName, model.Password,
                     new
@@ -37,7 +37,7 @@ namespace Weblog.Web.Services
                     }, true);
                 Roles.AddUserToRole(model.UserName, _defaultRole);
 
-                MailService mailService = new MailService();
+                IMailService mailService = new MailService();
                 mailService.SendConfirmationMail(model.Email, model.UserName, confirmationToken);
             }
             else
@@ -54,12 +54,10 @@ namespace Weblog.Web.Services
 
         public void ResetPassword(UserModel model)
         {
-            throw new NotImplementedException();
-
-            //MailService mailService = new MailService();
-            //User user = _repository.GetUserByEmail(email);
-            //string resetToken = WebSecurity.GeneratePasswordResetToken(user.UserName);
-            //mailService.SendPasswordResetToken(email, user.UserName, resetToken);
+            IMailService mailService = new MailService();
+            User user = _repository.GetUser(model.UserName);
+            string resetToken = WebSecurity.GeneratePasswordResetToken(user.UserName);
+            mailService.SendPasswordResetToken(user.Email, user.UserName, resetToken);
         }
 
         public bool SetNewPassword(string token, string password)
@@ -67,14 +65,14 @@ namespace Weblog.Web.Services
             return WebSecurity.ResetPassword(token, password);
         }
 
-        internal bool UpdatePassword(User user, string currentPassword, string newPassword)
+        public bool UpdatePassword(User user, string currentPassword, string newPassword)
         {
             return WebSecurity.ChangePassword(user.UserName, currentPassword, newPassword);
         }
 
-        public void UpdateEmail(string oldEmail, string newEmail)
+        public void UpdateEmail(string userName, string newEmail)
         {
-            _repository.UpdateEmail(oldEmail, newEmail);
+            _repository.UpdateEmail(userName, newEmail);
         }
 
     }

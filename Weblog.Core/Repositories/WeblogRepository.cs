@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Weblog.Core.DataAccess.Weblog;
 
 namespace Weblog.Core.Repositories
@@ -106,25 +105,44 @@ namespace Weblog.Core.Repositories
             return WeblogDataContext.Current.Users.FirstOrDefault(u => u.UserNameLowercase.Equals(userName.ToLower()));
         }
 
-        public User GetUserByEmail(string email)
+        public void UpdateEmail(string userName, string newEmail)
         {
-            return WeblogDataContext.Current.Users.FirstOrDefault(u => u.EmailLowercase.Equals(email.ToLower()));
-        }
-
-        public void UpdateEmail(string oldEmail, string newEmail)
-        {
-            throw new NotImplementedException();
-            //User user = GetUserByEmail(oldEmail);
-            //if (user != null)
-            //{
-            //    user.Email = newEmail;
-            //    user.EmailLowercase = newEmail.ToLower();
-            //}
-            //WeblogDataContext.Current.SaveChanges();
+            User user = GetUser(userName);
+            if (user != null)
+            {
+                user.Email = newEmail;
+                user.EmailLowercase = newEmail.ToLower();
+            }
+            WeblogDataContext.Current.SaveChanges();
         }
 
         #endregion
+        #region Settings
 
+        private Guid _settingsID = Guid.Empty;
 
+        public AdministratorSettings GetAdministratorSettings()
+        {
+            Guid settingsID = Guid.Empty;
+            return WeblogDataContext.Current.AdministratorSettings.FirstOrDefault(a => a.ID == _settingsID);
+        }
+
+        public void UpdateAdministratorSettings()
+        {
+            WeblogDataContext.Current.SaveChanges();
+        }
+
+        public void SetAdministratorSettings(AdministratorSettings settings)
+        {
+            if (GetAdministratorSettings() == null)
+            {
+                settings.ID = Guid.Empty;
+                WeblogDataContext.Current.AdministratorSettings.Add(settings);
+                WeblogDataContext.Current.SaveChanges();
+            }
+
+        }
+
+        #endregion
     }
 }

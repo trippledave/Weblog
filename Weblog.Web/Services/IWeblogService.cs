@@ -43,7 +43,6 @@ namespace Weblog.Web.Services
         void DeleteEntry(int id);
 
         #endregion
-
         #region Kategorien
 
         /// <summary>

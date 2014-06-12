@@ -135,16 +135,21 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Management\ManagementController.cs" />
     <Compile Include="Controllers\Site\AccountController.cs" />
     <Compile Include="Controllers\Site\ErrorsController.cs" />
     <Compile Include="Controllers\Site\HomeController.cs" />
+    <Compile Include="Controllers\Site\ViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
     <Compile Include="Models\Account\UserModel.cs" />
-    <Compile Include="Models\Management\BlogSettingsModel.cs" />
+    <Compile Include="Models\Settings\EmailSettingsModel.cs" />
+    <Compile Include="Models\Settings\SiteSettingsModel.cs" />
+    <Compile Include="Models\Settings\UserPasswordModel.cs" />
+    <Compile Include="Models\Settings\UserSettingsModel.cs" />
     <Compile Include="Models\Weblog\AddCategoryModel.cs" />
     <Compile Include="Models\Weblog\AddCommentModel.cs" />
     <Compile Include="Models\Weblog\AddEntryModel.cs" />
@@ -152,9 +157,12 @@
     <Compile Include="Models\Weblog\CommentListItemModel.cs" />
     <Compile Include="Models\Weblog\EntryListItemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\ISettingsService.cs" />
+    <Compile Include="Services\IMailService.cs" />
     <Compile Include="Services\IWeblogService.cs" />
     <Compile Include="Services\MailService.cs" />
-    <Compile Include="Services\SettingsRepository.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\WeblogService.cs" />
   </ItemGroup>
@@ -224,8 +232,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -275,6 +281,9 @@
     <Content Include="Views\Account\ConfirmationSuccess.cshtml" />
     <Content Include="Views\Account\ConfirmationFailure.cshtml" />
     <Content Include="Views\Account\AccountLocked.cshtml" />
+    <Content Include="Views\Management\Index.cshtml" />
+    <Content Include="Views\Management\ChangeUserSettings.cshtml" />
+    <Content Include="Views\Management\ChangeUserPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

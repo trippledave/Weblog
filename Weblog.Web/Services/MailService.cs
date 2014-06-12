@@ -4,54 +4,63 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using Weblog.Core.DataAccess.Weblog;
+using Weblog.Core.Repositories;
 using Weblog.Web.Controllers.Site;
 
 namespace Weblog.Web.Services
 {
-    public class MailService
+    public class MailService : IMailService
     {
-        private SmtpClient mailClient;
-        private string defaultMail = "asp.ss2014@gmail.com";
-        private string defaultPassword = "ss2014.asp.blog";
-        private string activationAction = HttpContext.Current.Request.Url.Authority.ToString()+ "/Account/ConfirmUser/";
+        private SmtpClient _mailClient;
+        private AdministratorSettings _adminSettings;
 
         public MailService()
         {
-            mailClient = new SmtpClient();
-            mailClient.Port = 587;
-            mailClient.Host = "smtp.gmail.com";
-            mailClient.EnableSsl = true;
-            mailClient.Timeout = 10000;
-            mailClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            mailClient.UseDefaultCredentials = false;
-            //mailClient.Credentials = new System.Net.NetworkCredential(defaultMail, defaultPassword);
+             IWeblogRepository _repository = new WeblogRepository();
+            _adminSettings=_repository.GetAdministratorSettings();
+
+            _mailClient = new SmtpClient();
+            _mailClient.Port = 587;
+            _mailClient.Host = _adminSettings.SmtpServer;
+            _mailClient.EnableSsl = true;
+            _mailClient.Timeout = 10000;
+            _mailClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            _mailClient.UseDefaultCredentials = false;
+            if(_adminSettings.SmtpRegisterAtServerNeeded )
+                _mailClient.Credentials = new System.Net.NetworkCredential(_adminSettings.SmtpUser, _adminSettings.SmtpPassword);
             
         }
 
         public void SendConfirmationMail(string emailAdress, string userName, string token)
         {
-            string subject = "Weblog - Account aktivieren";
+            string activationAction = HttpContext.Current.Request.Url.Authority.ToString() + "/Account/ConfirmUser/";
             string link = "http://" + activationAction + token;
-            string body = "Hello "+userName+",<br /> aktivieren Sie ihren Account mit dem folgenden Link:<br /> <a href=\""+link+"\">"+link+"</a>";
-            SendMail(emailAdress, subject, body);
+            string body = "Hallo "+userName+",<br />"+_adminSettings.OptInMailText+"<br /> <a href=\""+link+"\">"+link+"</a>";
+            SendMail(emailAdress, _adminSettings.OptInMailSubject, body);
         }
 
         public void SendPasswordResetToken(string emailAdress, string userName, string token)
         {
-            string subject = "Weblog - Passwortreset";
-            string body = String.Format("Hello {0},<br /> Token to rest you password: {1}", userName, token);
-            SendMail(emailAdress, subject, body);
+            string body = "Hallo " + userName + ",<br />" + _adminSettings.PasswordChangeMailText + token;
+            SendMail(emailAdress, _adminSettings.PasswordChangeMailSubject, body);
         }
 
         private void SendMail(string toEmail, string subject, string body)
         {
-            MailMessage mail = new MailMessage(defaultMail, toEmail);
+            MailMessage mail = new MailMessage(_adminSettings.SmtpUser, toEmail);
             mail.Subject = subject;
             mail.Body = body;
             mail.IsBodyHtml = true;
-                mailClient.Send(mail);
+                _mailClient.Send(mail);
 
 
+        }
+
+        public void SendWelcomeMail(string emailAdress, string userName)
+        {
+            string body = "Hallo " + userName + ",<br />" + _adminSettings.WelcomeMailText;
+            SendMail(emailAdress, _adminSettings.WelcomeMailSubject, body);
         }
     }
 }
