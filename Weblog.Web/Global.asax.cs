@@ -58,7 +58,7 @@ namespace Weblog.Web
             adminSettings.SiteName = "Weblog";
             adminSettings.AllowComments = true;
             adminSettings.WelcomeMailSubject = "Willkommensmail";
-            adminSettings.WelcomeMailText = "viel Spass mit unserem Blog.";
+            adminSettings.WelcomeMailText = "Viel Spass mit unserem Blog.";
             adminSettings.PasswordChangeMailSubject = "Weblog - Passwort ändern";
             adminSettings.PasswordChangeMailText = "Der Token um ihr Passwort zu ändern:";
             adminSettings.OptInMailSubject = "Weblog - Account aktivieren";

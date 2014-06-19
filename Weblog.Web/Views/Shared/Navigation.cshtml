@@ -1,8 +1,10 @@
-﻿@if (WebSecurity.IsAuthenticated)
+﻿@Html.ActionLink("Hauptseite", "Index", "Blog", new { }, new { @class = "blog-nav-item" })
+@if (User.IsInRole("Administrator") || User.IsInRole("Autor"))
 {
-   @Html.ActionLink("Hauptseite", "Index", "Home", new { }, new { @class = "blog-nav-item" })
+    <span class="navigation-divider">|</span>
+    @Html.ActionLink("Redaktionsbereich", "EditorialDepartment", "Blog", new { }, new { @class = "blog-nav-item" })
 }
-else
-{
-    @Html.ActionLink("Hauptseite", "Index", "Home", new { }, new { @class = "blog-nav-item" })
+@if (WebSecurity.IsAuthenticated)
+{ <span class="navigation-divider">|</span>
+    @Html.ActionLink("Management", "Index", "Management", new { }, new { @class = "blog-nav-item" })
 }

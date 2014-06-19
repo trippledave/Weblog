@@ -14,14 +14,14 @@ namespace Weblog.Web.Services
         /// Liefert die Einträge aus der Datenbank
         /// </summary>
         /// <returns>Eine Liste von EntryModel-Objekten mit den Daten aus der Datenbank</returns>
-        List<EntryListItemModel> GetEntries();
+        List<EntryModel> GetEntries();
 
         /// <summary>
         /// Liefert alle Einträge für die Kategorie aus der Datenbank
         /// </summary>
         /// <param name="id">Die id der Kategorie.</param>
         /// <returns>Eine Liste von EntryModel-Objekten mit den Daten aus der Datenbank</returns>
-        List<EntryListItemModel> GetEntriesForCategory(int id);
+        List<EntryModel> GetEntriesForCategory(int id);
 
         /// <summary>
         /// Liefert den Eintrag mit der angegebenen ID aus der Datenbank oder null falls der Eintrag nicht existiert
@@ -56,7 +56,7 @@ namespace Weblog.Web.Services
         /// Liefert die Kategorien aus der Datenbank
         /// </summary>
         /// <returns>Die Liste der Kategorien aus der Datenbank</returns>
-        List<CategoryListItemModel> GetCategories();
+        List<CategoryModel> GetCategories();
 
         /// <summary>
         /// Speichert eine Kategorie in der Datenbank. Liefert eine Exception, wenn die Kategorie nicht gespeichert werden
@@ -95,7 +95,7 @@ namespace Weblog.Web.Services
         /// </summary>
         /// <param name="id">Die id des Eintrags.</param>
         /// <returns>Eine Liste von CommentModel-Objekten mit den Daten aus der Datenbank</returns>
-        List<CommentListItemModel> GetCommentsForEntry(int id);
+        List<CommentModel> GetCommentsForEntry(int id);
 
         /// <summary>
         /// Liefert den Eintrag mit der angegebenen ID aus der Datenbank oder null falls der Eintrag nicht existiert

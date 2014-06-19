@@ -4,9 +4,9 @@
     ViewBag.Title = "Benutzereinstellungen bearbeiten";
 }
 
-<h2>Benutzereinstellungen bearbeiten</h2>
-<p>Die Felder die Sie nicht bearbeiten wollen leer lassen.</p>
-</br>
+<div class="blog-header">
+    <h2>Benutzereinstellungen bearbeiten</h2>
+</div>
 
 
 @using (Html.BeginForm("ChangeUserSettings", "Management", FormMethod.Post, new { @class = "form" }))
@@ -27,4 +27,3 @@
         </div>
     </div>
 }
-<br>

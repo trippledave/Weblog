@@ -62,15 +62,26 @@ textarea {
 
 /* Custom styles
 -----------------------------------------------------------*/
-.nav-login{
-    float:right;
+.nav-login {
+    float: right;
 }
 
-.nav-login{
-    color:#cdddeb;
+.nav-login {
+    color: #cdddeb;
 }
 
-.categoryRow span{
-   padding: 2px 10px 0 0;
+.categoryRow span {
+    padding: 2px 10px 0 0;
 }
 
+.navigation-divider {
+    color: #cdddeb;
+}
+
+.footer {
+    color: #999;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+    width: 100%;
+    margin-top: 1%;
+}

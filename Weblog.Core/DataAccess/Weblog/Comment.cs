@@ -14,17 +14,13 @@ namespace Weblog.Core.DataAccess.Weblog
     
     public partial class Comment
     {
-        public Comment()
-        {
-            this.Entries = new HashSet<Entry>();
-        }
-    
         public int CommentID { get; set; }
         public System.DateTime DateCreated { get; set; }
         public int AuthorID { get; set; }
         public int EntryID { get; set; }
         public string Body { get; set; }
     
-        public virtual ICollection<Entry> Entries { get; set; }
+        public virtual Entry Entry { get; set; }
+        public virtual User User { get; set; }
     }
 }

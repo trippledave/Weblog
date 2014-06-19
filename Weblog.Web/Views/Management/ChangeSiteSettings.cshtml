@@ -1,0 +1,40 @@
+﻿@model Weblog.Web.Models.Management.SiteSettingsModel
+
+@{
+    ViewBag.Title = "Seiteneinstellungen bearbeiten";
+}
+<div class="blog-header">
+    <h2>Seiteneinstellungen bearbeiten</h2>
+</div>
+
+
+@using (Html.BeginForm("ChangeSiteSettings", "Management", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.ValidationSummary()
+    @Html.AntiForgeryToken()
+    <div class="form">
+        <div class="row form-group">
+            @Html.LabelFor(m => m.SiteName, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.SiteName, new {@maxlength = "25" ,@class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.AllowComments, new { @class = "control-label col-sm-3" })
+            @Html.CheckBoxFor(m => m.AllowComments, new { @class = "" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.SiteFooterText, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.SiteFooterText, new { @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.SiteKeywords, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.SiteKeywords, new { @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.EntrysPerSite, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.EntrysPerSite, new { @maxlength = "2", @class = "form-control" })
+        </div>
+        <div class="row">
+            <button class="btn btn-primary">Speichern</button>
+        </div>
+    </div>
+}

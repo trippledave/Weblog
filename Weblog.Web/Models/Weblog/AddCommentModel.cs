@@ -16,17 +16,22 @@ namespace Weblog.Web.Models.Weblog
         public string Body { get; set; }
         public int Author { get; set; }
 
-        private void UpdateModel( Entry source )
+        private void UpdateModel( Comment source )
         {
             this.ID = source.EntryID;
             this.Body = source.Body;
             this.Author = source.AuthorID;
         }
 
+        public void UpdateSource(Comment source)
+        {
+            source.Body = this.Body;
+        }
+
         public AddCommentModel() {
         }
 
-        public AddCommentModel(Entry source)
+        public AddCommentModel(Comment source)
         {
             UpdateModel( source );
         }

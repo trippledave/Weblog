@@ -5,14 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2554537280564a6b8843ee974afb4b28" Name="Diagram1" ZoomLevel="111">
-        <EntityTypeShape EntityType="WeblogDataModel.Category" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeblogDataModel.Comment" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeblogDataModel.Entry" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="WeblogDataModel.User" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeblogDataModel.Category" Width="1.5" PointX="5.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeblogDataModel.Comment" Width="1.5" PointX="1.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeblogDataModel.Entry" Width="1.5" PointX="1.625" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeblogDataModel.User" Width="1.5" PointX="5.875" PointY="0.5" IsExpanded="true" />
         <AssociationConnector Association="WeblogDataModel.FK_Entries_Users" ManuallyRouted="false" />
         <AssociationConnector Association="WeblogDataModel.CategoriesToEntries" ManuallyRouted="false" />
-        <AssociationConnector Association="WeblogDataModel.EntriesToComments" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="WeblogDataModel.AdministratorSettings" Width="2.75" PointX="9.5" PointY="2.25" />
+        <EntityTypeShape EntityType="WeblogDataModel.AdministratorSettings" Width="2.75" PointX="9" PointY="1.125" />
+        <AssociationConnector Association="WeblogDataModel.FK_Comments_Entries" />
+        <AssociationConnector Association="WeblogDataModel.FK_Comments_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

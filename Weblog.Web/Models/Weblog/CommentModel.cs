@@ -6,7 +6,7 @@ using Weblog.Core.DataAccess.Weblog;
 
 namespace Weblog.Web.Models.Weblog
 {
-    public class CommentListItemModel
+    public class CommentModel
     {
         public int ID { get; set; }
         public string Title { get; set; }
@@ -29,11 +29,11 @@ namespace Weblog.Web.Models.Weblog
 
         }
 
-        public CommentListItemModel()
+        public CommentModel()
         {
         }
 
-        public CommentListItemModel(Comment source)
+        public CommentModel(Comment source)
         {
             UpdateModel( source );
         }

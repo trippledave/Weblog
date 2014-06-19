@@ -7,7 +7,7 @@ using Weblog.Core.DataAccess.Weblog;
 
 namespace Weblog.Web.Models.Weblog
 {
-    public class CategoryListItemModel
+    public class CategoryModel
     {
         public int ID { get; set; }
         public string Name { get; set; }
@@ -25,12 +25,12 @@ namespace Weblog.Web.Models.Weblog
             source.Name = this.Name;
         }
 
-        public CategoryListItemModel(Category source)
+        public CategoryModel(Category source)
         {
             UpdateModel(source);
         }
 
-        public CategoryListItemModel()
+        public CategoryModel()
         {
         }
     }

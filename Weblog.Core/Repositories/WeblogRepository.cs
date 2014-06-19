@@ -65,6 +65,7 @@ namespace Weblog.Core.Repositories
 
         public bool CategoryExists(string name)
         {
+            if (name == null) return false;
             string lowercaseName = name.ToLower();
             return WeblogDataContext.Current.Categories.Any(c => c.Name.ToLower() == lowercaseName);
         }
@@ -77,24 +78,30 @@ namespace Weblog.Core.Repositories
         #endregion
 
         #region Kommentare
-        public List<Comment> GetCommentsForEntry(int id)
+        public List<Comment> GetCommentsForEntry(Entry entry)
         {
-            throw new NotImplementedException();
+            return WeblogDataContext.Current.Comments.Where(e => e.Entry == entry).OrderByDescending(e => e.DateCreated).ToList();
         }
 
         public Comment GetComment(int id)
         {
-            throw new NotImplementedException();
+            return WeblogDataContext.Current.Comments.FirstOrDefault(e => e.CommentID == id);
         }
 
         public void SaveComment(Comment comment, bool isNewComment)
         {
-            throw new NotImplementedException();
+            if (isNewComment)
+            {
+                comment.DateCreated = DateTime.Now;
+                WeblogDataContext.Current.Comments.Add(comment);
+            }
+            WeblogDataContext.Current.SaveChanges();
         }
 
         public void RemoveComment(Comment comment)
         {
-            throw new NotImplementedException();
+            WeblogDataContext.Current.Comments.Remove(comment);
+            WeblogDataContext.Current.SaveChanges();
         }
         #endregion
 
@@ -105,18 +112,18 @@ namespace Weblog.Core.Repositories
             return WeblogDataContext.Current.Users.FirstOrDefault(u => u.UserNameLowercase.Equals(userName.ToLower()));
         }
 
-        public void UpdateEmail(string userName, string newEmail)
+        public User GetUserByEmail(string email)
         {
-            User user = GetUser(userName);
-            if (user != null)
-            {
-                user.Email = newEmail;
-                user.EmailLowercase = newEmail.ToLower();
-            }
+            return WeblogDataContext.Current.Users.FirstOrDefault(u => u.EmailLowercase.Equals(email.ToLower()));
+        }
+
+        public void UpdateUserSettings(User user)
+        {
             WeblogDataContext.Current.SaveChanges();
         }
 
         #endregion
+
         #region Settings
 
         private Guid _settingsID = Guid.Empty;
@@ -127,7 +134,7 @@ namespace Weblog.Core.Repositories
             return WeblogDataContext.Current.AdministratorSettings.FirstOrDefault(a => a.ID == _settingsID);
         }
 
-        public void UpdateAdministratorSettings()
+        public void UpdateAdministratorSettings(AdministratorSettings adminSettings)
         {
             WeblogDataContext.Current.SaveChanges();
         }

@@ -17,6 +17,7 @@ namespace Weblog.Core.DataAccess.Weblog
         public User()
         {
             this.Entries = new HashSet<Entry>();
+            this.Comments = new HashSet<Comment>();
         }
     
         public int UserID { get; set; }
@@ -28,5 +29,6 @@ namespace Weblog.Core.DataAccess.Weblog
         public bool IsLockedByAdmin { get; set; }
     
         public virtual ICollection<Entry> Entries { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

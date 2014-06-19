@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = @Html.Action("Sitename", "View");
+}
+
+
+<div class="blog-header">
+    <h1 class="blog-title">@Html.Action("Sitename", "View")</h1>
+</div>
+
+<div class="row">
+    <div class="col-sm-8 blog-main">
+        <p>Die folgenden Links führen auf andere Seiten, auf denen dann die jeweiligen Vorgehensweisen sichtbar sind.</p>
+        @Html.ActionLink("Neue Kategorie hinzufügen", "AddCategory", "Blog") - fügt eine neue Kategorie in der Datenbank hinzu<br />
+        @Html.ActionLink("Neuen Eintrag hinzufügen", "AddEntry", "Blog") - fügt einen neuen Eintrag in der Datenbank hinzu<br /><br />
+    </div>
+</div>

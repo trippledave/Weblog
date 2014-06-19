@@ -21,28 +21,29 @@ namespace Weblog.Web.Models.Weblog
         [DisplayName("Text")]
         [Required]
         public string Body { get; set; }
-        public List<CategoryListItemModel> CategoriesList { get; set; }
+        public List<CategoryModel> CategoriesList { get; set; }
 
 
-        private void UpdateModel( Entry source )
+        private void UpdateModel(Entry source)
         {
             this.ID = source.EntryID;
             this.Header = source.Header;
             this.Body = source.Body;
         }
 
-        public void UpdateSource( Entry source )
+        public void UpdateSource(Entry source)
         {
             source.Header = this.Header;
-            source.Body = this.Body;    
+            source.Body = this.Body;
         }
 
-        public AddEntryModel() {
-        }
-
-        public AddEntryModel( Entry source )
+        public AddEntryModel()
         {
-            UpdateModel( source );
+        }
+
+        public AddEntryModel(Entry source)
+        {
+            UpdateModel(source);
         }
     }
 }

@@ -10,7 +10,7 @@
     @Styles.Render("~/Content/bootstrap")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/Scripts/Home")
+    @Scripts.Render("~/Scripts/Blog")
     @RenderSection("scripts", required: false)
 </head>
 <body>
@@ -24,11 +24,8 @@
     <div class="container">
         @RenderBody()
     </div>
-    <div class="blog-footer">
+    <div class="footer">
         <p>@Html.Action("Footer", "View")</p>
-        <p>
-            <a href="#">Back to top</a>
-        </p>
     </div>
 </body>
 </html>

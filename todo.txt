@@ -10,16 +10,19 @@ todo löschen-
 
 html filter
 
-INTERFACES REPO  COMMENTEN
 
 user services bearbetn
 
-mailservuce deutsch
-
-MAIL AN SETTINGSOBJECT  SETTINGS
 
 
 fragen:
 ohne JS bedienbar, oder message
 
 30er abgabe sonnenuntergang
+
+benutzerkontrolle
+[Authorize(Roles = "Administrator, Content Editor")]
+
+errors?
+
+delete comment

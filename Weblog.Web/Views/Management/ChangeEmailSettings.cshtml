@@ -1,0 +1,61 @@
+﻿@model Weblog.Web.Models.Management.EmailSettingsModel
+
+@{
+    ViewBag.Title = "Emaileinstellungen ändern";
+}
+
+<div class="blog-header">
+    <h2>Emaileinstellungen ändern</h2>
+</div>
+
+@using (Html.BeginForm("ChangeEmailSettings", "Management", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.ValidationSummary()
+    @Html.AntiForgeryToken()
+    <div class="form">
+        <div class="row form-group">
+            @Html.LabelFor(m => m.WelcomeMailSubject, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.WelcomeMailSubject, new { @maxlength = "50", @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.WelcomeMailText, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.WelcomeMailText, new { @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.PasswordChangeMailSubject, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.PasswordChangeMailSubject, new { @maxlength = "50", @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.PasswordChangeMailText, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.PasswordChangeMailText, new { @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.OptInMailSubject, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.OptInMailSubject, new { @maxlength = "50", @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.OptInMailText, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.OptInMailText, new { @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.SmtpServer, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.SmtpServer, new { @maxlength = "50", @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.SmtpUser, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.SmtpUser, new { @maxlength = "50", @class = "form-control" })
+        </div>
+
+        <div class="row form-group">
+            @Html.LabelFor(m => m.SmtpPassword, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.SmtpPassword, new { @maxlength = "50", @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.SmtpRegisterAtServerNeeded, new { @class = "control-label col-sm-3" })
+            @Html.CheckBoxFor(m => m.SmtpRegisterAtServerNeeded, new { @class = "" })
+        </div>
+        <div class="row">
+            <button class="btn btn-primary">Speichern</button>
+        </div>
+    </div>
+}

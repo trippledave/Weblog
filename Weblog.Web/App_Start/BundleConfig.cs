@@ -49,7 +49,7 @@ namespace Weblog.Web
                 .Include("~/Content/bootstrap-blog.css"));
 
 
-            bundles.Add(new ScriptBundle("~/Scripts/Home").Include("~/Scripts/site.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/Blog").Include("~/Scripts/site.js"));
 
             //TODO UNCOMMENT
             //BundleTable.EnableOptimizations = true;

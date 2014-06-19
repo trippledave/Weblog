@@ -138,7 +138,7 @@
     <Compile Include="Controllers\Management\ManagementController.cs" />
     <Compile Include="Controllers\Site\AccountController.cs" />
     <Compile Include="Controllers\Site\ErrorsController.cs" />
-    <Compile Include="Controllers\Site\HomeController.cs" />
+    <Compile Include="Controllers\Site\BlogController.cs" />
     <Compile Include="Controllers\Site\ViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -146,16 +146,16 @@
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
     <Compile Include="Models\Account\UserModel.cs" />
-    <Compile Include="Models\Settings\EmailSettingsModel.cs" />
-    <Compile Include="Models\Settings\SiteSettingsModel.cs" />
-    <Compile Include="Models\Settings\UserPasswordModel.cs" />
-    <Compile Include="Models\Settings\UserSettingsModel.cs" />
+    <Compile Include="Models\Management\EmailSettingsModel.cs" />
+    <Compile Include="Models\Management\SiteSettingsModel.cs" />
+    <Compile Include="Models\Management\UserPasswordModel.cs" />
+    <Compile Include="Models\Management\UserSettingsModel.cs" />
     <Compile Include="Models\Weblog\AddCategoryModel.cs" />
     <Compile Include="Models\Weblog\AddCommentModel.cs" />
     <Compile Include="Models\Weblog\AddEntryModel.cs" />
-    <Compile Include="Models\Weblog\CategoryListItemModel.cs" />
-    <Compile Include="Models\Weblog\CommentListItemModel.cs" />
-    <Compile Include="Models\Weblog\EntryListItemModel.cs" />
+    <Compile Include="Models\Weblog\CategoryModel.cs" />
+    <Compile Include="Models\Weblog\CommentModel.cs" />
+    <Compile Include="Models\Weblog\EntryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\ISettingsService.cs" />
@@ -265,17 +265,17 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Shared\LoggedInPart.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\Navigation.cshtml" />
-    <Content Include="Views\Home\DisplayEntries.cshtml" />
-    <Content Include="Views\Home\DisplayCategories.cshtml" />
-    <Content Include="Views\Home\DisplayCommentsForEntry.cshtml" />
-    <Content Include="Views\Home\AddEntry.cshtml" />
-    <Content Include="Views\Home\AddComment.cshtml" />
-    <Content Include="Views\Home\AddCategory.cshtml" />
+    <Content Include="Views\Blog\DisplayEntries.cshtml" />
+    <Content Include="Views\Blog\DisplayCategories.cshtml" />
+    <Content Include="Views\Blog\DisplayCommentsForEntry.cshtml" />
+    <Content Include="Views\Blog\AddEntry.cshtml" />
+    <Content Include="Views\Blog\AddComment.cshtml" />
+    <Content Include="Views\Blog\AddCategory.cshtml" />
     <Content Include="Views\Errors\Error404.cshtml" />
     <Content Include="Views\Errors\Error.cshtml" />
     <Content Include="Views\Account\ConfirmationSuccess.cshtml" />
@@ -284,6 +284,9 @@
     <Content Include="Views\Management\Index.cshtml" />
     <Content Include="Views\Management\ChangeUserSettings.cshtml" />
     <Content Include="Views\Management\ChangeUserPassword.cshtml" />
+    <Content Include="Views\Blog\EditorialDepartment.cshtml" />
+    <Content Include="Views\Management\ChangeSiteSettings.cshtml" />
+    <Content Include="Views\Management\ChangeEmailSettings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

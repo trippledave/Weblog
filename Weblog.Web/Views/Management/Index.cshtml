@@ -2,13 +2,19 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Management Index</h2>
-
+<div class="blog-header">
+    <h2>Management Index</h2>
+</div>
 
 <div class="row">
     <div class="col-sm-8 blog-main">
         <p>Die folgenden Links führen auf andere Seiten, auf denen dann die jeweiligen Vorgehensweisen sichtbar sind.</p>
+        @if (User.IsInRole("Administrator"))
+        {
+            @Html.ActionLink("Seiteneinstellungen bearbeiten", "ChangeSiteSettings", "Management")<br />
+            @Html.ActionLink("Emaileinstellungen bearbeiten", "ChangeEmailSettings", "Management")<br />
+        }
+        @Html.ActionLink("Passwort bearbeiten", "ChangeUserPassword", "Management") - nla <br />
         @Html.ActionLink("Benutzereinstellungen bearbeiten", "ChangeUserSettings", "Management") - nla <br />
-
     </div>
 </div>

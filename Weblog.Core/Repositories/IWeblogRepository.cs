@@ -88,9 +88,9 @@ namespace Weblog.Core.Repositories
         /// <summary>
         /// Liefert alle Kommentare aus der Datenbank, für den jeweiligen Eintrag. Absteigend nach Erstellungsdatum sortiert.
         /// </summary>
-        /// <param name="id">Der Eintrag von dem die Kommentare geliefert werden sollen</param>
+        /// <param name="entry">Der Eintrag von dem die Kommentare geliefert werden sollen</param>
         /// <returns> Liste mit Kommentaren oder leere Liste</returns>
-        List<Comment> GetCommentsForEntry(int id);
+        List<Comment> GetCommentsForEntry(Entry entry);
 
         /// <summary>
         /// Liefert den Kommentar der zu der ID passt.
@@ -123,11 +123,17 @@ namespace Weblog.Core.Repositories
         User GetUser(string userName);
 
         /// <summary>
-        /// Updates the email.
+        /// Gets the user by email.
         /// </summary>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="newEmail">The new email.</param>
-        void UpdateEmail(string userName, string newEmail);
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        User GetUserByEmail(string email);
+
+        /// <summary>
+        /// Updates the user settings.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        void UpdateUserSettings(User user);
 
         #endregion
 
@@ -142,7 +148,7 @@ namespace Weblog.Core.Repositories
         /// <summary>
         /// Updates the administrator settings.
         /// </summary>
-        void UpdateAdministratorSettings();
+        void UpdateAdministratorSettings(AdministratorSettings adminSettings);
 
         /// <summary>
         /// Sets the administrator settings.

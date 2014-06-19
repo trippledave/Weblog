@@ -53,7 +53,7 @@ namespace Weblog.Web.Controllers.Site
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Blog");
             }
         }
 
@@ -88,7 +88,7 @@ namespace Weblog.Web.Controllers.Site
             {
                 WebSecurity.Logout();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Blog");
         }
 
         [AllowAnonymous]
@@ -107,7 +107,7 @@ namespace Weblog.Web.Controllers.Site
                 try
                 {
                     _userService.CreateUser(model);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Blog");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -128,9 +128,6 @@ namespace Weblog.Web.Controllers.Site
         {
             if (WebSecurity.ConfirmAccount(id))
             {
-                UserModel currentUser=_userService.GetUser(WebSecurity.CurrentUserName);
-                IMailService mailService = new MailService();
-                mailService.SendWelcomeMail(currentUser.Email,currentUser.UserName);
                 return RedirectToAction("ConfirmationSuccess");
             }
             return RedirectToAction("ConfirmationFailure");
@@ -138,16 +135,19 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult ConfirmationSuccess()
         {
+            UserModel currentUser = _userService.GetUser(WebSecurity.CurrentUserName);
+            IMailService mailService = new MailService();
+            mailService.SendWelcomeMail(currentUser.Email, currentUser.UserName);
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult ConfirmationFailure()
         {
             return View();
         }
 
-        [HttpGet]
-        public ActionResult ResetPassword()
+           public ActionResult ResetPassword()
         {
             return View();
         }

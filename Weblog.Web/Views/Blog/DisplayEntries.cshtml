@@ -1,4 +1,4 @@
-﻿@model List<Weblog.Web.Models.Weblog.EntryListItemModel>
+﻿@model List<Weblog.Web.Models.Weblog.EntryModel>
 
 
 
@@ -25,7 +25,7 @@
                 <td>@item.Author</td>
                 <td>@item.DateString</td>
                 <td>
-                    @using (Ajax.BeginForm(new AjaxOptions() { Url="/Home/DeleteEntry/"+@item.ID, OnSuccess = "SiteHelpers.test("+@item.ID+")" }))
+                    @using (Ajax.BeginForm(new AjaxOptions() { Url="/Blog/DeleteEntry/"+@item.ID, OnSuccess = "SiteHelpers.test("+@item.ID+")" }))
                     {
                         @Html.AntiForgeryToken()
                         <button>Löschen</button>

@@ -12,15 +12,21 @@ using WebMatrix.WebData;
 
 namespace Weblog.Web.Controllers.Site
 {
-    public class HomeController : Controller
+    [Authorize]
+    public class BlogController : Controller
     {
         private IWeblogService _weblogService = new WeblogService();
 
         #region Views
 
+        [AllowAnonymous]
         public ActionResult Index()
         {
+            return View();
+        }
 
+        public ActionResult EditorialDepartment()
+        {
             return View();
         }
 
@@ -53,6 +59,13 @@ namespace Weblog.Web.Controllers.Site
             return Json( new { success = true });
         }
 
+        public ActionResult ShowEntry(int entryId)
+        {
+            _weblogService.GetEntry(entryId);
+            return View();
+        }
+
+
         public ActionResult AddCategory()
         {
             return View();
@@ -80,19 +93,19 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult DisplayEntries()
         {
-            List<EntryListItemModel> viewModel = this._weblogService.GetEntries();
+            List<EntryModel> viewModel = this._weblogService.GetEntries();
             return PartialView(viewModel);
         }
 
         public ActionResult DisplayCategories()
         {
-            List<CategoryListItemModel> viewModel = this._weblogService.GetCategories();
+            List<CategoryModel> viewModel = this._weblogService.GetCategories();
             return PartialView(viewModel);
         }
 
-        public ActionResult DisplayCommentsForEntry(EntryListItemModel entry)
+        public ActionResult DisplayCommentsForEntry(EntryModel entry)
         {
-            List<CommentListItemModel> viewModel = this._weblogService.GetCommentsForEntry(entry.ID);
+            List<CommentModel> viewModel = this._weblogService.GetCommentsForEntry(entry.ID);
             return PartialView(viewModel);
         }
 

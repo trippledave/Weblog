@@ -33,9 +33,7 @@ namespace Weblog.Web.Services
             {
                 entry = new Entry();
                 //Author wird nur einmal gesetzt, änderungen vom admin ändern autor nicht.
-                // newEntry.AuthorID = WebSecurity.CurrentUserId;
-                //TODO comment next line
-                entry.AuthorID = 1;
+                entry.AuthorID = WebSecurity.CurrentUserId;
                 model.UpdateSource(entry);
             }
             else
@@ -58,7 +56,7 @@ namespace Weblog.Web.Services
         }
 
 
-        public List<EntryListItemModel> GetEntries()
+        public List<EntryModel> GetEntries()
         {
             // hole alle Einträge aus der Datenbank
             List<Entry> entries = this._repository.GetAllEntries();
@@ -68,7 +66,7 @@ namespace Weblog.Web.Services
             // sogar komplett neue Objekte zu erzeugen. Die Sortierung der Liste bleibt dabei i.d.R. gleich,
             // zur Sicherheit kann aber auch hier nochmals eine OrderBy-Anweisung verwendet werden.
             // Die ToList()-Anweisung am Ende ist notwendig, da LINQ ausschließlich mit Interfaces arbeitet.
-            List<EntryListItemModel> result = entries.Select(e => new EntryListItemModel(e)).ToList();
+            List<EntryModel> result = entries.Select(e => new EntryModel(e)).ToList();
             return result;
         }
 
@@ -76,6 +74,14 @@ namespace Weblog.Web.Services
         {
             Entry entry = this._repository.GetEntry(id);
             return entry == null ? null : new AddEntryModel(entry);
+        }
+
+        public List<EntryModel> GetEntriesForCategory(int id)
+        {
+            Category category = _repository.GetCategory(id);
+            List<Entry> entries = _repository.GetEntriesForCategory(category);
+            List<EntryModel> result = entries.Select(e => new EntryModel(e)).ToList();
+            return result;
         }
 
         public void DeleteEntry(int id)
@@ -93,7 +99,6 @@ namespace Weblog.Web.Services
 
 
         #endregion
-
         #region Kategorien
 
         public AddCategoryModel GetCategory(int id)
@@ -102,10 +107,10 @@ namespace Weblog.Web.Services
             return currentCategory == null ? null : new AddCategoryModel(currentCategory);
         }
 
-        public List<CategoryListItemModel> GetCategories()
+        public List<CategoryModel> GetCategories()
         {
             List<Category> categories = this._repository.GetAllCategories();
-            List<CategoryListItemModel> result = categories.Select(c => new CategoryListItemModel(c)).ToList();
+            List<CategoryModel> result = categories.Select(c => new CategoryModel(c)).ToList();
             return result;
         }
 
@@ -147,34 +152,47 @@ namespace Weblog.Web.Services
         #endregion
         #region Kommentare
 
-        #endregion
-
-
-
-        public List<EntryListItemModel> GetEntriesForCategory(int id)
+        public List<CommentModel> GetCommentsForEntry(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<CommentListItemModel> GetCommentsForEntry(int id)
-        {
-            throw new NotImplementedException();
+            Entry entry = _repository.GetEntry(id);
+            List<Comment> entries = _repository.GetCommentsForEntry(entry);
+            List<CommentModel> result = entries.Select(e => new CommentModel(e)).ToList();
+            return result;
         }
 
         public AddCommentModel GetComment(int id)
         {
-            throw new NotImplementedException();
+            Comment comment = this._repository.GetComment(id);
+            return comment == null ? null : new AddCommentModel(comment);
         }
 
         public void StoreComment(AddCommentModel model)
         {
-            throw new NotImplementedException();
+            bool isNewEntry = model.ID == 0;
+            Comment comment;
+            if (isNewEntry)
+            {
+                comment = new Comment();
+                comment.AuthorID = WebSecurity.CurrentUserId;
+                model.UpdateSource(comment);
+            }
+            else
+            {
+                comment = this._repository.GetComment(model.ID);
+                model.UpdateSource(comment);
+            }
+
+            _repository.SaveComment(comment, isNewEntry);
         }
 
         public void DeleteComment(int id)
         {
-            throw new NotImplementedException();
+            Comment commentToDelete = this._repository.GetComment(id);
+            if (commentToDelete != null)
+            {
+                this._repository.RemoveComment(commentToDelete);
+            }
         }
-
+        #endregion
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Weblog.Core.DataAccess.Weblog;
 using Weblog.Core.Repositories;
+using Weblog.Web.Areas.Management.Models;
 using Weblog.Web.Models.Account;
 using WebMatrix.WebData;
 
@@ -19,9 +20,14 @@ namespace Weblog.Web.Services
         public UserModel GetUser(string userName)
         {
             User user = _repository.GetUser(userName);
-            return user == null ? new UserModel() : new UserModel(user);
+            return user == null ? null : new UserModel(user);
         }
 
+        public UserModel GetUserByEmail(string email)
+        {
+            User user = _repository.GetUserByEmail(email);
+            return user == null ? null : new UserModel(user);
+        }
 
         public void CreateUser(RegisterModel model)
         {
@@ -47,7 +53,7 @@ namespace Weblog.Web.Services
             }
         }
 
-        public bool UserNameExists(string userName)
+        public bool DoesUserNameExist(string userName)
         {
             return Membership.GetUser(userName) != null;
         }
@@ -70,10 +76,15 @@ namespace Weblog.Web.Services
             return WebSecurity.ChangePassword(user.UserName, currentPassword, newPassword);
         }
 
-        public void UpdateEmail(string userName, string newEmail)
-        {
-            _repository.UpdateEmail(userName, newEmail);
-        }
 
+        public void UpdateUserSettings(UserSettingsModel model)
+        {
+            User currentUser = _repository.GetUser(WebSecurity.CurrentUserName);
+            currentUser.Email = model.Email;
+            currentUser.EmailLowercase = model.Email.ToLower();
+            currentUser.DisplayName = model.DisplayName;
+            _repository.UpdateUserSettings(currentUser);
+
+        }
     }
 }

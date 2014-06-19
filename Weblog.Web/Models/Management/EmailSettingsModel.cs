@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,16 +11,27 @@ namespace Weblog.Web.Models.Management
 {
     public class EmailSettingsModel
     {
-
+        [DisplayName("Betreff der Willkommensmail")]
         public string WelcomeMailSubject { get; set; }
+        [DisplayName("Text der Willkommensmail")]
         public string WelcomeMailText { get; set; }
+        [DisplayName("Betreff der Passwortänderungsmail")]
         public string PasswordChangeMailSubject { get; set; }
+        [DisplayName("Text der Passwortänderungsmail")]
         public string PasswordChangeMailText { get; set; }
+        [DisplayName("Betreff der Opt-In-Mail")]
         public string OptInMailSubject { get; set; }
+        [DisplayName("Text der Opt-In-Mail")]
         public string OptInMailText { get; set; }
+        [DisplayName("SMTP Serveradresse")]
+        [Required]
         public string SmtpServer { get; set; }
+        [DisplayName("SMTP Benutzername")]
         public string SmtpUser { get; set; }
+        [DisplayName("SMTP Passwort")]
         public string SmtpPassword { get; set; }
+        [DisplayName("Anmeldung am Server erforderlich")]
+        [Required]
         public bool SmtpRegisterAtServerNeeded { get; set; }
 
         public void UpdateModel(AdministratorSettings source)

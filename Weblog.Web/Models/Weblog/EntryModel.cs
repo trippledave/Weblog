@@ -8,13 +8,14 @@ using Weblog.Web.Models.Account;
 
 namespace Weblog.Web.Models.Weblog
 {
-    public class EntryListItemModel
+    public class EntryModel
     {
         public int ID { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
         public DateTime Date { get; set; }
         public string Author { get; set; }
+        public List<CommentModel> Comments { get; set; }
 
         public string DateString
         {
@@ -35,11 +36,12 @@ namespace Weblog.Web.Models.Weblog
             //this.Author = source.AuthorID; works
         }
 
-        public EntryListItemModel()
+
+        public EntryModel()
         {
         }
 
-        public EntryListItemModel( Entry source )
+        public EntryModel( Entry source )
         {
             UpdateModel( source );
         }
