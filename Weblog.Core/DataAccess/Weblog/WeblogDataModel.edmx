@@ -45,11 +45,11 @@
           <Key>
             <PropertyRef Name="CommentID" />
           </Key>
-          <Property Name="CommentID" Type="int" Nullable="false" />
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="AuthorID" Type="int" Nullable="false" />
           <Property Name="EntryID" Type="int" Nullable="false" />
-          <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Entries">
           <Key>
@@ -58,8 +58,8 @@
           <Property Name="EntryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="AuthorID" Type="int" Nullable="false" />
-          <Property Name="Header" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Body" Type="nvarchar(max)" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -181,9 +181,9 @@
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="AuthorID" Type="Int32" Nullable="false" />
           <Property Name="EntryID" Type="Int32" Nullable="false" />
-          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Entry" Relationship="WeblogDataModel.FK_Comments_Entries" FromRole="Comment" ToRole="Entry" />
           <NavigationProperty Name="User" Relationship="WeblogDataModel.FK_Comments_Users" FromRole="Comment" ToRole="User" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Entry">
           <Key>
@@ -192,11 +192,11 @@
           <Property Name="EntryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="AuthorID" Type="Int32" Nullable="false" />
-          <Property Name="Header" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Entries_Users" FromRole="Entries" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Entries_Users" FromRole="Entries" ToRole="Users" />
           <NavigationProperty Name="Categories" Relationship="Self.CategoriesToEntries" FromRole="Entries" ToRole="Categories" />
           <NavigationProperty Name="Comments" Relationship="WeblogDataModel.FK_Comments_Entries" FromRole="Entry" ToRole="Comment" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -313,23 +313,23 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="WeblogDataModel.Comment">
               <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="CommentID" ColumnName="CommentID" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
                 <ScalarProperty Name="EntryID" ColumnName="EntryID" />
-                <ScalarProperty Name="Body" ColumnName="Body" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Entries">
             <EntityTypeMapping TypeName="WeblogDataModel.Entry">
               <MappingFragment StoreEntitySet="Entries">
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="EntryID" ColumnName="EntryID" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
-                <ScalarProperty Name="Header" ColumnName="Header" />
-                <ScalarProperty Name="Body" ColumnName="Body" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">

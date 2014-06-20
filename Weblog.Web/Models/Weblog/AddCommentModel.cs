@@ -13,27 +13,40 @@ namespace Weblog.Web.Models.Weblog
         public int ID { get; set; }
         [DisplayName("Text")]
         [Required]
-        public string Body { get; set; }
-        public int Author { get; set; }
+        public string Text { get; set; }
+        public String Author { get; set; }
+        public int EntryID { get; set; }
 
-        private void UpdateModel( Comment source )
+        private void UpdateModel(Comment source)
         {
-            this.ID = source.EntryID;
-            this.Body = source.Body;
-            this.Author = source.AuthorID;
+            this.ID = source.CommentID;
+            this.Text = source.Text;
+            if (source.User.DisplayName != null)
+            {
+                this.Author = source.User.DisplayName;
+            }
+            else
+            {
+                this.Author = source.User.UserName;
+            }
+
         }
 
         public void UpdateSource(Comment source)
         {
-            source.Body = this.Body;
+            source.Text = this.Text;
+            source.EntryID = this.EntryID;
         }
 
-        public AddCommentModel() {
+
+        public AddCommentModel()
+        {
+
         }
 
         public AddCommentModel(Comment source)
         {
-            UpdateModel( source );
+            UpdateModel(source);
         }
     }
 }

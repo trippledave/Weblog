@@ -80,7 +80,7 @@ namespace Weblog.Core.Repositories
         #region Kommentare
         public List<Comment> GetCommentsForEntry(Entry entry)
         {
-            return WeblogDataContext.Current.Comments.Where(e => e.Entry == entry).OrderByDescending(e => e.DateCreated).ToList();
+            return WeblogDataContext.Current.Comments.Where(e => e.Entry.EntryID == entry.EntryID).OrderByDescending(e => e.DateCreated).ToList();
         }
 
         public Comment GetComment(int id)

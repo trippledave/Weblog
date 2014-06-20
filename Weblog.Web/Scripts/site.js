@@ -35,11 +35,11 @@ SiteHelpers.displayJsonResult = function ( data ) {
     }, 5000 );
 }
 
-SiteHelpers.test = function (data) {
+SiteHelpers.deleteRow = function (data) {
     var rowToRemove = "#row" + data;
     $(rowToRemove).remove();
     if ($(".table tr").length == 1) {
-        $(".table").remove();
+        $(".toDeleteIfEmpty").remove();
     }
    
 }

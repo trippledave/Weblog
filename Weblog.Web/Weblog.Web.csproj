@@ -287,6 +287,7 @@
     <Content Include="Views\Blog\EditorialDepartment.cshtml" />
     <Content Include="Views\Management\ChangeSiteSettings.cshtml" />
     <Content Include="Views\Management\ChangeEmailSettings.cshtml" />
+    <Content Include="Views\Blog\DisplayEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

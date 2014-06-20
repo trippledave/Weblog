@@ -17,24 +17,24 @@ namespace Weblog.Web.Models.Weblog
         public int ID { get; set; }
         [DisplayName("Titel")]
         [Required]
-        public string Header { get; set; }
+        public string Title { get; set; }
         [DisplayName("Text")]
         [Required]
-        public string Body { get; set; }
+        public string Text { get; set; }
         public List<CategoryModel> CategoriesList { get; set; }
 
 
         private void UpdateModel(Entry source)
         {
             this.ID = source.EntryID;
-            this.Header = source.Header;
-            this.Body = source.Body;
+            this.Title = source.Title;
+            this.Text = source.Text;
         }
 
         public void UpdateSource(Entry source)
         {
-            source.Header = this.Header;
-            source.Body = this.Body;
+            source.Title = this.Title;
+            source.Text = this.Text;
         }
 
         public AddEntryModel()

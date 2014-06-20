@@ -70,10 +70,10 @@ namespace Weblog.Web.Services
             return result;
         }
 
-        public AddEntryModel GetEntry(int id)
+        public EntryModel GetEntry(int id)
         {
             Entry entry = this._repository.GetEntry(id);
-            return entry == null ? null : new AddEntryModel(entry);
+            return entry == null ? null : new EntryModel(entry);
         }
 
         public List<EntryModel> GetEntriesForCategory(int id)
@@ -119,10 +119,8 @@ namespace Weblog.Web.Services
             bool isNewCategory = model.ID == 0;
             Category newCategory = isNewCategory ? new Category() : this._repository.GetCategory(model.ID);
             model.UpdateSource(newCategory);
-            if (!_repository.CategoryExists(newCategory.Name))
-            {
-                _repository.SaveCategory(newCategory, isNewCategory);
-            }
+            _repository.SaveCategory(newCategory, isNewCategory);
+
 
         }
 

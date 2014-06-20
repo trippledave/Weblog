@@ -3,21 +3,23 @@
 @{
     ViewBag.Title = "Kategorie hinzufügen";
 }
+<div class="blog-header">
+    <h2>Kategorie hinzufügen</h2>
+</div>
 
-<h2>Kategorie hinzufügen</h2>
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("AddCategory", "Blog", FormMethod.Post))
 {
-     @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.ID)
+    @Html.AntiForgeryToken()
 
-    <div class="row">
-        <div class="labels">@Html.LabelFor(m => m.Name)</div>
-        <div class="controls">@Html.TextBoxFor(m => m.Name)</div>
-    </div>
-    <div class="row">
-        <div class="labels">&nbsp;</div>
-        <div class="controls"><button>Speichern</button></div>
+    <div class="form">
+        @Html.ValidationSummary()
+        <div class="row form-group">
+            @Html.LabelFor(m => m.Name, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+        <div class="row">
+            <button class="btn btn-primary">Speichern</button>
+        </div>
     </div>
 }
 

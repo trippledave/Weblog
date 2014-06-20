@@ -23,10 +23,10 @@ namespace Weblog.Core.DataAccess.Weblog
         public int EntryID { get; set; }
         public System.DateTime DateCreated { get; set; }
         public int AuthorID { get; set; }
-        public string Header { get; set; }
-        public string Body { get; set; }
+        public string Title { get; set; }
+        public string Text { get; set; }
     
-        public virtual User Users { get; set; }
+        public virtual User User { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }

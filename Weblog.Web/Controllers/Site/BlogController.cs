@@ -47,8 +47,8 @@ namespace Weblog.Web.Controllers.Site
                 this._weblogService.StoreEntry(model);
                 return RedirectToAction("AddEntry");
             }
-           model.CategoriesList = _weblogService.GetCategories();
-            return View(model);
+            //model.CategoriesList = _weblogService.GetCategories();
+            return View();
         }
 
         [HttpPost()]
@@ -56,13 +56,31 @@ namespace Weblog.Web.Controllers.Site
         public JsonResult DeleteEntry(int id)
         {
             this._weblogService.DeleteEntry(id);
-            return Json( new { success = true });
+            return Json(new { success = true });
         }
 
-        public ActionResult ShowEntry(int entryId)
+        public ActionResult DisplayEntry(String id)
         {
-            _weblogService.GetEntry(entryId);
-            return View();
+            int entryId;
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            try
+            {
+                entryId = Convert.ToInt32(id);
+            }
+            catch (System.FormatException e)
+            {
+                return RedirectToAction("Index");
+            }
+
+            EntryModel model = _weblogService.GetEntry(entryId);
+            if (model == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
 
@@ -75,7 +93,17 @@ namespace Weblog.Web.Controllers.Site
         [ValidateAntiForgeryToken()]
         public ActionResult AddCategory(AddCategoryModel model)
         {
-            this._weblogService.StoreCategory(model);
+            if (ModelState.IsValid)
+            {
+                if (_weblogService.CategoryExists(model.Name))
+                {
+                    ModelState.AddModelError("", "Eine Kategorie mit dem gleichen Namen ist bereits vorhanden.");
+                }
+                else
+                {
+                    _weblogService.StoreCategory(model);
+                }
+            }
             return View();
         }
 
@@ -103,23 +131,29 @@ namespace Weblog.Web.Controllers.Site
             return PartialView(viewModel);
         }
 
-        public ActionResult DisplayCommentsForEntry(EntryModel entry)
+        public ActionResult AddComment(int entryId)
         {
-            List<CommentModel> viewModel = this._weblogService.GetCommentsForEntry(entry.ID);
-            return PartialView(viewModel);
-        }
-
-        public ActionResult AddComment()
-        {
-            return PartialView();
+            AddCommentModel model = new AddCommentModel();
+            return PartialView(model);
         }
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
         public ActionResult AddComment(AddCommentModel model)
         {
-            this._weblogService.StoreComment(model);
-            return PartialView();
+            if (ModelState.IsValid)
+            {
+                this._weblogService.StoreComment(model);
+            }
+            return RedirectToAction("DisplayEntry", new { id = model.EntryID });
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        public JsonResult DeleteComment(int id)
+        {
+            this._weblogService.DeleteComment(id);
+            return Json(new { success = true });
         }
         #endregion
 

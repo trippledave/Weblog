@@ -18,7 +18,7 @@ namespace Weblog.Core.DataAccess.Weblog
         public System.DateTime DateCreated { get; set; }
         public int AuthorID { get; set; }
         public int EntryID { get; set; }
-        public string Body { get; set; }
+        public string Text { get; set; }
     
         public virtual Entry Entry { get; set; }
         public virtual User User { get; set; }

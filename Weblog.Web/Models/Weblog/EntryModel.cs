@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Weblog.Core.DataAccess.Weblog;
 using Weblog.Web.Models.Account;
+using Weblog.Web.Services;
 
 namespace Weblog.Web.Models.Weblog
 {
@@ -17,33 +18,41 @@ namespace Weblog.Web.Models.Weblog
         public string Author { get; set; }
         public List<CommentModel> Comments { get; set; }
 
+         private IWeblogService _weblogService = new WeblogService();
+
         public string DateString
         {
             get
             {
-                return Date.ToShortDateString() + ", um " + Date.ToShortTimeString();
+                string result = Date.ToShortDateString() + ", um " + Date.ToShortTimeString();
+                return result;
             }
         }
 
-        private void UpdateModel( Entry source )
+        private void UpdateModel(Entry source)
         {
             this.ID = source.EntryID;
-            this.Title = source.Header;
-            this.Text = source.Body;
+            this.Title = source.Title;
+            this.Text = source.Text;
             this.Date = source.DateCreated;
-            if (source.Users != null)
-                this.Author = source.Users.UserName;
-            //this.Author = source.AuthorID; works
+            if (source.User.DisplayName != null)
+            {
+                this.Author = source.User.DisplayName;
+            }
+            else
+            {
+                this.Author = source.User.UserName;
+            }
+            this.Comments = _weblogService.GetCommentsForEntry(source.EntryID);
         }
-
 
         public EntryModel()
         {
         }
 
-        public EntryModel( Entry source )
+        public EntryModel(Entry source)
         {
-            UpdateModel( source );
+            UpdateModel(source);
         }
 
     }

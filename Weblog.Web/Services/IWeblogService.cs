@@ -28,7 +28,7 @@ namespace Weblog.Web.Services
         /// </summary>
         /// <param name="id">Die ID des Eintrags, der aus der Datenbank geliefert werden soll</param>
         /// <returns>Den Eintrag mit der angegebenen ID oder null, falls der Eintrag nicht existiert</returns>
-        AddEntryModel GetEntry(int id);
+        EntryModel GetEntry(int id);
 
         /// <summary>
         /// Speichert einen Eintrag in die Datenbank (UPDATE oder INSERT)
