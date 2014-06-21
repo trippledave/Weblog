@@ -13,7 +13,27 @@
     <p class="blog-post-meta">@Model.DateString von @Model.Author</p>
 
     <p>@Model.Text</p>
+    <div class="categoryRow">
+        @if (Model.Categories.Count > 0)
+        {
+            <br />
+            <p class="blog-post-meta">Kategorien:</p>
+            foreach (var item in Model.Categories)
+            {
+                <span>@item.Name </span>
+            }
+        }
+    </div>
+    @if (User.IsInRole("Administrator"))
+    {
+        using (Html.BeginForm("DeleteEntry", "Blog", new { Model.ID }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <br />
+            <button class="btn btn-danger">Eintrag löschen</button>
+        }
+    }
 </div>
 @Html.Action("DisplayCommentsForEntry", new { model = Model.Comments })
-<br/>
+<br />
 @Html.Action("AddComment", new { entryId = Model.ID })

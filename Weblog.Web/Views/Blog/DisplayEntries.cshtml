@@ -1,20 +1,23 @@
 ﻿@model Weblog.Web.Models.Weblog.DisplayEntriesModel
-@Html.HiddenFor(m => m.EntryList)
-
-<div id="displayEntriesContainer">
-    @Html.Action("DisplayEntryPage", new { pageNumber = Model.CurrentPage, entryList = Model.EntryList })
-</div>
 
 <div class="row">
-    @if (Model.EntryList.Count > Model.EntriesPerSite)
-    {
+    <div id="entry-container">
+
+            @Html.Partial("DisplayEntryPage", Model.EntryPerPageModel)
+
+
+    </div>
+</div>
+<div class="row">
+    <div id="pagination-container" data-entries-per-page="@Model.EntriesPerSite" data-last-page="@Model.LastPage">
+        @if (Model.EntryPerPageModel.Entries.Count > Model.EntriesPerSite)
         {
             <ul class="pagination">
                 <li id="pagination-previous" class="pagination-element">
-                    <a href="#" onclick="@Model.CurrentPage=4">&laquo;</a>
+                    <a href="#" onclick="EntryPagination.previousPage()">&laquo;</a>
                 </li>
 
-                @for (int i = 0; (i * 2) < 3; i++)
+                @for (int i = 0; (i * Model.EntriesPerSite) < Model.EntryPerPageModel.Entries.Count; i++)
                 {
                     <li id="pagination-@i" class="pagination-element">
                         <a href="#" onclick="EntryPagination.goToPage(@i)">@(i + 1)</a>
@@ -22,9 +25,9 @@
                 }
 
                 <li id="pagination-next" class="pagination-element">
-                    @Ajax.ActionLink("»", "DisplayEntryPage", new { pageNumber = 3, model1=this}, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "displayEntriesContainer", InsertionMode = InsertionMode.Replace })
+                    <a href="#" onclick="EntryPagination.nextPage()">&raquo;</a>
                 </li>
             </ul>
         }
-    }
+    </div>
 </div>

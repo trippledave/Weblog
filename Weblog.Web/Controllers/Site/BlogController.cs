@@ -53,10 +53,10 @@ namespace Weblog.Web.Controllers.Site
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
-        public JsonResult DeleteEntry(int id)
+        public ActionResult DeleteEntry(int id)
         {
             this._weblogService.DeleteEntry(id);
-            return Json(new { success = true });
+            return RedirectToAction("Index");
         }
 
         public ActionResult DisplayEntry(String id)
@@ -123,26 +123,8 @@ namespace Weblog.Web.Controllers.Site
         public ActionResult DisplayEntries()
         {
             List<EntryModel> entryList= this._weblogService.GetEntries();
-            DisplayEntriesModel model = new DisplayEntriesModel(entryList);
-            return PartialView(model);
-        }
-   
-        public ActionResult DisplayEntryPage(int pageNumber, List<EntryModel> entryList)
-        {
-            //if number==0 show all
-            // List<EntryModel> entryList = this._weblogService.GetEntries();
-            if (pageNumber == 3) { entryList.RemoveAt(0); entryList.RemoveAt(0); }
-            DisplayEntryPageModel model = new DisplayEntryPageModel(entryList);
-            return PartialView(model);
-        }
-
-        [HttpPost]
-        public ActionResult DisplayEntryPage(int pageNumber, DisplayEntriesModel model1)
-        {
-            //if number==0 show all
-            List<EntryModel> entryList = this._weblogService.GetEntries();
-            if (pageNumber == 3) { entryList.RemoveAt(0); entryList.RemoveAt(0); }
-            DisplayEntryPageModel model = new DisplayEntryPageModel(entryList);
+            DisplayEntryPageModel entryPageModel = new DisplayEntryPageModel(entryList);
+            DisplayEntriesModel model = new DisplayEntriesModel(entryPageModel);
             return PartialView(model);
         }
 

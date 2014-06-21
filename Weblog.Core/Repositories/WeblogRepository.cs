@@ -58,6 +58,12 @@ namespace Weblog.Core.Repositories
             return WeblogDataContext.Current.Categories.OrderBy(c => c.Name).ToList();
         }
 
+        public List<Category> GetCategoryForEntry(int entryID)
+        {
+            Entry entry = GetEntry(entryID);
+            List<Category> categories = entry.Categories.OrderBy(c => c.Name).ToList();
+            return categories;
+        }
         public Category GetCategory(int id)
         {
             return WeblogDataContext.Current.Categories.FirstOrDefault(c => c.CategoryID == id);

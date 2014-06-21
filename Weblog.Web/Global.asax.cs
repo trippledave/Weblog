@@ -68,7 +68,7 @@ namespace Weblog.Web
             adminSettings.SmtpUser = "asp.ss2014@gmail.com";
             adminSettings.SmtpPassword = "ss2014.asp.blog";
             adminSettings.SmtpRegisterAtServerNeeded = true;
-            adminSettings.EntriesPerSite = 2;
+            adminSettings.EntriesPerSite = 3;
             adminSettings.FullEntriesPerSite = 1; //nur der erste Post wird standardmäßig komplett dargestellt.
             _repository.SetAdministratorSettings(adminSettings);
              

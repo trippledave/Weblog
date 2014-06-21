@@ -1,54 +1,38 @@
 ﻿@model Weblog.Web.Models.Weblog.DisplayEntryPageModel
 @if (Model.Entries.Count > 0)
 {
-    <table class="table toDeleteIfEmpty">
-        <tr>
-            <th class="first">Titel</th>
-            <th>Text</th>
-            <th>Autor</th>
-            <th class="last">Datum</th>
-            <th>Aktion</th>
-        </tr>
+    for (int i = 0; i < Model.Entries.Count; i++)
+    {
+        var item = Model.Entries[i];
 
-        @for (int i = 0; i < Model.Entries.Count; i++)
-        {
-            var item = Model.Entries[i];
+        <div class="blog-post entry">
+            <h2 class="blog-post-title">@Html.ActionLink(item.Title, "DisplayEntry", "Blog", new { id = item.ID }, null)</h2>
+            <p class="blog-post-meta">@item.DateString von @item.Author</p>
 
-            String idString = "row" + item.ID;
-
-            <tr id=@idString>
-                <td>@Html.ActionLink(item.Title, "DisplayEntry", "Blog", new { id = item.ID }, null)</td>
-                @if (i < Model.FullEntriesPerSite)
+            @*
+                i % Model.EntriesPerSite  um bei jeder Seite die Post von 0 bis EntriesPerSite zu sortieren.
+                < FullEntriesPerSite schaut dann nur noch wie viele davon voll angezeigt werden dürfen
+            *@
+            @if (((i % Model.EntriesPerSite)) < Model.FullEntriesPerSite)
+            {
+                <p>@item.Text</p>
+            }
+            else
+            {
+                <p>@item.TextShort</p>
+                if (item.TextShort.Length > 2)
                 {
-                    <td>@item.Text</td>
+                    @Html.ActionLink("mehr", "DisplayEntry", "Blog", new { id = item.ID }, null)
                 }
-                else
-                {
-                    <td>
-                        @item.TextShort @if (item.TextShort.Length > 2)
-                        {
-                            @Html.ActionLink("mehr", "DisplayEntry", "Blog", new { id = item.ID }, null)
-                        }
-                    </td>
-                }
-                <td>@item.Author</td>
-                <td>@item.DateString</td>
-                <td>
-                    @using (Ajax.BeginForm(new AjaxOptions() { Url = "/Blog/DeleteEntry/" + @item.ID, OnSuccess = "SiteHelpers.deleteRow(" + @item.ID + ")" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <button>Löschen</button>
-                    }
-
-
-                </td>
-            </tr>
-        }
-    </table>
+            }
+        </div>
+    }
 }
 else
 {
     <p>Hier könnten ihre Blogeinträge stehen.</p>
+
+
 }
 
 

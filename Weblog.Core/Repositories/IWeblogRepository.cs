@@ -53,6 +53,13 @@ namespace Weblog.Core.Repositories
         List<Category> GetAllCategories();
 
         /// <summary>
+        /// Liefert eine Liste von Kategorien des Eintrags
+        /// </summary>
+        /// <param name="entryID">Die ID des Eintrags.</param>
+        /// <returns></returns>
+        List<Category> GetCategoryForEntry(int entryID);
+
+        /// <summary>
         /// Liefert die Kategorie mit der angegebenen ID oder null wenn diese Kategorie nicht existiert
         /// </summary>
         /// <param name="id">Die ID der Kategorie</param>

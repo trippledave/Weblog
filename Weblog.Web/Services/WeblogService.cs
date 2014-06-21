@@ -115,6 +115,14 @@ namespace Weblog.Web.Services
             return currentCategory == null ? null : new AddCategoryModel(currentCategory);
         }
 
+        public List<CategoryModel> GetCategoriesForEntry(int entryID)
+        {
+            List<Category> categories = _repository.GetCategoryForEntry(entryID);
+            List<CategoryModel> result = categories.Select(c => new CategoryModel(c)).ToList();
+            return result;
+            
+        }
+
         public List<CategoryModel> GetCategories()
         {
             List<Category> categories = this._repository.GetAllCategories();

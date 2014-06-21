@@ -53,6 +53,13 @@ namespace Weblog.Web.Services
         AddCategoryModel GetCategory(int id);
 
         /// <summary>
+        /// Liefert eine Liste von Kategorien des Eintrags
+        /// </summary>
+        /// <param name="entryId">ID des Eintrags.</param>
+        /// <returns></returns>
+        List<CategoryModel> GetCategoriesForEntry(int entryID);
+
+        /// <summary>
         /// Liefert die Kategorien aus der Datenbank
         /// </summary>
         /// <returns>Die Liste der Kategorien aus der Datenbank</returns>
