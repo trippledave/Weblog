@@ -93,6 +93,14 @@ namespace Weblog.Web.Services
                 {
                     entryToDelete.Categories.Clear();
                 }
+                List<CommentModel> commentList = GetCommentsForEntry(entryToDelete.EntryID);
+                if (commentList.Count > 0)
+                {
+                    foreach (CommentModel item in commentList)
+                    {
+                        DeleteComment(item.ID);
+                    }
+                }
                 this._repository.RemoveEntry(entryToDelete);
             }
         }

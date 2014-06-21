@@ -19,7 +19,7 @@
                     @using (Ajax.BeginForm(new AjaxOptions() { Url = "/Blog/DeleteCategory/" + @item.ID, OnSuccess = "SiteHelpers.deleteRow(" + @item.ID + ")" }))
                     {
                         @Html.AntiForgeryToken()
-                        <button>Löschen</button>
+                        <button class="btn btn-danger">Löschen</button>
                     }
 
 

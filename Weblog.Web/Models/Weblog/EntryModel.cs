@@ -18,7 +18,7 @@ namespace Weblog.Web.Models.Weblog
         public string Author { get; set; }
         public List<CommentModel> Comments { get; set; }
 
-         private IWeblogService _weblogService = new WeblogService();
+        private IWeblogService _weblogService = new WeblogService();
 
         public string DateString
         {
@@ -26,6 +26,21 @@ namespace Weblog.Web.Models.Weblog
             {
                 string result = Date.ToShortDateString() + ", um " + Date.ToShortTimeString();
                 return result;
+            }
+        }
+
+        public string TextShort
+        {
+            get
+            {
+                string shortString;
+                int textLength = 2;
+                if (Text.Length > textLength)
+                    shortString = Text.Substring(0, textLength) + "...";
+                else
+                    shortString = Text;
+
+                return shortString;
             }
         }
 

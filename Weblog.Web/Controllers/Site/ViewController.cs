@@ -21,7 +21,7 @@ namespace Weblog.Web.Controllers.Site
             return _settingsService.GetSiteSettings().SiteFooterText;
         }
 
-                public String Sitename()
+        public String Sitename()
         {
             return _settingsService.GetSiteSettings().SiteName;
         }

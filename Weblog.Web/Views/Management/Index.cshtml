@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Management Index";
 }
 
 <div class="blog-header">
@@ -13,8 +13,9 @@
         {
             @Html.ActionLink("Seiteneinstellungen bearbeiten", "ChangeSiteSettings", "Management")<br />
             @Html.ActionLink("Emaileinstellungen bearbeiten", "ChangeEmailSettings", "Management")<br />
+            <br/>
         }
-        @Html.ActionLink("Passwort bearbeiten", "ChangeUserPassword", "Management") - nla <br />
         @Html.ActionLink("Benutzereinstellungen bearbeiten", "ChangeUserSettings", "Management") - nla <br />
+        @Html.ActionLink("Passwort bearbeiten", "ChangeUserPassword", "Management") - nla <br />
     </div>
 </div>

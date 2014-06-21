@@ -1,0 +1,54 @@
+﻿@model Weblog.Web.Models.Weblog.DisplayEntryPageModel
+@if (Model.Entries.Count > 0)
+{
+    <table class="table toDeleteIfEmpty">
+        <tr>
+            <th class="first">Titel</th>
+            <th>Text</th>
+            <th>Autor</th>
+            <th class="last">Datum</th>
+            <th>Aktion</th>
+        </tr>
+
+        @for (int i = 0; i < Model.Entries.Count; i++)
+        {
+            var item = Model.Entries[i];
+
+            String idString = "row" + item.ID;
+
+            <tr id=@idString>
+                <td>@Html.ActionLink(item.Title, "DisplayEntry", "Blog", new { id = item.ID }, null)</td>
+                @if (i < Model.FullEntriesPerSite)
+                {
+                    <td>@item.Text</td>
+                }
+                else
+                {
+                    <td>
+                        @item.TextShort @if (item.TextShort.Length > 2)
+                        {
+                            @Html.ActionLink("mehr", "DisplayEntry", "Blog", new { id = item.ID }, null)
+                        }
+                    </td>
+                }
+                <td>@item.Author</td>
+                <td>@item.DateString</td>
+                <td>
+                    @using (Ajax.BeginForm(new AjaxOptions() { Url = "/Blog/DeleteEntry/" + @item.ID, OnSuccess = "SiteHelpers.deleteRow(" + @item.ID + ")" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button>Löschen</button>
+                    }
+
+
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>Hier könnten ihre Blogeinträge stehen.</p>
+}
+
+

@@ -24,7 +24,8 @@
           <Property Name="SmtpPassword" Type="nvarchar" MaxLength="50" />
           <Property Name="SmtpRegisterAtServerNeeded" Type="bit" Nullable="false" />
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="EntrysPerSite" Type="int" Nullable="false" />
+          <Property Name="EntriesPerSite" Type="int" Nullable="false" />
+          <Property Name="FullEntriesPerSite" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -270,7 +271,8 @@
           <Property Name="SmtpPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SmtpRegisterAtServerNeeded" Type="Boolean" Nullable="false" />
           <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="EntrysPerSite" Type="Int32" Nullable="false" />
+          <Property Name="FullEntriesPerSite" Type="Int32" Nullable="false" />
+          <Property Name="EntriesPerSite" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_Comments_Entries">
           <End Type="WeblogDataModel.Entry" Role="Entry" Multiplicity="1" />
@@ -356,7 +358,8 @@
           <EntitySetMapping Name="AdministratorSettings">
             <EntityTypeMapping TypeName="WeblogDataModel.AdministratorSettings">
               <MappingFragment StoreEntitySet="AdministratorSettings">
-                <ScalarProperty Name="EntrysPerSite" ColumnName="EntrysPerSite" />
+                <ScalarProperty Name="EntriesPerSite" ColumnName="EntriesPerSite" />
+                <ScalarProperty Name="FullEntriesPerSite" ColumnName="FullEntriesPerSite" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="SmtpRegisterAtServerNeeded" ColumnName="SmtpRegisterAtServerNeeded" />
                 <ScalarProperty Name="SmtpPassword" ColumnName="SmtpPassword" />

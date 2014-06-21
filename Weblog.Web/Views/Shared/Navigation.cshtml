@@ -1,5 +1,5 @@
 ﻿@Html.ActionLink("Hauptseite", "Index", "Blog", new { }, new { @class = "blog-nav-item" })
-@if (User.IsInRole("Administrator") || User.IsInRole("Autor"))
+@if (User.IsInRole("Administrator"))
 {
     <span class="navigation-divider">|</span>
     @Html.ActionLink("Redaktionsbereich", "EditorialDepartment", "Blog", new { }, new { @class = "blog-nav-item" })

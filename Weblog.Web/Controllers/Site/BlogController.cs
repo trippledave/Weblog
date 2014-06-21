@@ -102,6 +102,7 @@ namespace Weblog.Web.Controllers.Site
                 else
                 {
                     _weblogService.StoreCategory(model);
+                    return RedirectToAction("AddCategory");
                 }
             }
             return View();
@@ -121,14 +122,43 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult DisplayEntries()
         {
-            List<EntryModel> viewModel = this._weblogService.GetEntries();
-            return PartialView(viewModel);
+            List<EntryModel> entryList= this._weblogService.GetEntries();
+            DisplayEntriesModel model = new DisplayEntriesModel(entryList);
+            return PartialView(model);
+        }
+   
+        public ActionResult DisplayEntryPage(int pageNumber, List<EntryModel> entryList)
+        {
+            //if number==0 show all
+            // List<EntryModel> entryList = this._weblogService.GetEntries();
+            if (pageNumber == 3) { entryList.RemoveAt(0); entryList.RemoveAt(0); }
+            DisplayEntryPageModel model = new DisplayEntryPageModel(entryList);
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public ActionResult DisplayEntryPage(int pageNumber, DisplayEntriesModel model1)
+        {
+            //if number==0 show all
+            List<EntryModel> entryList = this._weblogService.GetEntries();
+            if (pageNumber == 3) { entryList.RemoveAt(0); entryList.RemoveAt(0); }
+            DisplayEntryPageModel model = new DisplayEntryPageModel(entryList);
+            return PartialView(model);
         }
 
         public ActionResult DisplayCategories()
         {
             List<CategoryModel> viewModel = this._weblogService.GetCategories();
             return PartialView(viewModel);
+        }
+
+        public ActionResult DisplayCommentsForEntry(List<CommentModel> model)
+        {
+            if (model == null)
+            {
+                model = new List<CommentModel>();
+            }
+            return PartialView(model);
         }
 
         public ActionResult AddComment(int entryId)

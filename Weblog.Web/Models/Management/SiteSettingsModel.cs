@@ -25,7 +25,10 @@ namespace Weblog.Web.Models.Management
         public string SiteKeywords { get; set; }
         [DisplayName("Blogeinträge pro Seite")]
         [Required]
-        public int EntrysPerSite { get; set; }
+        public int EntriesPerSite { get; set; }
+        [DisplayName("Vollangezeigte Blogeinträge pro Seite")]
+        [Required]
+        public int FullEntriesPerSite { get; set; }
 
         public void UpdateModel(AdministratorSettings source)
         {
@@ -33,7 +36,8 @@ namespace Weblog.Web.Models.Management
             this.AllowComments = source.AllowComments;
             this.SiteFooterText = source.SiteFooterText;
             this.SiteKeywords = source.SiteKeywords;
-            this.EntrysPerSite = source.EntrysPerSite;
+            this.EntriesPerSite = source.EntriesPerSite;
+            this.FullEntriesPerSite = source.FullEntriesPerSite;
         }
 
         public void UpdateSource(AdministratorSettings source)
@@ -42,7 +46,8 @@ namespace Weblog.Web.Models.Management
             source.AllowComments = this.AllowComments;
             source.SiteFooterText = this.SiteFooterText;
             source.SiteKeywords = this.SiteKeywords;
-            source.EntrysPerSite = this.EntrysPerSite;
+            source.EntriesPerSite = this.EntriesPerSite;
+            source.FullEntriesPerSite = this.FullEntriesPerSite;
         }
 
         public SiteSettingsModel() { }

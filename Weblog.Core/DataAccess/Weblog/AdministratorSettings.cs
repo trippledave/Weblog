@@ -29,6 +29,7 @@ namespace Weblog.Core.DataAccess.Weblog
         public string SmtpPassword { get; set; }
         public bool SmtpRegisterAtServerNeeded { get; set; }
         public System.Guid ID { get; set; }
-        public int EntrysPerSite { get; set; }
+        public int FullEntriesPerSite { get; set; }
+        public int EntriesPerSite { get; set; }
     }
 }

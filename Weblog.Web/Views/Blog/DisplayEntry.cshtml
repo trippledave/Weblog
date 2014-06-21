@@ -14,37 +14,6 @@
 
     <p>@Model.Text</p>
 </div>
-@if (Model.Comments.Count > 0)
-{
-    <h3 class="toDeleteIfEmpty">Kommentare</h3>
-
-    <table class="table toDeleteIfEmpty">
-        <tr>
-            <th class="first">ID</th>
-            <th>Text</th>
-            <th>Autor</th>
-            <th>Datum</th>
-            <th>Löschen</th>
-        </tr>
-        @foreach (var item in Model.Comments)
-        {
-            String idString = "row" + item.ID;
-
-            <tr id=@idString>
-                <td>@item.ID</td>
-                <td>@item.Text</td>
-                <td>@item.Author</td>
-                <td>@item.DateString</td>
-                <td>
-                    @using (Ajax.BeginForm(new AjaxOptions() { Url = "/Blog/DeleteComment/" + @item.ID, OnSuccess = "SiteHelpers.deleteRow(" + @item.ID + ")" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <button>Löschen</button>
-                    }
-                </td>
-            </tr>
-        }
-    </table>
-}
-    </br>
+@Html.Action("DisplayCommentsForEntry", new { model = Model.Comments })
+<br/>
 @Html.Action("AddComment", new { entryId = Model.ID })

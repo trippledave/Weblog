@@ -41,7 +41,6 @@ namespace Weblog.Web
             {
                 WebSecurity.CreateUserAndAccount("admin", "admin", new { UserNameLowercase = "admin", Email = "de@epp.de", EmailLowercase = "de@epp.de", IsLockedByAdmin = 0 });
                 Roles.CreateRole("Administrator"); //allowed to do anything
-                Roles.CreateRole("Autor");// can create categories,entries comments without captcha
                 Roles.CreateRole("Benutzer");//can create comments without captcha,  you become this after registration
                 Roles.AddUserToRole("admin", "Administrator");
             }
@@ -63,14 +62,14 @@ namespace Weblog.Web
             adminSettings.PasswordChangeMailText = "Der Token um ihr Passwort zu ändern:";
             adminSettings.OptInMailSubject = "Weblog - Account aktivieren";
             adminSettings.OptInMailText = "Aktivieren Sie ihren Account mit dem folgenden Link:";
-            adminSettings.SiteFooterText = "Weblog Copyright ©2525</br>Powered by vBulletin® Version 4.1.12 (Deutsch)";
+            adminSettings.SiteFooterText = "Weblog Copyright ©2525<br/>Powered by vBulletin® Version 4.1.12 (Deutsch)";
             adminSettings.SiteKeywords = "blog, schule, mannheim";
             adminSettings.SmtpServer = "smtp.gmail.com";
             adminSettings.SmtpUser = "asp.ss2014@gmail.com";
             adminSettings.SmtpPassword = "ss2014.asp.blog";
             adminSettings.SmtpRegisterAtServerNeeded = true;
-            adminSettings.EntrysPerSite = 2;
-
+            adminSettings.EntriesPerSite = 2;
+            adminSettings.FullEntriesPerSite = 1; //nur der erste Post wird standardmäßig komplett dargestellt.
             _repository.SetAdministratorSettings(adminSettings);
              
         }

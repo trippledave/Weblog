@@ -1,19 +1,32 @@
 ﻿@model List<Weblog.Web.Models.Weblog.CommentModel>
 @if (Model.Count > 0)
 {
-    <table>
+    <h3 class="toDeleteIfEmpty">Kommentare</h3>
+
+    <table class="table toDeleteIfEmpty">
         <tr>
             <th class="first">ID</th>
-            <th>Titel / Header</th>
-            <th class="last">Datum</th>
+            <th>Text</th>
+            <th>Autor</th>
+            <th>Datum</th>
+            <th>Löschen</th>
         </tr>
-
         @foreach (var item in Model)
         {
-            <tr>
+            String idString = "row" + item.ID;
+
+            <tr id=@idString>
                 <td>@item.ID</td>
                 <td>@item.Text</td>
+                <td>@item.Author</td>
                 <td>@item.DateString</td>
+                <td>
+                    @using (Ajax.BeginForm(new AjaxOptions() { Url = "/Blog/DeleteComment/" + @item.ID, OnSuccess = "SiteHelpers.deleteRow(" + @item.ID + ")" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-danger">Löschen</button>
+                    }
+                </td>
             </tr>
         }
     </table>

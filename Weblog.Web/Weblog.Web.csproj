@@ -155,6 +155,8 @@
     <Compile Include="Models\Weblog\AddEntryModel.cs" />
     <Compile Include="Models\Weblog\CategoryModel.cs" />
     <Compile Include="Models\Weblog\CommentModel.cs" />
+    <Compile Include="Models\Weblog\DisplayEntriesModel.cs" />
+    <Compile Include="Models\Weblog\DisplayEntryPageModel.cs" />
     <Compile Include="Models\Weblog\EntryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IUserService.cs" />
@@ -270,7 +272,6 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\Navigation.cshtml" />
-    <Content Include="Views\Blog\DisplayEntries.cshtml" />
     <Content Include="Views\Blog\DisplayCategories.cshtml" />
     <Content Include="Views\Blog\DisplayCommentsForEntry.cshtml" />
     <Content Include="Views\Blog\AddEntry.cshtml" />
@@ -288,6 +289,8 @@
     <Content Include="Views\Management\ChangeSiteSettings.cshtml" />
     <Content Include="Views\Management\ChangeEmailSettings.cshtml" />
     <Content Include="Views\Blog\DisplayEntry.cshtml" />
+    <Content Include="Views\Blog\DisplayEntryPage.cshtml" />
+    <Content Include="Views\Blog\DisplayEntries.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
