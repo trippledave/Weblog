@@ -291,6 +291,8 @@
     <Content Include="Views\Blog\DisplayEntry.cshtml" />
     <Content Include="Views\Blog\DisplayEntryPage.cshtml" />
     <Content Include="Views\Blog\DisplayEntries.cshtml" />
+    <Content Include="Views\Blog\Categories.cshtml" />
+    <Content Include="Views\Blog\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

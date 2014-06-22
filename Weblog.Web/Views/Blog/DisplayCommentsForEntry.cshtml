@@ -5,28 +5,32 @@
 
     <table class="table toDeleteIfEmpty">
         <tr>
-            <th class="first">ID</th>
             <th>Text</th>
             <th>Autor</th>
             <th>Datum</th>
-            <th>Löschen</th>
+            @if (User.IsInRole("Administrator"))
+            {
+                <th>Löschen</th>
+            }
         </tr>
         @foreach (var item in Model)
         {
             String idString = "row" + item.ID;
 
             <tr id=@idString>
-                <td>@item.ID</td>
                 <td>@item.Text</td>
                 <td>@item.Author</td>
                 <td>@item.DateString</td>
-                <td>
-                    @using (Ajax.BeginForm(new AjaxOptions() { Url = "/Blog/DeleteComment/" + @item.ID, OnSuccess = "SiteHelpers.deleteRow(" + @item.ID + ")" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <button class="btn btn-danger">Löschen</button>
-                    }
-                </td>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <td>
+                        @using (Ajax.BeginForm(new AjaxOptions() { Url = "/Blog/DeleteComment/" + @item.ID, OnSuccess = "SiteHelpers.deleteRow(" + @item.ID + ")" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-danger">Löschen</button>
+                        }
+                    </td>
+                }
             </tr>
         }
     </table>

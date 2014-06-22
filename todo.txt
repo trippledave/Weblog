@@ -21,9 +21,13 @@ ohne JS bedienbar, oder message
 30er abgabe sonnenuntergang
 
 benutzerkontrolle
-[Authorize(Roles = "Administrator, Content Editor")]
+[Authorize(Roles = "Administrator")]
 
 errors?
 
-delete comment
+
 CAPTCHA
+
+user locken
+
+nach kat,datum sortiern

@@ -1,0 +1,20 @@
+﻿@using Weblog.Web.Models.Weblog
+@model List<CategoryModel>
+
+@if (Model.Count > 0)
+{
+    <ol class="list-unstyled">
+        @foreach (CategoryModel model in Model)
+        {
+            <li>
+               @Ajax.ActionLink(model.Name, "DisplayEntriesByCategory", new { category = model.ID }, new AjaxOptions
+           {
+               UpdateTargetId = "displayEntries",
+               InsertionMode = InsertionMode.Replace,
+               HttpMethod = "GET"
+           }, new { })
+                   
+            </li>
+        }
+    </ol>
+}

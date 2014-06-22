@@ -39,12 +39,12 @@ namespace Weblog.Web
 
             if (!WebSecurity.UserExists("admin"))
             {
-                WebSecurity.CreateUserAndAccount("admin", "admin", new { UserNameLowercase = "admin", Email = "de@epp.de", EmailLowercase = "de@epp.de", IsLockedByAdmin = 0 });
-                Roles.CreateRole("Administrator"); //allowed to do anything
-                Roles.CreateRole("Benutzer");//can create comments without captcha,  you become this after registration
+                WebSecurity.CreateUserAndAccount("admin", "admin", new { UserNameLowercase = "admin", Email = "admin@web.de", EmailLowercase = "admin@web.de", IsLockedByAdmin = 0 });
+                WebSecurity.CreateUserAndAccount("Anonym", "Anonym", new { UserNameLowercase = "anonym", Email = "leer@web.de", EmailLowercase = "leer@web.de", IsLockedByAdmin = 1 });
+                Roles.CreateRole("Administrator"); //darf eigentlich alles
+                Roles.CreateRole("Benutzer");//automatisch nach Registrierung, kann Kommentare ohne Captcha eingeben
                 Roles.AddUserToRole("admin", "Administrator");
             }
-
             initAdminSettings();
 
         }

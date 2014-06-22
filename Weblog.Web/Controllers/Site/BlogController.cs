@@ -12,7 +12,6 @@ using WebMatrix.WebData;
 
 namespace Weblog.Web.Controllers.Site
 {
-    [Authorize]
     public class BlogController : Controller
     {
         private IWeblogService _weblogService = new WeblogService();
@@ -25,11 +24,13 @@ namespace Weblog.Web.Controllers.Site
             return View();
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult EditorialDepartment()
         {
             return View();
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult AddEntry()
         {
             AddEntryModel model = new AddEntryModel();
@@ -40,6 +41,7 @@ namespace Weblog.Web.Controllers.Site
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Administrator")]
         public ActionResult AddEntry(AddEntryModel model)
         {
             if (ModelState.IsValid)
@@ -53,6 +55,7 @@ namespace Weblog.Web.Controllers.Site
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteEntry(int id)
         {
             this._weblogService.DeleteEntry(id);
@@ -83,7 +86,7 @@ namespace Weblog.Web.Controllers.Site
             return View(model);
         }
 
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult AddCategory()
         {
             return View();
@@ -91,6 +94,7 @@ namespace Weblog.Web.Controllers.Site
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Administrator")]
         public ActionResult AddCategory(AddCategoryModel model)
         {
             if (ModelState.IsValid)
@@ -110,6 +114,7 @@ namespace Weblog.Web.Controllers.Site
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Administrator")]
         public JsonResult DeleteCategory(int id)
         {
             this._weblogService.DeleteCategory(id);
@@ -162,10 +167,33 @@ namespace Weblog.Web.Controllers.Site
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Administrator")]
         public JsonResult DeleteComment(int id)
         {
             this._weblogService.DeleteComment(id);
             return Json(new { success = true });
+        }
+
+        public ActionResult Categories()
+        {
+            List<CategoryModel> categoryList = _weblogService.GetCategories();
+            return PartialView(categoryList);
+        }
+
+        public ActionResult DisplayEntriesByCategory(int category)
+        {
+            List<EntryModel> entryList = this._weblogService.GetEntries();
+            entryList.RemoveAt(0);
+            entryList.RemoveAt(0);
+            entryList.RemoveAt(0);
+            DisplayEntryPageModel entryPageModel = new DisplayEntryPageModel(entryList);
+            DisplayEntriesModel model = new DisplayEntriesModel(entryPageModel);
+            return PartialView("DisplayEntries", model);
+        }
+
+        public ActionResult About()
+        {
+            return PartialView();
         }
         #endregion
 

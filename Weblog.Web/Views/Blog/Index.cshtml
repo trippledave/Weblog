@@ -7,6 +7,21 @@
 </div>
 <div class="row">
     <div class="col-sm-8 blog-main">
-        @Html.Action("DisplayEntries")
+        <div id="displayEntries">
+            @Html.Action("DisplayEntries")
+        </div>
+    </div>
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+        <div class="sidebar-module sidebar-module-inset">
+            @Html.Action("About")
+        </div>
+        <div class="sidebar-module">
+            <h4>Categories</h4>
+            @Html.Action("Categories", "Blog")
+        </div>
+        <div class="sidebar-module">
+            <h4>Dates</h4>
+            @Html.Action("Categories", "Blog")
+        </div>
     </div>
 </div>

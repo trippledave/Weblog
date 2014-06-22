@@ -77,7 +77,7 @@ namespace Weblog.Web.Controllers.Site
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Der eingegebene Benutzername oder das Passwort sind falsch.");
+            ModelState.AddModelError("", "Sie wurden gesperrt oder der eingegebene Benutzername oder das Passwort sind falsch.");
 
             return View(model);
         }

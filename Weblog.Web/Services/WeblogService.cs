@@ -187,7 +187,12 @@ namespace Weblog.Web.Services
             if (isNewEntry)
             {
                 comment = new Comment();
-                comment.AuthorID = WebSecurity.CurrentUserId;
+                int userID=WebSecurity.CurrentUserId;
+                //Anonyme Kommentare
+                if (userID == -1)
+                {
+                    comment.AuthorID = _repository.GetUser("Anonym").UserID;
+                }
                 model.UpdateSource(comment);
             }
             else

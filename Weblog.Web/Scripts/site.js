@@ -43,6 +43,7 @@ SiteHelpers.deleteRow = function (data) {
     } 
 }
 
+
 function Pagination() {
 
     this.init = function () {
