@@ -230,17 +230,17 @@ namespace Weblog.Web.Services
         #endregion
 
         #region Datumsangaben
-        public List<DateModel> GetDates()
+        public List<DateTime> GetDates()
         {
-            List<DateModel> dateList = new List<DateModel>();
+            List<DateTime> dateList = new List<DateTime>();
             List<Entry> entryList = _repository.GetAllEntries();
-            DateModel currentItemsDate, previousItemsDate = new DateModel(1, DateTime.Now.Year+1);
+            DateTime currentItemsDate, previousItemsDate = new DateTime(DateTime.Now.Year + 1,DateTime.Now.Month,1);
             foreach (Entry item in entryList)
             {
-                currentItemsDate = new DateModel(item.DateCreated.Month, item.DateCreated.Year); 
+                currentItemsDate = new DateTime(item.DateCreated.Year, item.DateCreated.Month,1); 
                 if (currentItemsDate != previousItemsDate)
                 {
-                    DateModel date = new DateModel(currentItemsDate.Month, currentItemsDate.Year);
+                    DateTime date = new DateTime(currentItemsDate.Year, currentItemsDate.Month, 1);
                     dateList.Add(date);
 
                 }

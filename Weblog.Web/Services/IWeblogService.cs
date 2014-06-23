@@ -136,7 +136,7 @@ namespace Weblog.Web.Services
         /// Liefert die verschiedenen Datumsangaben aus der Datenbank
         /// </summary>
         /// <returns>Die Liste der Datumsangaben aus der Datenbank</returns>
-        List<DateModel> GetDates();
+        List<DateTime> GetDates();
         #endregion
     }
 }

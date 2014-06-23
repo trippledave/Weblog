@@ -199,7 +199,7 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult Dates()
         {
-            List<DateModel> dateList = _weblogService.GetDates();
+            List<DateTime> dateList = _weblogService.GetDates();
             return PartialView(dateList);
         }
 
