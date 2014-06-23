@@ -21,7 +21,14 @@ namespace Weblog.Web.Services
         /// </summary>
         /// <param name="id">Die id der Kategorie.</param>
         /// <returns>Eine Liste von EntryModel-Objekten mit den Daten aus der Datenbank</returns>
-        List<EntryModel> GetEntriesForCategory(int id);
+        List<EntryModel> GetEntriesByCategory(int id);
+
+        /// <summary>
+        /// Liefert alle Einträge für die den entprechenden Monat aus der Datenbank
+        /// </summary>
+        /// <param name="id">Die id der Kategorie.</param>
+        /// <returns>Eine Liste von EntryModel-Objekten mit den Daten aus der Datenbank</returns>
+        List<EntryModel> GetEntriesByDate(int month, int year);
 
         /// <summary>
         /// Liefert den Eintrag mit der angegebenen ID aus der Datenbank oder null falls der Eintrag nicht existiert
@@ -123,6 +130,13 @@ namespace Weblog.Web.Services
         /// <param name="id">The entry´s id.</param>
         void DeleteComment(int id);
 
+        #endregion
+        #region Datumsangaben
+        /// <summary>
+        /// Liefert die verschiedenen Datumsangaben aus der Datenbank
+        /// </summary>
+        /// <returns>Die Liste der Datumsangaben aus der Datenbank</returns>
+        List<DateModel> GetDates();
         #endregion
     }
 }

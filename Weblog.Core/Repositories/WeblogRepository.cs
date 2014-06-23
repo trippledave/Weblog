@@ -29,9 +29,15 @@ namespace Weblog.Core.Repositories
             return WeblogDataContext.Current.Entries.FirstOrDefault(e => e.EntryID == id);
         }
 
-        public List<Entry> GetEntriesForCategory(Category category)
+        public List<Entry> GetEntriesByCategory(Category category)
         {
-            return WeblogDataContext.Current.Entries.Where(e => e.Categories == category).OrderByDescending(e => e.DateCreated).ToList();
+            return category.Entries.OrderByDescending(e => e.DateCreated).ToList();
+        }
+
+
+        public List<Entry> GetEntriesByDate(DateTime date)
+        {
+            return WeblogDataContext.Current.Entries.Where(e => e.DateCreated.Month == date.Month && e.DateCreated.Year == date.Year).OrderByDescending(e => e.DateCreated).ToList();
         }
 
         public void RemoveEntry(Entry entry)
@@ -157,5 +163,6 @@ namespace Weblog.Core.Repositories
         }
 
         #endregion
+
     }
 }

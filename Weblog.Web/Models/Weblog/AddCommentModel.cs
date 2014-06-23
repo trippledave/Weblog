@@ -16,6 +16,8 @@ namespace Weblog.Web.Models.Weblog
         public string Text { get; set; }
         public String Author { get; set; }
         public int EntryID { get; set; }
+        [Required]
+        public int CaptchaResult { get; set; }
 
         private void UpdateModel(Comment source)
         {

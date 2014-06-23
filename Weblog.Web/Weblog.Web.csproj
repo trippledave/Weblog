@@ -153,6 +153,7 @@
     <Compile Include="Models\Weblog\AddCategoryModel.cs" />
     <Compile Include="Models\Weblog\AddCommentModel.cs" />
     <Compile Include="Models\Weblog\AddEntryModel.cs" />
+    <Compile Include="Models\Weblog\DateModel.cs" />
     <Compile Include="Models\Weblog\CategoryModel.cs" />
     <Compile Include="Models\Weblog\CommentModel.cs" />
     <Compile Include="Models\Weblog\DisplayEntriesModel.cs" />
@@ -293,6 +294,7 @@
     <Content Include="Views\Blog\DisplayEntries.cshtml" />
     <Content Include="Views\Blog\Categories.cshtml" />
     <Content Include="Views\Blog\About.cshtml" />
+    <Content Include="Views\Blog\Dates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

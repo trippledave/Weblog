@@ -127,10 +127,27 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult DisplayEntries()
         {
-            List<EntryModel> entryList= this._weblogService.GetEntries();
+            List<EntryModel> entryList = this._weblogService.GetEntries();
+            return displayEntriesByX(entryList);
+        }
+
+        public ActionResult DisplayEntriesByCategory(int categoryID)
+        {
+            List<EntryModel> entryList = this._weblogService.GetEntriesByCategory(categoryID);
+            return displayEntriesByX(entryList);
+        }
+
+        public ActionResult DisplayEntriesByDate(int month, int year)
+        {
+            List<EntryModel> entryList = this._weblogService.GetEntriesByDate(month, year);
+            return displayEntriesByX(entryList);
+        }
+
+        private ActionResult displayEntriesByX(List<EntryModel> entryList)
+        {
             DisplayEntryPageModel entryPageModel = new DisplayEntryPageModel(entryList);
             DisplayEntriesModel model = new DisplayEntriesModel(entryPageModel);
-            return PartialView(model);
+            return PartialView("DisplayEntries", model);
         }
 
         public ActionResult DisplayCategories()
@@ -180,15 +197,10 @@ namespace Weblog.Web.Controllers.Site
             return PartialView(categoryList);
         }
 
-        public ActionResult DisplayEntriesByCategory(int category)
+        public ActionResult Dates()
         {
-            List<EntryModel> entryList = this._weblogService.GetEntries();
-            entryList.RemoveAt(0);
-            entryList.RemoveAt(0);
-            entryList.RemoveAt(0);
-            DisplayEntryPageModel entryPageModel = new DisplayEntryPageModel(entryList);
-            DisplayEntriesModel model = new DisplayEntriesModel(entryPageModel);
-            return PartialView("DisplayEntries", model);
+            List<DateModel> dateList = _weblogService.GetDates();
+            return PartialView(dateList);
         }
 
         public ActionResult About()

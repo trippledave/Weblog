@@ -14,10 +14,6 @@ html filter
 user services bearbetn
 
 
-
-fragen:
-ohne JS bedienbar, oder message
-
 30er abgabe sonnenuntergang
 
 benutzerkontrolle
@@ -31,3 +27,15 @@ CAPTCHA
 user locken
 
 nach kat,datum sortiern
+
+
+fragen:
+
+was mit:
+Das Parameterwörterbuch enthält einen NULL-Eintrag für den Parameter "year" des Typs "System.Int32", der NULL nicht zulässt, für die Methode "System.Web.Mvc.ActionResult DisplayEntriesByDate(Int32, Int32)" in 
+
+wenn man bei 
+http://localhost:50428/Blog/DisplayEntriesByDate?month=6&year=abs
+
+
+die Daten so richtig?

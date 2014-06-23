@@ -76,10 +76,25 @@ namespace Weblog.Web.Services
             return entry == null ? null : new EntryModel(entry);
         }
 
-        public List<EntryModel> GetEntriesForCategory(int id)
+        public List<EntryModel> GetEntriesByCategory(int id)
         {
             Category category = _repository.GetCategory(id);
-            List<Entry> entries = _repository.GetEntriesForCategory(category);
+            if (category != null)
+            {
+                List<Entry> entries = _repository.GetEntriesByCategory(category);
+                List<EntryModel> result = entries.Select(e => new EntryModel(e)).ToList();
+                return result;
+            }
+            else
+            {
+                return new List<EntryModel>();
+            }
+        }
+
+        public List<EntryModel> GetEntriesByDate(int month, int year)
+        {
+            DateTime date = new DateTime(year, month, 1);
+            List<Entry> entries = _repository.GetEntriesByDate(date);
             List<EntryModel> result = entries.Select(e => new EntryModel(e)).ToList();
             return result;
         }
@@ -120,7 +135,7 @@ namespace Weblog.Web.Services
             List<Category> categories = _repository.GetCategoryForEntry(entryID);
             List<CategoryModel> result = categories.Select(c => new CategoryModel(c)).ToList();
             return result;
-            
+
         }
 
         public List<CategoryModel> GetCategories()
@@ -187,7 +202,7 @@ namespace Weblog.Web.Services
             if (isNewEntry)
             {
                 comment = new Comment();
-                int userID=WebSecurity.CurrentUserId;
+                int userID = WebSecurity.CurrentUserId;
                 //Anonyme Kommentare
                 if (userID == -1)
                 {
@@ -211,6 +226,29 @@ namespace Weblog.Web.Services
             {
                 this._repository.RemoveComment(commentToDelete);
             }
+        }
+        #endregion
+
+        #region Datumsangaben
+        public List<DateModel> GetDates()
+        {
+            List<DateModel> dateList = new List<DateModel>();
+            List<Entry> entryList = _repository.GetAllEntries();
+            DateModel currentItemsDate, previousItemsDate = new DateModel(1, DateTime.Now.Year+1);
+            foreach (Entry item in entryList)
+            {
+                currentItemsDate = new DateModel(item.DateCreated.Month, item.DateCreated.Year); 
+                if (currentItemsDate != previousItemsDate)
+                {
+                    DateModel date = new DateModel(currentItemsDate.Month, currentItemsDate.Year);
+                    dateList.Add(date);
+
+                }
+                previousItemsDate = currentItemsDate;
+
+            }
+
+            return dateList;
         }
         #endregion
     }
