@@ -127,6 +127,7 @@ namespace Weblog.Core.Repositories
         void RemoveComment(Comment comment);
 
         #endregion
+
         #region User
 
         /// <summary>
@@ -142,6 +143,12 @@ namespace Weblog.Core.Repositories
         /// <param name="email">The email.</param>
         /// <returns></returns>
         User GetUserByEmail(string email);
+
+        /// <summary>
+        /// Gets all users.
+        /// </summary>
+        /// <returns></returns>
+        List<User> GetAllUsers();
 
         /// <summary>
         /// Updates the user settings.

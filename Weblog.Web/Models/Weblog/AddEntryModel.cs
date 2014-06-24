@@ -23,7 +23,6 @@ namespace Weblog.Web.Models.Weblog
         public string Text { get; set; }
         public List<CategoryModel> CategoriesList { get; set; }
 
-
         private void UpdateModel(Entry source)
         {
             this.ID = source.EntryID;

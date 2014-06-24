@@ -29,6 +29,18 @@ namespace Weblog.Web.Services
             return user == null ? null : new UserModel(user);
         }
 
+        public List<UserModel> GetAllUsers()
+        {
+            List<User> userList = _repository.GetAllUsers();
+            List<UserModel> returnList = new List<UserModel>();
+            foreach (User item in userList)
+            {
+                UserModel modelToAdd = new UserModel(item);
+                returnList.Add(modelToAdd);
+            }
+            return returnList;
+        }
+
         public void CreateUser(RegisterModel model)
         {
             if (_repository.GetUser(model.UserName) == null)
@@ -71,12 +83,6 @@ namespace Weblog.Web.Services
             return WebSecurity.ResetPassword(token, password);
         }
 
-        public bool UpdatePassword(User user, string currentPassword, string newPassword)
-        {
-            return WebSecurity.ChangePassword(user.UserName, currentPassword, newPassword);
-        }
-
-
         public void UpdateUserSettings(UserSettingsModel model)
         {
             User currentUser = _repository.GetUser(WebSecurity.CurrentUserName);
@@ -84,7 +90,13 @@ namespace Weblog.Web.Services
             currentUser.EmailLowercase = model.Email.ToLower();
             currentUser.DisplayName = model.DisplayName;
             _repository.UpdateUserSettings(currentUser);
+        }
 
+        public void SetUserLock(UserModel user, bool userLocked)
+        {
+            User currentUser = _repository.GetUser(user.UserName);
+            currentUser.IsLockedByAdmin = userLocked;
+            _repository.UpdateUserSettings(currentUser);
         }
     }
 }

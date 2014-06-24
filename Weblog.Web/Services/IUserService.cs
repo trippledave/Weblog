@@ -26,6 +26,12 @@ namespace Weblog.Web.Services
         UserModel GetUserByEmail(string email);
 
         /// <summary>
+        /// Gets all users from the database.
+        /// </summary>
+        /// <returns></returns>
+        List<UserModel> GetAllUsers();
+
+        /// <summary>
         /// Creates the user.
         /// </summary>
         /// <param name="model">The model.</param>
@@ -53,19 +59,17 @@ namespace Weblog.Web.Services
         bool SetNewPassword(string token, string password);
 
         /// <summary>
-        /// Updates the password.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <param name="currentPassword">The current password.</param>
-        /// <param name="newPassword">The new password.</param>
-        /// <returns></returns>
-        bool UpdatePassword(User user, string currentPassword, string newPassword);
-
-        /// <summary>
         /// Updates the user settings.
         /// </summary>
         /// <param name="model">The model.</param>
         void UpdateUserSettings(UserSettingsModel model);
+
+        /// <summary>
+        /// Sets the user lock.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="userLocked">if set to <c>true</c> [user locked].</param>
+        void SetUserLock(UserModel user, bool userLocked);
 
     }
 }

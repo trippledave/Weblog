@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Weblog.Core.Helpers;
 using Weblog.Web.Models.Weblog;
 using Weblog.Web.Services;
 using WebMatrix.WebData;
@@ -177,7 +178,22 @@ namespace Weblog.Web.Controllers.Site
         {
             if (ModelState.IsValid)
             {
-                this._weblogService.StoreComment(model);
+                if (!WebSecurity.IsAuthenticated)
+                {
+                    if (CaptchaHelper.CheckCaptcha(model.CaptchaResult))
+                    {
+                        this._weblogService.StoreComment(model);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Das eingegebene Captcha ist leider falsch.");
+                        return PartialView(model);
+                    }
+                }
+                else
+                {
+                    this._weblogService.StoreComment(model);
+                }
             }
             return RedirectToAction("DisplayEntry", new { id = model.EntryID });
         }

@@ -1,4 +1,5 @@
-﻿@model Weblog.Web.Models.Weblog.AddCommentModel
+﻿@using Weblog.Core.Helpers
+@model Weblog.Web.Models.Weblog.AddCommentModel
 
 <h3>Kommentar hinzufügen</h3>
 
@@ -14,6 +15,13 @@
             @Html.LabelFor(m => m.Text, new { @class = "control-label col-sm-3" })
             @Html.TextBoxFor(m => m.Text, new { @class = "form-control" })
         </div>
+        @if (!WebSecurity.IsAuthenticated)
+        {
+            <div class="row form-group">
+                <div class="control-label col-sm-3">Captcha: @CaptchaHelper.GenerateSimpleCaptcha()</div>
+                @Html.TextBoxFor(m => m.CaptchaResult, new { @class = "form-control",@Value="" })
+            </div>
+        }
         <div class="row">
             <button class="btn btn-primary">Speichern</button>
         </div>

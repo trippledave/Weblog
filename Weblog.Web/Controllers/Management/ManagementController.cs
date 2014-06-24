@@ -129,5 +129,31 @@ namespace Weblog.Web.Areas.Management.Controllers
             }
             return View(model);
         }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult LockUsers()
+        {
+            List<UserModel> modelList = _userService.GetAllUsers();
+            LockUserModel model = new LockUserModel(modelList);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult LockUsers(LockUserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                List<UserModel> userList = model.UserList;
+                foreach (UserModel item in userList)
+                {
+                    UserModel currentUser = _userService.GetUser(item.UserName);
+                    _userService.SetUserLock(currentUser, item.IsLockedByAdmin);
+                }
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
     }
 }

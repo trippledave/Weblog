@@ -202,9 +202,9 @@ namespace Weblog.Web.Services
             if (isNewEntry)
             {
                 comment = new Comment();
-                int userID = WebSecurity.CurrentUserId;
+                comment.AuthorID = WebSecurity.CurrentUserId;
                 //Anonyme Kommentare
-                if (userID == -1)
+                if (comment.AuthorID == -1)
                 {
                     comment.AuthorID = _repository.GetUser("Anonym").UserID;
                 }

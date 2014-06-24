@@ -21,12 +21,13 @@ benutzerkontrolle
 
 errors?
 
-
-CAPTCHA
-
 user locken
+anzeigename unique
+passwort vergessen
 
-nach kat,datum sortiern
+management area in area   
+
+umbenennen  blogcontrl soeriten
 
 
 fragen:
@@ -39,3 +40,6 @@ http://localhost:50428/Blog/DisplayEntriesByDate?month=6&year=abs
 
 
 die Daten so richtig?
+
+
+captcha return partial falsch

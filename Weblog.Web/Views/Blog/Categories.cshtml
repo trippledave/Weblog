@@ -11,7 +11,8 @@
            {
                UpdateTargetId = "displayEntries",
                InsertionMode = InsertionMode.Replace,
-               HttpMethod = "GET"
+               HttpMethod = "GET",
+               OnSuccess = "SiteHelpers.newPagination()"
            }, new { })
                    
             </li>

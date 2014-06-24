@@ -5,7 +5,7 @@ using Weblog.Core.DataAccess.Weblog;
 
 namespace Weblog.Core.Repositories
 {
-    public class WeblogRepository : Weblog.Core.Repositories.IWeblogRepository
+    public class WeblogRepository : IWeblogRepository
     {
 
         #region Einträge
@@ -129,6 +129,11 @@ namespace Weblog.Core.Repositories
             return WeblogDataContext.Current.Users.FirstOrDefault(u => u.EmailLowercase.Equals(email.ToLower()));
         }
 
+        public List<User> GetAllUsers()
+        {
+            return WeblogDataContext.Current.Users.OrderBy(e => e.UserNameLowercase).ToList();
+        }
+
         public void UpdateUserSettings(User user)
         {
             WeblogDataContext.Current.SaveChanges();
@@ -163,6 +168,5 @@ namespace Weblog.Core.Repositories
         }
 
         #endregion
-
     }
 }

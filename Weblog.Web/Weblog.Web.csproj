@@ -149,6 +149,7 @@
     <Compile Include="Models\Management\EmailSettingsModel.cs" />
     <Compile Include="Models\Management\SiteSettingsModel.cs" />
     <Compile Include="Models\Management\UserPasswordModel.cs" />
+    <Compile Include="Models\Management\LockUserModel.cs" />
     <Compile Include="Models\Management\UserSettingsModel.cs" />
     <Compile Include="Models\Weblog\AddCategoryModel.cs" />
     <Compile Include="Models\Weblog\AddCommentModel.cs" />
@@ -294,6 +295,7 @@
     <Content Include="Views\Blog\Categories.cshtml" />
     <Content Include="Views\Blog\About.cshtml" />
     <Content Include="Views\Blog\Dates.cshtml" />
+    <Content Include="Views\Management\LockUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

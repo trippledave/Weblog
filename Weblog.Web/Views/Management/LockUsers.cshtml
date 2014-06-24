@@ -1,0 +1,33 @@
+﻿@using Weblog.Web.Models.Account
+@model Weblog.Web.Areas.Management.Models.LockUserModel
+
+@{
+    ViewBag.Title = "Benutzer sperren";
+}
+
+<div class="blog-header">
+    <h2>Benutzer sperren</h2>
+</div>
+
+@if (Model.UserList.Count != 0)
+{
+    using (Html.BeginForm("LockUsers", "Management", FormMethod.Post, new { @class = "form" }))
+    {
+        @Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+        <div class="form">
+
+            @for (int i = 0; i < Model.UserList.Count; i++)
+            {
+                <div class="row form-group">
+                    @Html.LabelFor(m => m.UserList[i].IsLockedByAdmin, Model.UserList[i].UserName, new { @class = "control-label col-sm-3" })
+                    @Html.CheckBoxFor(m => m.UserList[i].IsLockedByAdmin)
+                </div>
+                @Html.HiddenFor(m => m.UserList[i].UserName)
+            }
+            <div class="row">
+                <button class="btn btn-primary">Speichern</button>
+            </div>
+        </div>
+    }
+}
