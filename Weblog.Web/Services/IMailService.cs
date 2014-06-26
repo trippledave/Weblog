@@ -21,7 +21,7 @@ namespace Weblog.Web.Services
        /// <param name="emailAdress">The email adress.</param>
        /// <param name="userName">Name of the user.</param>
        /// <param name="token">The token.</param>
-       void SendPasswordResetToken(string emailAdress, string userName, string token);
+       void SendPasswordForgottenMail(string emailAdress, string userName, string token);
        /// <summary>
        /// Sends the welcome mail.
        /// </summary>

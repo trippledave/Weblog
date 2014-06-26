@@ -135,7 +135,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\Management\ManagementAreaRegistration.cs" />
     <Compile Include="Controllers\Management\ManagementController.cs" />
     <Compile Include="Controllers\Site\AccountController.cs" />
     <Compile Include="Controllers\Site\ErrorsController.cs" />
@@ -144,6 +143,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account\EnterNewPasswordModel.cs" />
+    <Compile Include="Models\Account\ForgotPasswordModel.cs" />
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
     <Compile Include="Models\Account\UserModel.cs" />
@@ -237,7 +238,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Areas\Management\Views\Web.config" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -284,8 +284,6 @@
     <Content Include="Views\Errors\Error404.cshtml" />
     <Content Include="Views\Errors\Error.cshtml" />
     <Content Include="Views\Account\ConfirmationSuccess.cshtml" />
-    <Content Include="Views\Account\ConfirmationFailure.cshtml" />
-    <Content Include="Views\Account\AccountLocked.cshtml" />
     <Content Include="Views\Blog\EditorialDepartment.cshtml" />
     <Content Include="Views\Blog\DisplayEntry.cshtml" />
     <Content Include="Views\Blog\DisplayEntryPage.cshtml" />
@@ -299,12 +297,12 @@
     <Content Include="Views\Management\ChangeUserSettings.cshtml" />
     <Content Include="Views\Management\Index.cshtml" />
     <Content Include="Views\Management\LockUsers.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\EnterNewPassword.cshtml" />
+    <Content Include="Views\Account\NewPasswordSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Management\Controllers\" />
-    <Folder Include="Areas\Management\Models\" />
-    <Folder Include="Areas\Management\Views\Shared\" />
     <Folder Include="Views\Blog\PartialViews\" />
   </ItemGroup>
   <ItemGroup>

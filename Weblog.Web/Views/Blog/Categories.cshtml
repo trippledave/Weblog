@@ -7,7 +7,7 @@
         @foreach (CategoryModel item in Model)
         {
             <li>
-               @Ajax.ActionLink(item.Name, "DisplayEntriesByCategory", new { categoryID = item.ID }, new AjaxOptions
+               @Ajax.ActionLink(item.Name, "DisplayEntriesByCategory", new { item.ID }, new AjaxOptions
            {
                UpdateTargetId = "displayEntries",
                InsertionMode = InsertionMode.Replace,

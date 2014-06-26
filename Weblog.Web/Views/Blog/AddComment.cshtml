@@ -7,24 +7,25 @@
 {
     UpdateTargetId = "addCommentDiv",
     InsertionMode = InsertionMode.Replace,
-    HttpMethod = "POST"
+    HttpMethod = "POST",
+    OnSuccess = "SiteHelpers.commentCreated(" + @Model.EntryID + ")"
 }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.ID)
     @Html.HiddenFor(m => m.EntryID)
-    
+
     <div class="form">
         @Html.ValidationSummary()
         <div class="row form-group">
             @Html.LabelFor(m => m.Text, new { @class = "control-label col-sm-3" })
-            @Html.TextBoxFor(m => m.Text, new { @class = "form-control" })
+            @Html.TextAreaFor(m => m.Text, new { @class = "form-control" })
         </div>
         @if (!WebSecurity.IsAuthenticated)
         {
             <div class="row form-group">
                 <div class="control-label col-sm-3">Captcha: @CaptchaHelper.GenerateSimpleCaptcha()</div>
-                @Html.TextBoxFor(m => m.CaptchaResult, new { @class = "form-control",@Value="" })
+                @Html.TextBoxFor(m => m.CaptchaResult, new { @class = "form-control", @Value = "" })
             </div>
         }
         <div class="row">

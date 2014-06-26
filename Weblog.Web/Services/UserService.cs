@@ -70,17 +70,12 @@ namespace Weblog.Web.Services
             return Membership.GetUser(userName) != null;
         }
 
-        public void ResetPassword(UserModel model)
+        public void ForgotPassword(UserModel model)
         {
             IMailService mailService = new MailService();
             User user = _repository.GetUser(model.UserName);
             string resetToken = WebSecurity.GeneratePasswordResetToken(user.UserName);
-            mailService.SendPasswordResetToken(user.Email, user.UserName, resetToken);
-        }
-
-        public bool SetNewPassword(string token, string password)
-        {
-            return WebSecurity.ResetPassword(token, password);
+            mailService.SendPasswordForgottenMail(user.Email, user.UserName, resetToken);
         }
 
         public void UpdateUserSettings(UserSettingsModel model)

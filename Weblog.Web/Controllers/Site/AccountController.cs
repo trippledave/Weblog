@@ -14,6 +14,7 @@ namespace Weblog.Web.Controllers.Site
     public class AccountController : Controller
     {
         private IUserService _userService = new UserService();
+        private IMailService _mailService = new MailService();
         #region Helper Methods
 
         private static string GetErrorString(MembershipCreateStatus createStatus)
@@ -67,6 +68,7 @@ namespace Weblog.Web.Controllers.Site
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken()]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid &&
@@ -99,6 +101,7 @@ namespace Weblog.Web.Controllers.Site
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken()]
         public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
@@ -130,58 +133,69 @@ namespace Weblog.Web.Controllers.Site
             {
                 return RedirectToAction("ConfirmationSuccess");
             }
-            return RedirectToAction("ConfirmationFailure");
+            return RedirectToAction("Index", "Errors", null);
         }
 
         public ActionResult ConfirmationSuccess()
         {
             UserModel currentUser = _userService.GetUser(WebSecurity.CurrentUserName);
-            IMailService mailService = new MailService();
-            mailService.SendWelcomeMail(currentUser.Email, currentUser.UserName);
+            _mailService.SendWelcomeMail(currentUser.Email, currentUser.UserName);
             return View();
         }
 
         [AllowAnonymous]
-        public ActionResult ConfirmationFailure()
+        public ActionResult ForgotPassword()
         {
-            return View();
+            ForgotPasswordModel model = new ForgotPasswordModel();
+            return View(model);
         }
 
-           public ActionResult ResetPassword()
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken()]
+        public ActionResult ForgotPassword(ForgotPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserModel user = _userService.GetUserByEmail(model.Email);
+                if (user != null)
+                {
+                    String token = WebSecurity.GeneratePasswordResetToken(user.UserName);
+                    _mailService.SendPasswordForgottenMail(user.Email, user.UserName, token);
+                }
+                return RedirectToAction("EnterNewPassword");
+
+            }
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult EnterNewPassword()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult ResetPassword(UserModel model)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken()]
+        public ActionResult EnterNewPassword(EnterNewPasswordModel model)
         {
-            return View();
-
-            //if (ModelState.IsValid && _userService.EmailExists(model.Email))
-            //{
-            //    _userService.ResetPassword(model.Email);
-            //    return View("NewPassword", new NewPasswordModel());
-            //}
-            //else
-            //{
-            //    return View(model);
-            //}
-        }
-
-        [HttpPost]
-        public ActionResult NewPassword(UserModel model)
-        {
-            return View();
-
-
-            //if (ModelState.IsValid && userService.SetNewPassword(model.Token, model.Password))
-            //{
-            //    return View("ResetPasswordSuccess");
-            //}
-            //else
-            //{
-            //    return View(model);
-            //}
+            if (ModelState.IsValid)
+            {
+                if (model.Password != model.RepeatPassword)
+                {
+                    ModelState.AddModelError("", "Die Passwörter müssen übereinstimmen.");
+                }
+                else if (WebSecurity.ResetPassword(model.Token, model.Password))
+                {
+                    return View("NewPasswordSuccess");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Ihr Passwort konnte leider nicht geändert werden.");
+                }
+            }
+            return View(model);
         }
 
     }

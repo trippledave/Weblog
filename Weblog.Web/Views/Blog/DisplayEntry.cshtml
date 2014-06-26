@@ -39,5 +39,5 @@
 </div>
 <br />
 <div id="addCommentDiv">
-    @Html.Action("AddComment", Model.ID )
+    @Html.Action("AddComment", new { entryID = Model.ID })
 </div>

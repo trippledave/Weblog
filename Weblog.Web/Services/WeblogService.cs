@@ -184,8 +184,17 @@ namespace Weblog.Web.Services
         public List<CommentModel> GetCommentsForEntry(int id)
         {
             Entry entry = _repository.GetEntry(id);
-            List<Comment> entries = _repository.GetCommentsForEntry(entry);
-            List<CommentModel> result = entries.Select(e => new CommentModel(e)).ToList();
+            List<CommentModel> result;
+            if (entry != null)
+            {
+                List<Comment> entries = _repository.GetCommentsForEntry(entry);
+                result = entries.Select(e => new CommentModel(e)).ToList();
+            }
+            else
+            {
+                result = new List<CommentModel>();
+            }
+
             return result;
         }
 
@@ -228,16 +237,15 @@ namespace Weblog.Web.Services
             }
         }
         #endregion
-
         #region Datumsangaben
         public List<DateTime> GetDates()
         {
             List<DateTime> dateList = new List<DateTime>();
             List<Entry> entryList = _repository.GetAllEntries();
-            DateTime currentItemsDate, previousItemsDate = new DateTime(DateTime.Now.Year + 1,DateTime.Now.Month,1);
+            DateTime currentItemsDate, previousItemsDate = new DateTime(DateTime.Now.Year + 1, DateTime.Now.Month, 1);
             foreach (Entry item in entryList)
             {
-                currentItemsDate = new DateTime(item.DateCreated.Year, item.DateCreated.Month,1); 
+                currentItemsDate = new DateTime(item.DateCreated.Year, item.DateCreated.Month, 1);
                 if (currentItemsDate != previousItemsDate)
                 {
                     DateTime date = new DateTime(currentItemsDate.Year, currentItemsDate.Month, 1);

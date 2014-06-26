@@ -40,8 +40,10 @@ http://localhost:50428/Blog/DisplayEntriesByDate?month=6&year=abs
 
 die Daten so richtig?
 
-
-wie gemeinsammen code kennzeichnen
-captcha return partial falsch
+Setting kommentare anzeigen wird ignored
 
 länge der zeichenanzeigen 
+
+regex bei eingaben ohne special chars,
+rest ohne input validation, nur <br/>
+						

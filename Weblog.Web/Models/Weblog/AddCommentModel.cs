@@ -46,6 +46,11 @@ namespace Weblog.Web.Models.Weblog
 
         }
 
+        public AddCommentModel(int entryID)
+        {
+            this.EntryID = entryID;
+        }
+
         public AddCommentModel(Comment source)
         {
             UpdateModel(source);

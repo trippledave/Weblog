@@ -13,13 +13,13 @@ SiteHelpers.newPagination = function () {
     EntryPagination.init();
 }
 
-SiteHelpers.commentCreated = function () {
-    $("displayCommentsForEntryDiv").load("Blog\DisplayCommentsForEntry\5");
+SiteHelpers.commentCreated = function (id) {
+    $("#displayCommentsForEntryDiv").load("../DisplayCommentsForEntry/"+id);
 }
 
 
 SiteHelpers.test = function () {
-    alert("DTEP");
+    alert("test");
 }
 
 

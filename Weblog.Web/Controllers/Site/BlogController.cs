@@ -48,7 +48,7 @@ namespace Weblog.Web.Controllers.Site
             if (ModelState.IsValid)
             {
                 this._weblogService.StoreEntry(model);
-                return RedirectToAction("AddEntry");
+                return RedirectToAction("Index");
             }
             return View();
         }
@@ -67,13 +67,13 @@ namespace Weblog.Web.Controllers.Site
             int entryID;
             if (id == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Errors", null);
             }
             try
             {
                 entryID = Convert.ToInt32(id);
             }
-            catch (System.FormatException e)
+            catch (System.FormatException)
             {
                 return RedirectToAction("Index", "Errors", null);
             }
@@ -136,13 +136,13 @@ namespace Weblog.Web.Controllers.Site
             int categoryID;
             if (id == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Errors", null);
             }
             try
             {
                 categoryID = Convert.ToInt32(id);
             }
-            catch (System.FormatException e)
+            catch (System.FormatException)
             {
                 return RedirectToAction("Index", "Errors", null);
             }
@@ -181,7 +181,7 @@ namespace Weblog.Web.Controllers.Site
             {
                 entryID = Convert.ToInt32(id);
             }
-            catch (System.FormatException e)
+            catch (System.FormatException)
             {
                 return RedirectToAction("Index", "Errors", null);
             }
@@ -196,9 +196,9 @@ namespace Weblog.Web.Controllers.Site
             return PartialView(commentList);
         }
 
-        public ActionResult AddComment()
+        public ActionResult AddComment(int entryID)
         {
-            AddCommentModel model = new AddCommentModel();
+            AddCommentModel model = new AddCommentModel(entryID);
             return PartialView(model);
         }
 
@@ -223,7 +223,6 @@ namespace Weblog.Web.Controllers.Site
                 else
                 {
                     this._weblogService.StoreComment(model);
-                    return JavaScript("location.reload()");
                 }
             }
             return PartialView(model);
@@ -253,11 +252,6 @@ namespace Weblog.Web.Controllers.Site
         public ActionResult About()
         {
             return PartialView();
-        }
-
-        public ActionResult Depp()
-        {
-            return RedirectToAction("Index","Errors",null);
         }
         #endregion
 

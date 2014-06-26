@@ -40,7 +40,7 @@ namespace Weblog.Web.Services
             SendMail(emailAdress, _adminSettings.OptInMailSubject, body);
         }
 
-        public void SendPasswordResetToken(string emailAdress, string userName, string token)
+        public void SendPasswordForgottenMail(string emailAdress, string userName, string token)
         {
             string body = "Hallo " + userName + ",<br />" + _adminSettings.PasswordChangeMailText + token;
             SendMail(emailAdress, _adminSettings.PasswordChangeMailSubject, body);

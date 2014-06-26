@@ -59,9 +59,9 @@ namespace Weblog.Web
             adminSettings.WelcomeMailSubject = "Willkommensmail";
             adminSettings.WelcomeMailText = "Viel Spass mit unserem Blog.";
             adminSettings.PasswordChangeMailSubject = "Weblog - Passwort ändern";
-            adminSettings.PasswordChangeMailText = "Der Token um ihr Passwort zu ändern:";
+            adminSettings.PasswordChangeMailText = "Der Token um ihr Passwort zu ändern: ";
             adminSettings.OptInMailSubject = "Weblog - Account aktivieren";
-            adminSettings.OptInMailText = "Aktivieren Sie ihren Account mit dem folgenden Link:";
+            adminSettings.OptInMailText = "Aktivieren Sie ihren Account mit dem folgenden Link: ";
             adminSettings.SiteFooterText = "Weblog Copyright ©2525<br/>Powered by vBulletin® Version 4.1.12 (Deutsch)";
             adminSettings.SiteKeywords = "blog, schule, mannheim";
             adminSettings.SmtpServer = "smtp.gmail.com";

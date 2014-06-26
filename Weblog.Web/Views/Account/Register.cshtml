@@ -6,29 +6,26 @@
 
 @using (Html.BeginForm())
 {
+    <h2>Registrieren</h2>
 
-
-        <h2>Registrieren</h2>
-
-        <div class="form">
+    <div class="form">
         @Html.ValidationSummary()
+        @Html.AntiForgeryToken()
 
-        <div class="row">
-            <div class="labels">@Html.LabelFor(m => m.UserName):</div>
-            <div class="controls">@Html.TextBoxFor(m => m.UserName)</div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "control-label col-sm-3" })
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "control-label col-sm-3" })
+            @Html.PasswordFor(m => m.Email, new { @class = "form-control" })
+        </div>
+        <div class="row form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "control-label col-sm-3" })
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
         <div class="row">
-            <div class="labels">@Html.LabelFor(m => m.Email):</div>
-            <div class="controls">@Html.TextBoxFor(m => m.Email)</div>
-        </div>
-        <div class="row">
-            <div class="labels">@Html.LabelFor(m => m.Password):</div>
-            <div class="controls">@Html.PasswordFor(m => m.Password)</div>
-        </div>
-        <div class="row">
-            <div class="buttons">
-                <button>Registrieren</button>
-            </div>
+            <button class="btn btn-primary">Registrieren</button>
         </div>
     </div>
 }

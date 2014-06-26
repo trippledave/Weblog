@@ -44,19 +44,12 @@ namespace Weblog.Web.Services
         /// <returns></returns>
         bool DoesUserNameExist(string userName);
 
-        /// <summary>
-        /// Resets the password.
-        /// </summary>
-        /// <param name="model">The model.</param>
-        void ResetPassword(UserModel model);
 
         /// <summary>
-        /// Sets the new password.
+        /// If the user has forgotten his password, a password forgotten email will be send.
         /// </summary>
-        /// <param name="token">The token.</param>
-        /// <param name="password">The password.</param>
-        /// <returns></returns>
-        bool SetNewPassword(string token, string password);
+        /// <param name="model">The model.</param>
+        void ForgotPassword(UserModel model);
 
         /// <summary>
         /// Updates the user settings.
