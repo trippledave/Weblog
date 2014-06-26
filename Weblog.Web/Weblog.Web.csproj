@@ -135,6 +135,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Management\ManagementAreaRegistration.cs" />
     <Compile Include="Controllers\Management\ManagementController.cs" />
     <Compile Include="Controllers\Site\AccountController.cs" />
     <Compile Include="Controllers\Site\ErrorsController.cs" />
@@ -147,9 +148,9 @@
     <Compile Include="Models\Account\RegisterModel.cs" />
     <Compile Include="Models\Account\UserModel.cs" />
     <Compile Include="Models\Management\EmailSettingsModel.cs" />
+    <Compile Include="Models\Management\LockUserModel.cs" />
     <Compile Include="Models\Management\SiteSettingsModel.cs" />
     <Compile Include="Models\Management\UserPasswordModel.cs" />
-    <Compile Include="Models\Management\LockUserModel.cs" />
     <Compile Include="Models\Management\UserSettingsModel.cs" />
     <Compile Include="Models\Weblog\AddCategoryModel.cs" />
     <Compile Include="Models\Weblog\AddCommentModel.cs" />
@@ -229,12 +230,14 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Error.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\Management\Views\Web.config" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -283,22 +286,26 @@
     <Content Include="Views\Account\ConfirmationSuccess.cshtml" />
     <Content Include="Views\Account\ConfirmationFailure.cshtml" />
     <Content Include="Views\Account\AccountLocked.cshtml" />
-    <Content Include="Views\Management\Index.cshtml" />
-    <Content Include="Views\Management\ChangeUserSettings.cshtml" />
-    <Content Include="Views\Management\ChangeUserPassword.cshtml" />
     <Content Include="Views\Blog\EditorialDepartment.cshtml" />
-    <Content Include="Views\Management\ChangeSiteSettings.cshtml" />
-    <Content Include="Views\Management\ChangeEmailSettings.cshtml" />
     <Content Include="Views\Blog\DisplayEntry.cshtml" />
     <Content Include="Views\Blog\DisplayEntryPage.cshtml" />
     <Content Include="Views\Blog\DisplayEntries.cshtml" />
     <Content Include="Views\Blog\Categories.cshtml" />
     <Content Include="Views\Blog\About.cshtml" />
     <Content Include="Views\Blog\Dates.cshtml" />
+    <Content Include="Views\Management\ChangeEmailSettings.cshtml" />
+    <Content Include="Views\Management\ChangeSiteSettings.cshtml" />
+    <Content Include="Views\Management\ChangeUserPassword.cshtml" />
+    <Content Include="Views\Management\ChangeUserSettings.cshtml" />
+    <Content Include="Views\Management\Index.cshtml" />
     <Content Include="Views\Management\LockUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Management\Controllers\" />
+    <Folder Include="Areas\Management\Models\" />
+    <Folder Include="Areas\Management\Views\Shared\" />
+    <Folder Include="Views\Blog\PartialViews\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

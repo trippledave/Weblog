@@ -3,7 +3,12 @@
 
 <h3>Kommentar hinzufügen</h3>
 
-@using (Html.BeginForm("AddComment", "Blog", FormMethod.Post))
+@using (Ajax.BeginForm("AddComment", "Blog", new AjaxOptions
+{
+    UpdateTargetId = "addCommentDiv",
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "POST"
+}))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.ID)

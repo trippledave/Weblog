@@ -59,7 +59,7 @@ namespace Weblog.Web.Models.Weblog
             {
                 this.Author = source.User.UserName;
             }
-            this.Comments = _weblogService.GetCommentsForEntry(source.EntryID);
+            this.Comments = _weblogService.GetCommentsForEntry(source.EntryID); //todo: needed?
             this.Categories= _weblogService.GetCategoriesForEntry(source.EntryID);
         }
 

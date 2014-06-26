@@ -21,7 +21,6 @@ benutzerkontrolle
 
 errors?
 
-user locken
 anzeigename unique
 passwort vergessen
 
@@ -42,4 +41,7 @@ http://localhost:50428/Blog/DisplayEntriesByDate?month=6&year=abs
 die Daten so richtig?
 
 
+wie gemeinsammen code kennzeichnen
 captcha return partial falsch
+
+länge der zeichenanzeigen 

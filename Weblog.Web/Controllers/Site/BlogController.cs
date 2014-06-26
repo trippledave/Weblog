@@ -50,7 +50,6 @@ namespace Weblog.Web.Controllers.Site
                 this._weblogService.StoreEntry(model);
                 return RedirectToAction("AddEntry");
             }
-            //model.CategoriesList = _weblogService.GetCategories();
             return View();
         }
 
@@ -65,21 +64,21 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult DisplayEntry(String id)
         {
-            int entryId;
+            int entryID;
             if (id == null)
             {
                 return RedirectToAction("Index");
             }
             try
             {
-                entryId = Convert.ToInt32(id);
+                entryID = Convert.ToInt32(id);
             }
             catch (System.FormatException e)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Errors", null);
             }
 
-            EntryModel model = _weblogService.GetEntry(entryId);
+            EntryModel model = _weblogService.GetEntry(entryID);
             if (model == null)
             {
                 return RedirectToAction("Index");
@@ -132,8 +131,21 @@ namespace Weblog.Web.Controllers.Site
             return displayEntriesByX(entryList);
         }
 
-        public ActionResult DisplayEntriesByCategory(int categoryID)
+        public ActionResult DisplayEntriesByCategory(String id)
         {
+            int categoryID;
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            try
+            {
+                categoryID = Convert.ToInt32(id);
+            }
+            catch (System.FormatException e)
+            {
+                return RedirectToAction("Index", "Errors", null);
+            }
             List<EntryModel> entryList = this._weblogService.GetEntriesByCategory(categoryID);
             return displayEntriesByX(entryList);
         }
@@ -157,16 +169,34 @@ namespace Weblog.Web.Controllers.Site
             return PartialView(viewModel);
         }
 
-        public ActionResult DisplayCommentsForEntry(List<CommentModel> model)
+        public ActionResult DisplayCommentsForEntry(String id)
         {
-            if (model == null)
+            List<CommentModel> commentList;
+            int entryID;
+            if (id == null)
             {
-                model = new List<CommentModel>();
+                return RedirectToAction("Index", "Errors", null);
             }
-            return PartialView(model);
+            try
+            {
+                entryID = Convert.ToInt32(id);
+            }
+            catch (System.FormatException e)
+            {
+                return RedirectToAction("Index", "Errors", null);
+            }
+
+            commentList = _weblogService.GetCommentsForEntry(entryID);
+
+ 
+            if (commentList.Count==0 )
+            {
+                commentList = new List<CommentModel>();
+            }
+            return PartialView(commentList);
         }
 
-        public ActionResult AddComment(int entryId)
+        public ActionResult AddComment()
         {
             AddCommentModel model = new AddCommentModel();
             return PartialView(model);
@@ -193,9 +223,10 @@ namespace Weblog.Web.Controllers.Site
                 else
                 {
                     this._weblogService.StoreComment(model);
+                    return JavaScript("location.reload()");
                 }
             }
-            return RedirectToAction("DisplayEntry", new { id = model.EntryID });
+            return PartialView(model);
         }
 
         [HttpPost()]
@@ -222,6 +253,11 @@ namespace Weblog.Web.Controllers.Site
         public ActionResult About()
         {
             return PartialView();
+        }
+
+        public ActionResult Depp()
+        {
+            return RedirectToAction("Index","Errors",null);
         }
         #endregion
 
