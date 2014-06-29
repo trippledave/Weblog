@@ -4,7 +4,6 @@
 {
     <table class="table toDeleteIfEmpty">
         <tr>
-            <th class="first">ID</th>
             <th>Name</th>
             @if (User.IsInRole("Administrator"))
             {
@@ -16,7 +15,6 @@
             String idString = "row" + item.ID;
 
             <tr id=@idString>
-                <td>@item.ID</td>
                 <td>@item.Name</td>
                 @if (User.IsInRole("Administrator"))
                 {

@@ -11,17 +11,17 @@ namespace Weblog.Web.Models.Weblog
     {
         public int EntriesPerSite { get; set; }
         public int LastPage { get; set; }
-        public DisplayEntryPageModel EntryPerPageModel { get; set; }
+        public DisplayEntriesPageModel EntryPerPageModel { get; set; }
 
         public DisplayEntriesModel()
         {
             ISettingsService _settingsService = new SettingsService();
             this.EntriesPerSite = _settingsService.GetSiteSettings().EntriesPerSite;
             this.LastPage = 0;
-            this.EntryPerPageModel = new DisplayEntryPageModel();
+            this.EntryPerPageModel = new DisplayEntriesPageModel();
         }
 
-        public DisplayEntriesModel(DisplayEntryPageModel EntryPerPageModel)
+        public DisplayEntriesModel(DisplayEntriesPageModel EntryPerPageModel)
         {
             ISettingsService _settingsService = new SettingsService();
             this.EntriesPerSite = _settingsService.GetSiteSettings().EntriesPerSite;

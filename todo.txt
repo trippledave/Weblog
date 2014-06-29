@@ -10,13 +10,10 @@ user services bearbetn
 
 30er abgabe sonnenuntergang
 
-benutzerkontrolle
-[Authorize(Roles = "Administrator")]
 
 errors?
 
 umbenennen  blogcontrl soeriten
 
-länge der zeichenanzeigen 
 
 						

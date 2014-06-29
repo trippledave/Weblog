@@ -17,12 +17,6 @@ SiteHelpers.commentCreated = function (id) {
     $("#displayCommentsForEntryDiv").load("./DisplayCommentsForEntry/"+id);
 }
 
-
-SiteHelpers.test = function () {
-    alert("test");
-}
-
-
 function Pagination() {
 
     this.init = function () {

@@ -161,6 +161,7 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult DisplayEntriesByDate(String month, String year)
         {
+            List<EntryModel> entryList = new List<EntryModel>();
             int intMonth, intYear;
             if (month == null || year == null)
             {
@@ -176,13 +177,20 @@ namespace Weblog.Web.Controllers.Site
                 return RedirectToAction("Index", "Errors", null);
             }
 
-            List<EntryModel> entryList = this._weblogService.GetEntriesByDate(intMonth, intYear);
+            try
+            {
+                entryList = this._weblogService.GetEntriesByDate(intMonth, intYear);
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+                return RedirectToAction("Index", "Errors", null);
+            }
             return displayEntriesByX(entryList);
         }
 
         private ActionResult displayEntriesByX(List<EntryModel> entryList)
         {
-            DisplayEntryPageModel entryPageModel = new DisplayEntryPageModel(entryList);
+            DisplayEntriesPageModel entryPageModel = new DisplayEntriesPageModel(entryList);
             DisplayEntriesModel model = new DisplayEntriesModel(entryPageModel);
             return PartialView("DisplayEntries", model);
         }
@@ -193,7 +201,7 @@ namespace Weblog.Web.Controllers.Site
         public ActionResult DisplayCategories()
         {
             List<CategoryModel> viewModel = this._weblogService.GetCategories();
-            return PartialView(viewModel);
+            return PartialView("PartialViews/DisplayCategories", viewModel);
         }
         #endregion
 
@@ -225,7 +233,7 @@ namespace Weblog.Web.Controllers.Site
                 {
                     commentList = new List<CommentModel>();
                 }
-                return PartialView(commentList);
+                return PartialView("PartialViews/DisplayCommentsForEntry", commentList);
             }
             else
             {
@@ -254,7 +262,7 @@ namespace Weblog.Web.Controllers.Site
                 if (entry != null)
                 {
                     AddCommentModel model = new AddCommentModel(entry);
-                    return PartialView(model);
+                    return PartialView("PartialViews/AddComment", model);
                 }
             }
             return RedirectToAction("Index");
@@ -278,7 +286,7 @@ namespace Weblog.Web.Controllers.Site
                     else
                     {
                         ModelState.AddModelError("", "Das eingegebene Captcha ist leider falsch.");
-                        return PartialView(model);
+                        return PartialView("PartialViews/AddComment", model);
                     }
                 }
                 else
@@ -287,7 +295,7 @@ namespace Weblog.Web.Controllers.Site
                     this._weblogService.StoreComment(model);
                 }
             }
-            return PartialView(model);
+            return PartialView("PartialViews/AddComment", model);
         }
 
         [HttpPost()]
@@ -304,18 +312,18 @@ namespace Weblog.Web.Controllers.Site
         public ActionResult Categories()
         {
             List<CategoryModel> categoryList = _weblogService.GetCategories();
-            return PartialView(categoryList);
+            return PartialView("PartialViews/Categories", categoryList);
         }
 
         public ActionResult Dates()
         {
             List<DateTime> dateList = _weblogService.GetDates();
-            return PartialView(dateList);
+            return PartialView("PartialViews/Dates", dateList);
         }
 
         public ActionResult About()
         {
-            return PartialView();
+            return PartialView("PartialViews/About");
         }
         #endregion
 

@@ -129,6 +129,10 @@ namespace Weblog.Web.Controllers.Site
         [AllowAnonymous]
         public ActionResult ConfirmUser(string id)
         {
+            if (WebSecurity.IsAuthenticated)
+            {
+                WebSecurity.Logout();
+            }
             if (WebSecurity.ConfirmAccount(id))
             {
                 return RedirectToAction("ConfirmationSuccess");

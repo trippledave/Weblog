@@ -159,7 +159,7 @@
     <Compile Include="Models\Weblog\CategoryModel.cs" />
     <Compile Include="Models\Weblog\CommentModel.cs" />
     <Compile Include="Models\Weblog\DisplayEntriesModel.cs" />
-    <Compile Include="Models\Weblog\DisplayEntryPageModel.cs" />
+    <Compile Include="Models\Weblog\DisplayEntriesPageModel.cs" />
     <Compile Include="Models\Weblog\EntryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IUserService.cs" />
@@ -276,21 +276,21 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\Navigation.cshtml" />
-    <Content Include="Views\Blog\DisplayCategories.cshtml" />
-    <Content Include="Views\Blog\DisplayCommentsForEntry.cshtml" />
+    <Content Include="Views\Blog\PartialViews\DisplayCategories.cshtml" />
+    <Content Include="Views\Blog\PartialViews\DisplayCommentsForEntry.cshtml" />
     <Content Include="Views\Blog\AddEntry.cshtml" />
-    <Content Include="Views\Blog\AddComment.cshtml" />
+    <Content Include="Views\Blog\PartialViews\AddComment.cshtml" />
     <Content Include="Views\Blog\AddCategory.cshtml" />
     <Content Include="Views\Errors\Error404.cshtml" />
     <Content Include="Views\Errors\Error.cshtml" />
     <Content Include="Views\Account\ConfirmationSuccess.cshtml" />
     <Content Include="Views\Blog\EditorialDepartment.cshtml" />
     <Content Include="Views\Blog\DisplayEntry.cshtml" />
-    <Content Include="Views\Blog\DisplayEntryPage.cshtml" />
+    <Content Include="Views\Blog\PartialViews\DisplayEntriesPage.cshtml" />
     <Content Include="Views\Blog\DisplayEntries.cshtml" />
-    <Content Include="Views\Blog\Categories.cshtml" />
-    <Content Include="Views\Blog\About.cshtml" />
-    <Content Include="Views\Blog\Dates.cshtml" />
+    <Content Include="Views\Blog\PartialViews\Categories.cshtml" />
+    <Content Include="Views\Blog\PartialViews\About.cshtml" />
+    <Content Include="Views\Blog\PartialViews\Dates.cshtml" />
     <Content Include="Views\Management\ChangeEmailSettings.cshtml" />
     <Content Include="Views\Management\ChangeSiteSettings.cshtml" />
     <Content Include="Views\Management\ChangeUserPassword.cshtml" />
@@ -303,7 +303,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Blog\PartialViews\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
