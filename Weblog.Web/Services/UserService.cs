@@ -70,6 +70,11 @@ namespace Weblog.Web.Services
             return Membership.GetUser(userName) != null;
         }
 
+        public bool DoesDisplayNameExist(string displayName)
+        {
+            return _repository.DoesDisplayNameExist(displayName);
+        }
+
         public void ForgotPassword(UserModel model)
         {
             IMailService mailService = new MailService();

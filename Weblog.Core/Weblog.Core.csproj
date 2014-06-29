@@ -82,6 +82,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WeblogDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\InputFilterHelper.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Modules\CloakingHttpModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

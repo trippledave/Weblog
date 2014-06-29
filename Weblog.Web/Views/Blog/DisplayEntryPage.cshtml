@@ -6,7 +6,7 @@
         var item = Model.Entries[i];
 
         <div class="blog-post entry">
-            <h2 class="blog-post-title">@Html.ActionLink(item.Title, "DisplayEntry", "Blog", new { id = item.ID }, null)</h2>
+            <h2 class="blog-post-title">@Html.ActionLink(item.Title, "DisplayEntry", "Blog", new { entryID = item.ID }, null)</h2>
             <p class="blog-post-meta">@item.DateString von @item.Author</p>
 
             @*
@@ -15,14 +15,14 @@
             *@
             @if (((i % Model.EntriesPerSite)) < Model.FullEntriesPerSite)
             {
-                <p>@item.Text</p>
+                 <p>@Html.Raw(item.Text)</p>
             }
             else
             {
-                <p>@item.TextShort</p>
+                 <p>@Html.Raw(item.TextShort)</p>
                 if (item.TextShort.Length > 2)
                 {
-                    @Html.ActionLink("mehr", "DisplayEntry", "Blog", new { id = item.ID }, null)
+                    @Html.ActionLink("mehr", "DisplayEntry", "Blog", new { entryID = item.ID }, null)
                 }
             }
         </div>
@@ -31,8 +31,6 @@
 else
 {
     <p>Hier könnten ihre Blogeinträge stehen.</p>
-
-
 }
 
 

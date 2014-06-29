@@ -36,10 +36,15 @@ namespace Weblog.Web.Areas.Management.Controllers
         {
             if (ModelState.IsValid)
             {
+                bool displayNameExists = _userService.DoesDisplayNameExist(model.DisplayName);
                 UserModel currentUser = _userService.GetUser(WebSecurity.CurrentUserName);
                 UserModel userFromEmail = _userService.GetUserByEmail(model.Email);
                 //checks if the email does not belong to anyone else, and if the email matches the current users password.
-                if (userFromEmail == null || userFromEmail.UserName == currentUser.UserName)
+                if (displayNameExists)
+                {
+                    ModelState.AddModelError("", "Der Anzeigename ist im System schon vorhanden.");
+                }
+                else if (userFromEmail == null || userFromEmail.UserName == currentUser.UserName)
                 {
                     _userService.UpdateUserSettings(model);
                     return RedirectToAction("Index");

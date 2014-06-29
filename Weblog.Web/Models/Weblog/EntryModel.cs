@@ -17,6 +17,7 @@ namespace Weblog.Web.Models.Weblog
         public DateTime Date { get; set; }
         public string Author { get; set; }
         public List<CategoryModel> Categories { get; set; }
+        public bool AllowComments { get; set; }
 
         private IWeblogService _weblogService = new WeblogService();
 
@@ -59,6 +60,8 @@ namespace Weblog.Web.Models.Weblog
                 this.Author = source.User.UserName;
             }
             this.Categories= _weblogService.GetCategoriesForEntry(source.EntryID);
+            ISettingsService settingsService = new SettingsService();
+            this.AllowComments = settingsService.GetSiteSettings().AllowComments;
         }
 
         public EntryModel()

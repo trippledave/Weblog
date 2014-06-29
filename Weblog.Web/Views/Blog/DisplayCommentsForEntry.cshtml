@@ -18,7 +18,7 @@
             String idString = "row" + item.ID;
 
             <tr id=@idString>
-                <td>@item.Text</td>
+                <td>@Html.Raw(item.Text)</td>
                 <td>@item.Author</td>
                 <td>@item.DateString</td>
                 @if (User.IsInRole("Administrator"))

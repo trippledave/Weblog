@@ -16,10 +16,10 @@ namespace Weblog.Web.Controllers.Site
     public class BlogController : Controller
     {
         private IWeblogService _weblogService = new WeblogService();
+        private ISettingsService _settingsService = new SettingsService();
 
         #region Views
 
-        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
@@ -43,10 +43,12 @@ namespace Weblog.Web.Controllers.Site
         [HttpPost()]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Administrator")]
+        [ValidateInput(false)] //html tags, will be removed,  newline will be <br/>
         public ActionResult AddEntry(AddEntryModel model)
         {
             if (ModelState.IsValid)
             {
+                model.Text = InputFilterHelper.sanitizeInput(model.Text);
                 this._weblogService.StoreEntry(model);
                 return RedirectToAction("Index");
             }
@@ -62,23 +64,23 @@ namespace Weblog.Web.Controllers.Site
             return RedirectToAction("Index");
         }
 
-        public ActionResult DisplayEntry(String id)
+        public ActionResult DisplayEntry(String entryID)
         {
-            int entryID;
-            if (id == null)
+            int entry;
+            if (entryID == null)
             {
                 return RedirectToAction("Index", "Errors", null);
             }
             try
             {
-                entryID = Convert.ToInt32(id);
+                entry = Convert.ToInt32(entryID);
             }
             catch (System.FormatException)
             {
                 return RedirectToAction("Index", "Errors", null);
             }
 
-            EntryModel model = _weblogService.GetEntry(entryID);
+            EntryModel model = _weblogService.GetEntry(entry);
             if (model == null)
             {
                 return RedirectToAction("Index");
@@ -150,9 +152,24 @@ namespace Weblog.Web.Controllers.Site
             return displayEntriesByX(entryList);
         }
 
-        public ActionResult DisplayEntriesByDate(int month, int year)
+        public ActionResult DisplayEntriesByDate(String month, String year)
         {
-            List<EntryModel> entryList = this._weblogService.GetEntriesByDate(month, year);
+            int intMonth, intYear;
+            if (month == null || year == null)
+            {
+                return RedirectToAction("Index", "Errors", null);
+            }
+            try
+            {
+                intMonth = Convert.ToInt32(month);
+                intYear = Convert.ToInt32(year);
+            }
+            catch (System.FormatException)
+            {
+                return RedirectToAction("Index", "Errors", null);
+            }
+
+            List<EntryModel> entryList = this._weblogService.GetEntriesByDate(intMonth, intYear);
             return displayEntriesByX(entryList);
         }
 
@@ -171,39 +188,70 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult DisplayCommentsForEntry(String id)
         {
-            List<CommentModel> commentList;
+            if (_settingsService.GetSiteSettings().AllowComments)
+            {
+                List<CommentModel> commentList;
+                int entryID;
+                if (id == null)
+                {
+                    return RedirectToAction("Index", "Errors", null);
+                }
+                try
+                {
+                    entryID = Convert.ToInt32(id);
+                }
+                catch (System.FormatException)
+                {
+                    return RedirectToAction("Index", "Errors", null);
+                }
+
+                commentList = _weblogService.GetCommentsForEntry(entryID);
+
+
+                if (commentList.Count == 0)
+                {
+                    commentList = new List<CommentModel>();
+                }
+                return PartialView(commentList);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        public ActionResult AddComment(String entryString)
+        {
             int entryID;
-            if (id == null)
+            if (entryString == null)
             {
                 return RedirectToAction("Index", "Errors", null);
             }
             try
             {
-                entryID = Convert.ToInt32(id);
+                entryID = Convert.ToInt32(entryString);
             }
             catch (System.FormatException)
             {
                 return RedirectToAction("Index", "Errors", null);
             }
 
-            commentList = _weblogService.GetCommentsForEntry(entryID);
-
- 
-            if (commentList.Count==0 )
+            if (_settingsService.GetSiteSettings().AllowComments)
             {
-                commentList = new List<CommentModel>();
+                EntryModel entry = _weblogService.GetEntry(entryID);
+                if (entry != null)
+                {
+                    AddCommentModel model = new AddCommentModel(entry);
+                    return PartialView(model);
+                }
             }
-            return PartialView(commentList);
-        }
+            return RedirectToAction("Index");
 
-        public ActionResult AddComment(int entryID)
-        {
-            AddCommentModel model = new AddCommentModel(entryID);
-            return PartialView(model);
         }
 
         [HttpPost()]
         [ValidateAntiForgeryToken()]
+        [ValidateInput(false)] //html tags, will be removed,  newline will be <br/>
         public ActionResult AddComment(AddCommentModel model)
         {
             if (ModelState.IsValid)
@@ -212,6 +260,7 @@ namespace Weblog.Web.Controllers.Site
                 {
                     if (CaptchaHelper.CheckCaptcha(model.CaptchaResult))
                     {
+                        model.Text = InputFilterHelper.sanitizeInput(model.Text);
                         this._weblogService.StoreComment(model);
                     }
                     else
@@ -222,6 +271,7 @@ namespace Weblog.Web.Controllers.Site
                 }
                 else
                 {
+                    model.Text = InputFilterHelper.sanitizeInput(model.Text);
                     this._weblogService.StoreComment(model);
                 }
             }

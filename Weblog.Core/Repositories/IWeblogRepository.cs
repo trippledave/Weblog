@@ -145,6 +145,13 @@ namespace Weblog.Core.Repositories
         User GetUserByEmail(string email);
 
         /// <summary>
+        /// Doeses the display name exist.
+        /// </summary>
+        /// <param name="displayName">The display name.</param>
+        /// <returns></returns>
+        bool DoesDisplayNameExist(string displayName);
+
+        /// <summary>
         /// Gets all users.
         /// </summary>
         /// <returns></returns>

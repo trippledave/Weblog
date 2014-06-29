@@ -129,6 +129,12 @@ namespace Weblog.Core.Repositories
             return WeblogDataContext.Current.Users.FirstOrDefault(u => u.EmailLowercase.Equals(email.ToLower()));
         }
 
+        public bool DoesDisplayNameExist(string displayName)
+        {
+            User user = WeblogDataContext.Current.Users.FirstOrDefault(u => u.DisplayName.ToLower().Equals(displayName.ToLower()));
+            return (user != null);
+        }
+
         public List<User> GetAllUsers()
         {
             return WeblogDataContext.Current.Users.OrderBy(e => e.UserNameLowercase).ToList();

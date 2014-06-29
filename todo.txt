@@ -1,14 +1,8 @@
-HttpRequestValidationException  bei eingabe von <a>
-
 
 projekt nach TODO durchsuchen
 
 
 todo löschen-
-
-
-
-html filter
 
 
 user services bearbetn
@@ -21,29 +15,8 @@ benutzerkontrolle
 
 errors?
 
-anzeigename unique
-passwort vergessen
-
-management area in area   
-
 umbenennen  blogcontrl soeriten
-
-
-fragen:
-
-was mit:
-Das Parameterwörterbuch enthält einen NULL-Eintrag für den Parameter "year" des Typs "System.Int32", der NULL nicht zulässt, für die Methode "System.Web.Mvc.ActionResult DisplayEntriesByDate(Int32, Int32)" in 
-
-wenn man bei 
-http://localhost:50428/Blog/DisplayEntriesByDate?month=6&year=abs
-
-
-die Daten so richtig?
-
-Setting kommentare anzeigen wird ignored
 
 länge der zeichenanzeigen 
 
-regex bei eingaben ohne special chars,
-rest ohne input validation, nur <br/>
 						

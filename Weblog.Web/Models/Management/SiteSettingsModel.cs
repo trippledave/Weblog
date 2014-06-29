@@ -25,9 +25,11 @@ namespace Weblog.Web.Models.Management
         public string SiteKeywords { get; set; }
         [DisplayName("Blogeinträge pro Seite")]
         [Required]
+        [RegularExpression(@"([^0]+)", ErrorMessage = "0 darf nicht gewählt werden.")]
         public int EntriesPerSite { get; set; }
         [DisplayName("Vollangezeigte Blogeinträge pro Seite")]
         [Required]
+        [RegularExpression(@"([^0]+)", ErrorMessage = "0 darf nicht gewählt werden.")]
         public int FullEntriesPerSite { get; set; }
 
         public void UpdateModel(AdministratorSettings source)

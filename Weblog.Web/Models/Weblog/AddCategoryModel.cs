@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Weblog.Core.DataAccess.Weblog;
+using Weblog.Core.Helpers;
 
 namespace Weblog.Web.Models.Weblog
 {
@@ -14,6 +15,8 @@ namespace Weblog.Web.Models.Weblog
         public int ID { get; set; }
         [DisplayName("Name")]
         [Required]
+        [RegularExpression(@InputFilterHelper.FilterSpecialCharsRegex, ErrorMessage = "Der Text enthält Zeichen, die nicht eingegeben werden dürfen.")]
+        [StringLength(50)]
         public string Name { get; set; }
 
         private void UpdateModel( Category source )

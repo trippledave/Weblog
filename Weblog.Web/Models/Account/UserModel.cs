@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Weblog.Core.DataAccess.Weblog;
+using Weblog.Core.Helpers;
 
 namespace Weblog.Web.Models.Account
 {
@@ -17,6 +19,7 @@ namespace Weblog.Web.Models.Account
         /// <value>
         /// The display name. It may be null.
         /// </value>
+        [RegularExpression(@InputFilterHelper.FilterSpecialCharsRegex, ErrorMessage = "Der Name enthält Zeichen, die nicht eingegeben werden dürfen.")]
         public string DisplayName { get; set; }
 
         public UserModel() { }

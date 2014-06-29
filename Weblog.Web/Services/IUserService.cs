@@ -44,6 +44,12 @@ namespace Weblog.Web.Services
         /// <returns></returns>
         bool DoesUserNameExist(string userName);
 
+        /// <summary>
+        /// Doeses the display name exist.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns></returns>
+        bool DoesDisplayNameExist(string displayName);
 
         /// <summary>
         /// If the user has forgotten his password, a password forgotten email will be send.

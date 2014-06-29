@@ -14,7 +14,7 @@ SiteHelpers.newPagination = function () {
 }
 
 SiteHelpers.commentCreated = function (id) {
-    $("#displayCommentsForEntryDiv").load("../DisplayCommentsForEntry/"+id);
+    $("#displayCommentsForEntryDiv").load("./DisplayCommentsForEntry/"+id);
 }
 
 

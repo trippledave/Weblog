@@ -9,6 +9,7 @@ using System.Diagnostics;
 using Weblog.Web.Models.Account;
 using WebMatrix.WebData;
 using Weblog.Web.Services;
+using Weblog.Core.Helpers;
 
 namespace Weblog.Web.Models.Weblog
 {
@@ -17,6 +18,8 @@ namespace Weblog.Web.Models.Weblog
         public int ID { get; set; }
         [DisplayName("Titel")]
         [Required]
+        [RegularExpression(InputFilterHelper.FilterHtmlTagsRegex, ErrorMessage = "Der Text enthält Zeichen, die nicht eingegeben werden dürfen.")]
+        [StringLength(50)]
         public string Title { get; set; }
         [DisplayName("Text")]
         [Required]
