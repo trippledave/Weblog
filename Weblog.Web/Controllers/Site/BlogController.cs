@@ -31,6 +31,7 @@ namespace Weblog.Web.Controllers.Site
             return View();
         }
 
+        #region Entry
         [Authorize(Roles = "Administrator")]
         public ActionResult AddEntry()
         {
@@ -66,21 +67,21 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult DisplayEntry(String entryID)
         {
-            int entry;
+            int intEntry;
             if (entryID == null)
             {
                 return RedirectToAction("Index", "Errors", null);
             }
             try
             {
-                entry = Convert.ToInt32(entryID);
+                intEntry = Convert.ToInt32(entryID);
             }
             catch (System.FormatException)
             {
                 return RedirectToAction("Index", "Errors", null);
             }
 
-            EntryModel model = _weblogService.GetEntry(entry);
+            EntryModel model = _weblogService.GetEntry(intEntry);
             if (model == null)
             {
                 return RedirectToAction("Index");
@@ -88,6 +89,9 @@ namespace Weblog.Web.Controllers.Site
             return View(model);
         }
 
+        #endregion
+
+        #region Category
         [Authorize(Roles = "Administrator")]
         public ActionResult AddCategory()
         {
@@ -125,8 +129,11 @@ namespace Weblog.Web.Controllers.Site
 
         #endregion
 
+        #endregion
+
         #region Partial Views
 
+        #region Entry
         public ActionResult DisplayEntries()
         {
             List<EntryModel> entryList = this._weblogService.GetEntries();
@@ -180,11 +187,17 @@ namespace Weblog.Web.Controllers.Site
             return PartialView("DisplayEntries", model);
         }
 
+        #endregion
+
+        #region Category
         public ActionResult DisplayCategories()
         {
             List<CategoryModel> viewModel = this._weblogService.GetCategories();
             return PartialView(viewModel);
         }
+        #endregion
+
+        #region Comments
 
         public ActionResult DisplayCommentsForEntry(String id)
         {
@@ -222,22 +235,21 @@ namespace Weblog.Web.Controllers.Site
 
         public ActionResult AddComment(String entryString)
         {
-            int entryID;
-            if (entryString == null)
-            {
-                return RedirectToAction("Index", "Errors", null);
-            }
-            try
-            {
-                entryID = Convert.ToInt32(entryString);
-            }
-            catch (System.FormatException)
-            {
-                return RedirectToAction("Index", "Errors", null);
-            }
-
             if (_settingsService.GetSiteSettings().AllowComments)
             {
+                int entryID;
+                if (entryString == null)
+                {
+                    return RedirectToAction("Index", "Errors", null);
+                }
+                try
+                {
+                    entryID = Convert.ToInt32(entryString);
+                }
+                catch (System.FormatException)
+                {
+                    return RedirectToAction("Index", "Errors", null);
+                }
                 EntryModel entry = _weblogService.GetEntry(entryID);
                 if (entry != null)
                 {
@@ -286,6 +298,8 @@ namespace Weblog.Web.Controllers.Site
             this._weblogService.DeleteComment(id);
             return Json(new { success = true });
         }
+
+        #endregion
 
         public ActionResult Categories()
         {

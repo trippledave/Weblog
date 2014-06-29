@@ -20,7 +20,7 @@
             else
             {
                  <p>@Html.Raw(item.TextShort)</p>
-                if (item.TextShort.Length > 2)
+                if (item.TextShort.Length > item.textLength)
                 {
                     @Html.ActionLink("mehr", "DisplayEntry", "Blog", new { entryID = item.ID }, null)
                 }

@@ -14,6 +14,11 @@ namespace Weblog.Core.Helpers
         public const string FilterHtmlTagsRegex = "([^<>]+)";
 
 
+        /// <summary>
+        /// Sanitizes the input. Removes HTML tags, replaces newline with <br/>
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns></returns>
         public static String sanitizeInput(String input){
             Regex rgx = new Regex("(<[^>]+>)");
             input = rgx.Replace(input, " ");

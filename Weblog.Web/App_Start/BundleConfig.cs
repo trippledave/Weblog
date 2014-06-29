@@ -51,8 +51,8 @@ namespace Weblog.Web
 
             bundles.Add(new ScriptBundle("~/Scripts/Blog").Include("~/Scripts/site.js"));
 
-            //TODO UNCOMMENT
-            //BundleTable.EnableOptimizations = true;
+           
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

@@ -22,12 +22,6 @@ namespace Weblog.Web.Controllers.Site
             return View();
         }
 
-        public ActionResult DisplayError(Exception e)
-        {
-            ViewBag.Error= e.Message;
-            return RedirectToAction("Error");
-        }
-
         public ActionResult Error404()
         {
             return View();

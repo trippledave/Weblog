@@ -95,7 +95,7 @@ namespace Weblog.Web.Areas.Management.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        [ValidateInput(false)] //admin darf das.
+        [ValidateInput(false)] //admin darf alles.
         [Authorize(Roles = "Administrator")]
         public ActionResult ChangeSiteSettings(SiteSettingsModel model)
         {
@@ -116,7 +116,7 @@ namespace Weblog.Web.Areas.Management.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        [ValidateInput(false)] //admin darf das.
+        [ValidateInput(false)] //admin darf alles.
         [Authorize(Roles = "Administrator")]
         public ActionResult ChangeEmailSettings(EmailSettingsModel model)
         {

@@ -18,6 +18,7 @@ namespace Weblog.Web.Models.Weblog
         public string Author { get; set; }
         public List<CategoryModel> Categories { get; set; }
         public bool AllowComments { get; set; }
+        public int textLength = 200; //the characterlimit after which the text is shortened on the mainpage
 
         private IWeblogService _weblogService = new WeblogService();
 
@@ -35,7 +36,6 @@ namespace Weblog.Web.Models.Weblog
             get
             {
                 string shortString;
-                int textLength = 2;
                 if (Text.Length > textLength)
                     shortString = Text.Substring(0, textLength) + "...";
                 else
